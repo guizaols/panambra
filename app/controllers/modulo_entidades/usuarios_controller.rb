@@ -36,6 +36,7 @@ class ModuloEntidades::UsuariosController < ApplicationController
 	def update
 		@usuario = Usuario.find(params[:id])
 		@usuario.unidade = current_unidade
+		@usuario.entidade = current_unidade.entidade
 		if @usuario.update_attributes(params[:usuario])
 			redirect_to [:entidade, @usuario], notice: 'Usuário atualizado com sucesso!'
 		else

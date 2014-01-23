@@ -52,40 +52,6 @@ Template::Application.routes.draw do
       root to: 'home#index'
     end
 
-
-    resources :tipo_compromissos do 
-      member do 
-        get :change_status
-      end
-    end
-
-
-    resources :categoria_equipamento_ponto_de_vendas do 
-      member do 
-        get :change_status
-      end
-    end
-
-
-    resources :grupo_produtos do 
-       member do 
-          get :change_status
-        end
-      resources :subgrupo_produtos do 
-        member do 
-          get :change_status
-        end
-      end
-    end
-
-
-    resources :setores do
-      member do
-        get :change_status
-      end
-    end
-
-
     resources :checklists do
       member do
         get :change_status
@@ -113,168 +79,14 @@ Template::Application.routes.draw do
     end
 
 
-    resources :produtos do
-      member do
-        get :change_status
-      end
-      collection do 
-        post :retorna_subgrupos
-      end
-    end
-
-
-    resources :orcamentos do 
-      member do 
-        get :change_status
-        post :novo_lancamento_analitico
-        post :novo_lancamento_sintetico
-        post :carrega_categoria_despesa_nivel_2
-        post :carrega_categoria_despesa_nivel_3
-        post :carrega_categoria_despesa_nivel_3_sintetica
-        post :carrega_categoria_despesa_nivel_2_sintetica
-        post :carrega_usuarios_do_setor_sintetica
-        post :exclui_lancamento_sintetico
-        post :editar_lancamento_sintetico
-        post :exclui_lancamento_analitico
-        post :editar_lancamento_analitico
-      end
-    end
- 
-
-    resources :franqueados do
-      member do
-        get :change_status
-      end
-      collection do
-        get :exportar
-        post :exclui_telefone
-        post :exclui_endereco
-        post :pesquisa_para_autocomplete
-      end
-    end
-
-
-    resources :estoques do
-      member do
-        get :change_status
-      end
-      collection do 
-        post :pesquisa_para_autocomplete
-        post :retorna_subgrupos
-      end
-    end
-
-
-    resources :vendas do
-      member do
-        get :change_status
-      end
-      collection do 
-        post :pesquisa_para_autocomplete
-        post :retorna_subgrupos
-        post :pesquisa_funcionario_para_autocomplete
-      end
-    end
-
-
     resources :usuarios do
       member do
         get :change_status
-      end
-      collection do 
-        post :pesquisa_para_autocomplete
-        post :pesquisa_usuarios_para_autocomplete
-        post :pesquisa_usuarios_vendas_para_autocomplete
-        post :vincula_pdv
-      end
-    end
-    
-
-    resources :estrutura_despesas do
-      collection do
-        post :show_ajax
-        post :new_ajax
-        post :create_ajax
-        post :edit_ajax
-        post :change_status_ajax
-        post :destroy_ajax
-      end
-    end
-
-
-    resources :ponto_de_vendas do
-      member do
-        get :change_status
-        post :upload_photo
-      end
-      collection do
-        get :exportar
-        post :exclui_telefone
-        post :exclui_endereco
-      end
-
-      resources :equipe_ponto_de_vendas do
-        collection do 
-          post :pesquisa_para_autocomplete
-        end
-        member do 
-          get :change_status
-        end
-      end
-      
-      resources :plano_de_acoes do
-        member do 
-          get :change_status
-          get :new_agenda
-          post :create_agenda
-        end
-      end
-
-      resources :franqueado_ponto_de_vendas do
-        member do 
-          get :change_status
-        end
-      end
-
-      resources :equipamentos
-      resources :metas
-    end
-
-
-    resources :agendas do
-      member do
-        get  :carregar_finalizar
-        post :finalizar
-        get  :exportar_compromisso
-      end
-      collection do
-        post :pesquisa_agendas
-        post :pesquisa_para_autocomplete
-      end
-    end
-
-
-    resources :lancamento_despesas do
-      collection do
-        post :delete_item
-        post :carrega_categoria_despesa_nivel_1
-        post :carrega_categoria_despesa_nivel_2
-        post :carrega_categoria_despesa_nivel_3
-        post :carrega_categorias_despesas_todos_niveis
-        post :carrega_valor_total_orcamento
-      end
-    end
-
-    resources :prestacao_contas
-
-    resources :importacoes do
-      member do
-        get :executar_importacao
-        get :download_log
       end
     end
 
     root to: 'home#index'
   end
+  
   root to: 'home#index'
 end

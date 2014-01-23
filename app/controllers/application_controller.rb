@@ -20,13 +20,13 @@ class ApplicationController < ActionController::Base
           [:entidade, :administracao, :root]
         when Usuario::ADMINISTRADOR_UNIDADE
           session[:unidade] = usuario.unidade
-          [:entidade, :usuarios]
+          entidade_root_path(usuario.unidade.entidade.slug)
         when Usuario::CAIXA
           session[:unidade] = usuario.unidade
-          [:entidade, :usuarios]
+          entidade_root_path(usuario.unidade.entidade.slug)
         when Usuario::CLIENTE
           session[:unidade] = usuario.unidade
-          [:entidade, :usuarios]
+          entidade_root_path(usuario.unidade.entidade.slug)
       end
     end
   end
