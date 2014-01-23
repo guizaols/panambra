@@ -1,0 +1,158 @@
+<%= form_for [:entidade, @usuario], html: { class: 'form-horizontal' } do |f| %>
+  
+  <%= error_messages(@usuario) %>
+
+  <div class="field control-group">
+    <%= f.label :tipo, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :tipo, Usuario.retorna_tipo_para_select,{:include_blank=>true} %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :nome, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nome, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :email, class: 'control-label' %>
+    <div class="controls">
+      <%= f.email_field :email, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :login, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :login, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :password, class: 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :password_confirmation, class: 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :ramal, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ramal, class: 'input-medium numeric', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :telefone, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :telefone, class: 'input-medium phone', maxlength: 20 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :celular, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :celular, class: 'input-medium phone', maxlength: 20 %>
+    </div>
+  </div>
+
+  <div id="perfil" class="field control-group">
+    <%= f.label :perfil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :perfil_id, Perfil.retorna_perfil_para_select(current_unidade.entidade.id),{:include_blank=>true} %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :setor, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :setor_id, Setor.retorna_setores_para_select(current_unidade.id),{:include_blank=>true} %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :usuario_superior_id, class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag 'usuarios[usuario_superior_nome]', (params[:usuarios][:usuario_superior_nome] rescue (@usuario.usuario_superior.nome rescue nil)),{class: 'input-xlarge', maxlength: 255,:id=>"autocomplete_usuario_superior"} %>  <%= loading_image_tag('loading') %>
+      <%=f.hidden_field :usuario_superior_id %>
+    </div>
+  </div>
+
+
+  <div class="actions form-actions">
+    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <% if current_user.permitted_to?(:usuarios, :index) %>
+      <%= link_to 'Cancelar', [:entidade, :usuarios], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $(function() {
+    $("#usuario_tipo").change(function(){
+      desenha_view_usuario();
+    });
+
+    $("#autocomplete_usuario_superior").focus(function(){
+      if($("#usuario_setor_id").val() == '') {
+        alert("Você deve selecionar um setor!");
+        ("#usuario_setor_id").focus();
+      }
+    });
+
+    $("#usuario_setor_id").change(function(){
+      $("#usuario_usuario_superior_id").val('');   
+      $("#autocomplete_usuario_superior").val('');
+    });
+
+    $("#autocomplete_usuario_superior").blur(function(){
+      if($(this).val() == '') {
+        $("#usuario_usuario_superior_id").val('');
+      }
+     });
+
+    $("#autocomplete_usuario_superior").autocomplete({
+      source: 
+        function(request,response) {
+          var resposta = '';
+          $("#loading").show();
+          $.ajax({
+            url: "<%=  pesquisa_para_autocomplete_entidade_usuarios_path(current_entidade.slug)%>",
+            dataType: "json",
+            type: "POST",
+            data: { pesquisa: $("#autocomplete_usuario_superior").val(),
+                    setor_id: $("#usuario_setor_id").val(),
+                    authenticity_token: '<%=form_authenticity_token %>' },
+            success: function( data ) {
+              $("#loading").hide();
+              response( $.map( data, function( item ) {
+                return {
+                  label: item.label,
+                  value: item.value,
+                  id: item.id
+                }
+              }));
+            }
+          });
+          return resposta;
+        },
+        select: function(event, ui) {
+          $("#usuario_usuario_superior_id").val(ui.item.id);          
+        },
+        minLength: 1, 
+        delay: 500
+      });
+  });
+
+  desenha_view_usuario();
+</script>

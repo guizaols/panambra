@@ -1,0 +1,173 @@
+/*
+ *= require_self
+ *= require jquery-ui
+ *= require jquery.treeview
+ *= require jquery.contextMenu
+ *= require_tree .
+ */
+
+li.no_bullet {
+	list-style: none;
+}
+
+div.perfil-float-left {
+	float: left;
+	max-width: 350px;
+}
+
+li.perfil-float-left {
+	float: left;
+	width: 150px;
+}
+
+label.perfil-secao {
+	background-color: #EEE9E9;
+	font-weight: bold;
+}
+
+#user_nav {
+	float: right;
+	width: 250px;
+	height: 160px;
+}
+
+div.treeview {
+	border: solid 1px #CCCCCC;
+	padding-top: 10px;
+	margin-right: 50px;
+  width: 600px;
+  height: 600px;
+  overflow: auto;
+  border-radius: 3px 3px 3px 3px;
+}
+
+ul.treeview {
+	list-style: none;
+}
+
+.folder_master {
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+.folder_master:hover {
+	background-color: #CCCCCC !important;
+	color: #000000 !important;
+}
+
+.form_endereco {
+	float: left;
+	padding-left: 10px;
+}
+
+div.grupos {
+	max-height: 100px;
+}
+
+div.subgrupos {
+	padding-bottom: 20px;
+	padding-right: 100px;
+	float: left;
+}
+
+div.controle-subgrupos {
+	max-width: 400px;
+}
+
+div.controle-subgrupos label {
+	display: inline;
+	text-align: left;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+	background: #4F4F4F none;
+	color: white;
+}
+
+span.auto-multidatepicker {
+ font-size: 12px;
+}
+
+div#container-agenda {
+	padding-top: 20px;
+}
+
+div.calendario-agenda {
+	width: 215px;
+	height: 260px;
+	float: right;
+}
+
+div.dias-semana {
+	width: 900px;
+	min-height: 500px;
+}
+
+div.botao-pesquisar-agenda {
+	padding-top: 30px;
+  margin: -20px -50px; 
+  position: relative;
+  left:50%;
+}
+
+div#dialog_for_agendas {
+	height: auto;
+	width: 900px;
+	margin-left: -450px;
+}
+
+div#dialog_for_agendas .modal-body {
+	/*height: 1024px !important;*/
+}
+
+div#dialog_for_agendas .show-agenda {
+	width: 500px;
+	padding: 0px;
+}
+
+textarea.textarea-agenda {
+	height: 50px;
+	width: 270px;
+}
+
+.ui-autocomplete {
+  z-index: 9999 !important;
+}
+
+div.listagem-agendas {
+	min-height: 500px;
+}
+
+table#listagem-agendas {
+	width: 700px;
+}
+
+div.campos-formulario {
+	float: left;
+}
+
+div.formulario-lateral {
+  float: right;
+  border: 1px solid #DDDDDD;
+  border-radius: 7px 7px 7px 7px;
+  padding-top: 15px;
+  margin-bottom: 15px;
+  width: 350px;
+}
+
+div.titulo-lateral {
+	font-weight: bold;
+	font-size: 16px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+div.adicionar-participantes {
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+div.controle-participantes {
+	padding-left: 20px;
+	padding-bottom: 20px;
+}

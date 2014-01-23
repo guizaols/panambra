@@ -1,0 +1,6 @@
+<% if @item_checklist.update_attributes(params[:item_checklist]) %>
+   alert('Categoria atualizada com sucesso!');
+   window.location.reload();
+<% else %>
+	alert('<%= @item_checklist.errors.full_messages.collect{|mensagem| "* #{mensagem}"}.join("\\n") %>');
+<% end %>

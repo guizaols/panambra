@@ -1,0 +1,51 @@
+<div class="titulo-pagina">
+  Perfis »
+</div>
+<br />
+
+<%= form_tag [:entidade, :administracao, :perfils], method: :get do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome aqui' %>
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+
+<% if @perfils.any? %>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Situação</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @perfils.each do |perfil| %>
+        <tr>
+          <td><%= perfil.nome %></td>
+          <td><%= perfil.situacao_verbose %></td>
+          <% if current_user.permitted_to?(:perfils, :show) %>
+            <td><%= link_to 'Detalhes', [:entidade, :administracao, perfil] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:perfils, :edit) %>
+            <td><%= link_to 'Alterar', [:edit, :entidade, :administracao, perfil] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:perfils, :change_status) %>
+            <td><%= link_to (perfil.situacao == Perfil::ATIVO ? 'Desativar' : 'Ativar'),  [:change_status, :entidade, :administracao, perfil], data: { confirm: 'Deseja alterar a situação deste registro?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <strong>Sem registros para exibir!</strong>
+<% end %>
+
+<%= paginate @perfils %>
+
+<% if current_user.permitted_to?(:perfils, :new) %>
+  <div class="actions form-actions well">
+    <%= link_to 'Novo', [:new, :entidade, :administracao, :perfil], class: 'btn btn-inverse' %>
+  </div>
+<% end %>

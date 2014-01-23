@@ -1,0 +1,37 @@
+<div class="titulo-pagina">
+  Perfil »
+</div>
+
+<dl class="dl-horizontal">
+  <%= show_unless_blank('Nome', @perfil.nome) %>
+  <dt>Permissões</dt>
+  <dd>
+    <% if @perfil.permissoes.any? %>
+      <ul>
+        <% @perfil.permissoes.each do |controller, actions| %>
+          <li>
+            <%= Perfil.permissoes_for_select['controllers'][controller]['name'] %>
+            <% if actions.any? %>
+              <ul>
+                <% actions.each do |action, status| %>
+                  <li>
+                    <%= Perfil.permissoes_for_select['controllers'][controller]['actions'][action]['name'] rescue 'Indefinido' %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </dd>
+</dl>
+
+<div class="actions form-actions">
+  <% if current_user.permitted_to?(:perfils, :edit) %>
+    <%= link_to 'Alterar', [:edit, :entidade, :administracao, @perfil], class: 'btn btn-inverse' %>
+  <% end %>
+  <% if current_user.permitted_to?(:perfils, :index) %>    
+    <%= link_to 'Voltar', [:entidade, :administracao, :perfils], class: 'btn' %>
+  <% end %>
+</div>

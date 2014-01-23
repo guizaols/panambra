@@ -1,0 +1,61 @@
+<%= form_for [:entidade, :administracao, @perfil], html: { class: 'form-horizontal' } do |f| %>
+  
+  <%= error_messages(@perfil) %>
+  
+  <div class="field control-group">
+    <%= f.label :nome, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :nome, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <legend>Permissões</legend>
+  <div class="field control-group">
+    <%= label_tag 'permissoes[baseado_em]', 'Baseado em', class: 'control-label' %>
+    <div class="controls">
+      <%= select_tag 'permissoes[baseado_em]', options_for_select(perfis_for_select_by_entidade(f.object.id)), data: { source: url_for([:entidade, :administracao, :perfils]) }, include_blank: true %>
+      <%= loading_image_tag('loading') %>
+    </div>
+  </div>
+  <div class="field control-group">
+    <div class="controls">
+      <%= link_to 'Marcar todos', 'javascript:void(0)', data: { select: 'all' } %>
+      -
+      <%= link_to 'Desmarcar todos', 'javascript:void(0)', data: { select: 'none' } %>
+    </div>
+    <% Perfil.permissoes_for_select['controllers'].each do |controller, controller_info| %>
+      <div class="controls perfil-float-left">
+        <dl>
+          <dt>
+            <%= label_tag "permissoes[#{controller}]", class: 'checkbox collection perfil-secao', data: { collection: controller, select: 'collection' } do %>
+              <%= check_box_tag "permissoes[#{controller}]" %>
+              <%= controller_info['name'] %>
+            <% end %>
+          </dt>
+          <dd>
+            <ul class="the-icons clearfix">
+              <% controller_info['actions'].each do |action, action_info| %>
+                <li class="no_bullet perfil-float-left">
+                  <%= label_tag "perfil[permissoes][#{controller}][#{action}]", class: 'checkbox member',  data: { collection: controller, select: 'member' } do %>
+                    <%= check_box_tag "perfil[permissoes][#{controller}][#{action}]", true, f.object.permitted_to?(controller, action) %>
+                    <%= action_info['name'] %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div class="actions form-actions">
+    <% if current_user.permitted_to?(:perfils, :new) %>
+      <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <% end %>
+    <% if current_user.permitted_to?(:perfils, :index) %>
+      <%= link_to 'Cancelar', [:entidade, :administracao, :perfils], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>

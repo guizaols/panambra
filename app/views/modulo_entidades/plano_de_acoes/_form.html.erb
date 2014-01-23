@@ -1,0 +1,72 @@
+<%= form_for [:entidade, @ponto_de_venda, @plano_de_acao], html: { class: 'form-horizontal' } do |f| %>
+  
+  <%= error_messages(@plano_de_acao) %>
+
+  <div class="field control-group">
+    <%= f.label :nome, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nome, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :data_abertura, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :data_abertura, :value=>(@plano_de_acao.data_abertura.to_s_br rescue nil),class:'auto-datepicker', maxlength: 255 %>
+    </div>
+  </div>
+  
+  <div class="field control-group">
+    <%= f.label :responsavel_id, class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag 'plano_de_acao[autocomplete_responsavel_id]', (params[:plano_de_acao][:autocomplete_responsavel_id] rescue nil), { class: 'input-xlarge', maxlength: 255 } %>
+      <%= loading_image_tag('loading') %>
+      <%= f.hidden_field :responsavel_id %>
+    </div>
+  </div>
+
+  <div class="actions form-actions">
+    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <% if current_user.permitted_to?(:plano_de_acoes, :index) %>
+      <%= link_to 'Cancelar', [:entidade, @ponto_de_venda, :plano_de_acoes], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $("#plano_de_acao_autocomplete_responsavel_id").blur(function() {
+    if($(this).val() == "") $("#franqueado_ponto_de_venda_franqueado_id").val("");   
+  });
+
+  $(function() {
+    $("#plano_de_acao_autocomplete_responsavel_id").autocomplete({
+      source: function(request, response) {
+        var resposta = "";
+        $("#loading").show();
+        $.ajax({
+          url: "<%= pesquisa_usuarios_vendas_para_autocomplete_entidade_usuarios_path %>",
+          dataType: "json",
+          type: "POST",
+          data: { pesquisa: $("#plano_de_acao_autocomplete_responsavel_id").val(), authenticity_token: '<%= form_authenticity_token %>' },
+          success: function(data) {
+            $("#loading").hide();
+            response($.map(data, function(item) {
+              return {
+                label: item.label,
+                value: item.value,
+                id: item.id
+              }
+            }));
+          }
+        });
+        return resposta;
+      },
+      select: function(event, ui) {
+        $("#plano_de_acao_responsavel_id").val(ui.item.id);
+      },
+      minLength: 1, 
+      delay: 500
+    });
+  });
+</script>

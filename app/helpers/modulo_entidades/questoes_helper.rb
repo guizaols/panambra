@@ -1,0 +1,2 @@
+module ModuloEntidades::QuestoesHelper
+end

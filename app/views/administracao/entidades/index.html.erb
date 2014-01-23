@@ -1,0 +1,51 @@
+<div class="titulo-pagina">
+  Entidades »
+</div>
+<br />
+
+<%= form_tag [:administracao, :entidades], method: :get, class: 'form-inline' do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome ou apelido da entidade aqui' %>
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<%if @entidades.any?%>
+	<table class="table table-striped table-condensed">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Slug</th>
+				<th>Situação</th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<%@entidades.each do |entidade|%>
+				<tr>
+					<td><%=entidade.nome%></td>
+					<td><%=entidade.slug%></td>
+					<td><%=entidade.situacao_verbose%></td>
+					<td>
+						<%=link_to 'Editar', [:edit,:administracao,entidade]%>
+					</td>
+					<td>
+						<%=link_to 'Detalhes', [:administracao,entidade]%>
+					</td>
+					<td>
+						<%=link_to 'Alterar Situação', [:change_status,:administracao,entidade],:confirm=>"Deseja alterar a situação deste registro?"%>
+					</td>
+				</tr>
+			<%end%>
+		</tbody>
+
+	</table>
+<%else%>
+	<strong>Sem registros para exibir!</strong>
+<%end%>
+
+<%= paginate @entidades %>
+
+<div class="actions form-actions well">
+	<%=link_to 'Novo',[:new,:administracao,:entidade], class: 'btn btn-inverse' %>
+</div>

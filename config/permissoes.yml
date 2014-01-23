@@ -1,0 +1,76 @@
+permissoes:
+  controllers:
+### START PERFIL
+    perfils:
+      name: 'Perfis'
+      actions:
+        index:
+          name: 'Visualizar'
+          methods:
+            - index
+            - show
+        new:
+          name: 'Criar'
+          methods:
+            - new
+            - create
+        edit:
+          name: 'Editar'
+          methods:
+            - edit
+            - update
+        change_status:
+          name: 'Alterar Situação'
+          methods:
+            - change_status
+### END PERFIL
+
+##INICIO CHECKLISTS
+    checklists:
+      name: 'Checklists'
+      actions:
+        index:
+          name: 'Visualizar'
+          methods:
+            - index
+            - show
+        new:
+          name: 'Criar'
+          methods:
+            - new
+            - create
+        edit:
+          name: 'Editar'
+          methods:
+            - edit
+            - update
+        change_status:
+          name: 'Alterar Situação'
+          methods:
+            - change_status
+### END CHECKLISTS
+
+### START UNIDADE
+    unidades:
+      name: 'Unidades'
+      actions:
+        index:
+          name: 'Visualizar'
+          methods:
+            - index
+            - show
+        new:
+          name: 'Criar'
+          methods:
+            - new
+            - create
+        edit:
+          name: 'Editar'
+          methods:
+            - edit
+            - update
+        change_status:
+          name: 'Alterar Situação'
+          methods:
+            - change_status
+### END UNIDADES

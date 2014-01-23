@@ -1,0 +1,18 @@
+<div class="titulo-pagina">
+  Detalhes - Entidade »
+</div>
+
+
+<dl class="dl-horizontal">
+  <%= show_unless_blank('Nome', @entidade.nome) %>
+   <%= show_unless_blank('Slug', @entidade.slug) %>
+   <%= show_unless_blank('Situação', @entidade.situacao_verbose) %>
+   <%= show_unless_blank('Usuário', @usuario.nome) %>
+   <%= show_unless_blank('Login', @usuario.login) %>
+  
+</dl>
+
+<div class="actions form-actions well">
+	<%=link_to 'Voltar',[:administracao,:entidades], class: 'btn'%>
+	<%=link_to 'Alterar',[:edit,:administracao,@entidade], class: 'btn btn-inverse' %>
+</div>

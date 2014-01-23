@@ -1,0 +1,18 @@
+<div class="titulo-pagina">
+  Unidade »
+</div>
+
+<dl class="dl-horizontal">
+  <%= show_unless_blank('Nome', @unidade.nome) %>
+  <%#= show_unless_blank('Descrição', @unidade.slug) %>
+  <%= show_unless_blank('Situação', @unidade.situacao_verbose) %>
+</dl>
+
+<div class="actions form-actions well">
+  <% if current_user.permitted_to?(:unidades, :edit) %>
+    <%= link_to 'Alterar', [:edit, :entidade, :administracao, @unidade], class: 'btn btn-inverse' %>
+  <% end %>
+  <% if current_user.permitted_to?(:unidades, :index) %>
+    <%= link_to 'Voltar', [:entidade, :administracao, :unidades], class: 'btn' %>
+  <% end %>
+</div>

@@ -1,0 +1,53 @@
+<div class="titulo-pagina">
+  Administradores do Sistema »
+</div>
+<br />
+
+<%= form_tag [:administracao, :administradores], method: :get, class: 'form-inline' do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome ou login do usuário aqui' %>
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<%if @administradores.any?%>
+	<table class="table table-striped table-condensed">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Login</th>
+				<th>Situação</th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<%@administradores.each do |objeto|%>
+				<tr>
+					<td><%=objeto.nome%></td>
+					<td><%=objeto.email%></td>
+					<td><%=objeto.login%></td>
+					<td><%=objeto.situacao_verbose%></td>
+					<td>
+						<%=link_to 'Editar', edit_administracao_administrador_path(objeto)%>
+					</td>
+					<td>
+						<%=link_to 'Detalhes', administracao_administrador_path(objeto)%>
+					</td>
+					<td>
+						<%=link_to 'Alterar Situação', change_status_administracao_administrador_path(objeto),:confirm=>"Deseja alterar a situação deste registro?"%>
+					</td>
+				</tr>
+			<%end%>
+		</tbody>
+
+	</table>
+<%else%>
+	<strong>Sem registros para exibir!</strong>
+<%end%>
+
+<%= paginate @administradores %>
+
+<div class="actions form-actions well">
+	<%=link_to 'Novo',new_administracao_administrador_path, class: 'btn btn-inverse' %>
+</div>

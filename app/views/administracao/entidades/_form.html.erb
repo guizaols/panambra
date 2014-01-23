@@ -1,0 +1,42 @@
+<%= form_for [:administracao,@entidade] do |f| %>
+  
+  <%= error_messages(@entidade) %>
+
+  <div class="field control-group">
+    <%= f.label :nome, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :nome, class: 'input-xlarge', maxlength: 255  %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :slug, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :slug, class: 'input-xlarge', maxlength: 255  %>
+    </div>
+  </div>
+
+  <%unless @entidade.new_record?%>
+    <div class="field control-group">
+      <%= f.label :situacao, class: "control-label" %>
+      <div class="controls">
+        <%= f.select :situacao, Entidade.retorna_situacao_para_select,{:include_blank=>true}  %>
+      </div>
+    </div>
+  <%end%>
+
+  
+  <h2>Administrador da Entidade</h2>
+  
+
+   <%= f.fields_for :usuarios do |builder| %>
+    <%= render "usuarios_field", :f => builder %>
+  <% end %>
+
+ 
+
+  <div class="actions form-actions well">
+    <%= f.submit "Salvar", class: "btn btn-inverse", data: { disable_with: "Salvando..." } %>
+    <%= link_to 'Cancelar', [:administracao, :entidades], class: "btn" %>   
+  </div>
+<% end %>

@@ -1,0 +1,16 @@
+<div class="titulo-pagina">
+  Detalhes - Usuário »
+</div>
+
+<dl class="dl-horizontal">
+  <%= show_unless_blank('Tipo', @administrador.tipo_verbose) %>
+  <%= show_unless_blank('Nome', @administrador.nome) %>
+  <%= show_unless_blank('Login', @administrador.login) %>
+  <%= show_unless_blank('Email', @administrador.email) %>
+  <%= show_unless_blank('Situação', @administrador.situacao_verbose) %>
+</dl>
+
+<div class="actions form-actions well">
+  <%= link_to 'Alterar', edit_administracao_administrador_path(@administrador), class: 'btn btn-inverse' %>
+  <%= link_to 'Voltar', administracao_administradores_path, class: 'btn' %>
+</div>

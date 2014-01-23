@@ -1,0 +1,171 @@
+<div class="titulo-pagina">
+  Detalhes - Checklist »
+</div>
+
+<dl class="dl-horizontal">
+  <%= show_unless_blank('Nome', @checklist.nome) %>
+  <%= show_unless_blank('Situação', @checklist.situacao_verbose) %>
+</dl>
+
+<div class="actions form-actions well">
+  <% if current_user.permitted_to?(:checklists, :index) %>
+    <%= link_to 'Voltar', [:entidade, :checklists], class: 'btn' %>
+  <% end %>
+  <% if current_user.permitted_to?(:checklists, :edit) %>
+    <%= link_to 'Alterar', [:edit, :entidade, @checklist], class: 'btn btn-inverse' %>
+  <% end %>
+  <% if current_user.permitted_to?(:questions, :new) %>
+  	<%= link_to 'Nova Questão', '#', id: 'nova_questao', class: 'btn btn-inverse' %>
+  <% end %>
+</div>
+
+<div id="form_edit_questao" style="display:none"></div>
+<div id="form_edit_categoria" style="display:none"></div>
+<div id="form_acoes" style="display:none"></div>
+
+<div id="form_nova_questao" style="display:none">
+ 	<div class="lado_esquerdo" style="float:left">
+		<div id="categoria_questao">
+			<%= form_tag [:nova_categoria_questao, :entidade, @checklist, :questoes], method: :post, remote: true do %>	
+			  <div class="field control-group">
+			  	<label class="control-label">Categoria</label>
+			    <div class="controls">
+			      <%= select_tag 'item_checklist[item_checklist_id]', options_for_select(ItemChecklist.retorna_categoria_para_select(current_unidade.id)), id: 'categoria_questao_id' %> 
+			    </div>
+			  </div>
+			  <div class="field control-group">
+			    <label>ou crie uma nova</label>
+			    <div class="controls">
+			    	<%= text_field_tag 'item_checklist[nome]', nil, class: 'input-large', id: 'nome_categoria', maxlength: 255 %>
+			    </div>
+			     <label class="control-label">Peso</label>
+			    <div class="controls">
+			    	<%= text_field_tag 'item_checklist[peso]', nil, class: 'input-large', id: 'peso_categoria', maxlength: 255 %>
+				 		<%= submit_tag 'Criar Categoria', class: 'btn btn-inverse', data: { disable_with: 'Criando...' } %>
+			    </div>
+			  </div>
+			<% end %>
+		  <div id="subcategoria_questao"></div>
+		</div>
+	</div>
+	<div class="lado_direito" style="float_left">
+		<div id="form_questao"></div>
+	</div>
+</div>
+
+<div id="arvore_container" class="treeview">
+  <%= render 'arvore' %>
+</div>
+<br />
+
+<ul id="menu_master" class="contextMenu">
+  <% if current_user.permitted_to?(:checklists, :new_ajax) %>
+    <li class="new_folder"><a href="#checklist_nova_questao">Nova Questão</a></li>
+  <% end %>
+</ul>
+
+<ul id="menu_categories" class="contextMenu">
+  <% if current_user.permitted_to?(:checklists, :new_ajax) %>
+    <li class="new_folder"><a href="#checklist_editar_categoria">Editar</a></li>
+    <li class="separator status"><a href="#checklist_alterar_situacao_categoria">Alterar Situação</a></li>
+  <% end %>
+</ul>
+
+<ul id="menu_questions" class="contextMenu">
+  <% if current_user.permitted_to?(:checklists, :new_ajax) %>
+    <li class="new_folder"><a href="#checklist_acoes">Ação</a></li>
+  <% end %>
+  <% if current_user.permitted_to?(:checklists, :edit_ajax) %>
+    <li class="separator edit"><a href="#checklist_edit_questao">Editar</a></li>
+    <li class="separator status"><a href="#checklist_alterar_situacao_questao">Alterar Situação</a></li>
+    <li class="separator show"><a href="#checklist_detalhes_questao">Detalhes</a></li>
+  <% end %>
+</ul>
+
+<div id="dialog" class="modal hide fade" data-show="false"></div>
+
+<script type="text/javascript">
+  jQuery(function($) {
+    loadTreeViewAndContextChecklist();
+    $('#dialog').modal();
+  });
+
+  function urlForChecklistEditCategoria() {
+  	return 'edit_categoria_ajax';
+  }
+
+  function urlForChecklistEditQuestao() {
+  	return 'edit_questao_ajax';
+  }
+
+  function urlForAcoes() {
+  	return 'nova_acao'
+  }
+
+  function urlForAlteraSituacaoCategoriaQuestao() {
+  	return 'altera_situacao_categoria'
+  }
+
+  function urlForAlteraSituacaoQuestao() {
+  	return 'altera_situacao_questao'	
+  }
+
+  function urlForDetalhesDeUmaQuestao() {
+  	return 'detalhe_questao'
+  }
+
+	$("#nova_questao").click(function(){
+		$("#form_nova_questao").dialog({title: 'Nova Questão', width: '900',beforeClose: function(event, ui) { 
+               window.location.reload();
+            }});
+		return false;
+	});
+
+	$("#categoria_questao_id").change(function(){
+		$("#subcategoria_questao").html("");
+		$.ajax({
+        		url: '<%= url_for([:carrega_subcategoria, :entidade,@checklist,:questoes]) %>',
+        		type: 'POST',
+        		data: { categoria_questao_id: $("#categoria_questao_id").val()  },
+        		dataType: 'script'
+      		});
+		return false;
+	});
+
+	$("#nome_categoria").focus(function(){
+		$("#categoria_questao_id").val("");
+		$("#subcategoria_questao").html("");
+		$("#form_questao").html("");
+		return false;
+	});
+
+	$("#peso_categoria").focus(function(){
+		$("#categoria_questao_id").val("");
+		$("#form_questao").html("");
+		$("#subcategoria_questao").html("");
+		return false;
+	});
+
+	$("#subcategoria_nome").live("focus",function(){
+		$("#subcategoria_questao_id").val("");
+		$("#form_questao").html("");
+		return false;
+	});
+
+	$("#subcategoria_peso").live('focus',function(){
+		$("#subcategoria_questao_id").val('');
+		$("#form_questao").html('');
+		return false;
+	});
+
+	$("#subcategoria_questao_id").live('change', function(){
+		$("#form_questao").html('');
+		$.ajax({
+        		url: '<%= url_for([:carrega_form_questao, :entidade,@checklist,:questoes]) %>',
+        		type: 'POST',
+        		data: { subcategoria_questao_id: $("#subcategoria_questao_id").val()  },
+        		dataType: 'script'
+      		});
+		return false;
+	});
+</script>

@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    attributes:
+      telefone:
+        tipo: "Tipo"
+        numero: "Número"
+        ponto_de_venda_id: "Ponto de Venda"
+        ponto_de_venda: "Ponto de Venda"
+        franqueado_id: "Franqueado"
+        franqueado: "Franqueado"
+    models:
+      telefone: "Telefone"

@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    attributes:
+      checklist:
+       nome: "Nome"
+       situacao: "Situação"
+       unidade: "Unidade"
+       unidade_id: "Unidade"
+    models:
+      checklist: "Checklist"

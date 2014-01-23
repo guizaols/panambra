@@ -1,0 +1,15 @@
+<div id="index_estrutura_despesas" class="arvore_estrutura_despesas">
+  <ul id="browser" class="filetree">
+    <li>
+      <i class="icon-plus-sign"></i>
+      <span class="category_master">CATEGORIAS</span>
+      <ul>
+        <% if @item_checklists.any? %>
+          <% @item_checklists.each do |item_checklist| %>
+            <%= monta_ramos_checklist(item_checklist) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+<%= form_for [:entidade, :administracao, @unidade], html: { class: 'form-horizontal' } do |f| %>
+  
+  <%= error_messages(@unidade) %>
+
+  <div class="field control-group">
+    <%= f.label :nome, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nome, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+<!--   <div class="field control-group">
+    <%= f.label :slug, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :slug, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div> -->
+
+  <div class="actions form-actions">
+    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <% if current_user.permitted_to?(:unidades, :index) %>
+      <%= link_to 'Cancelar', [:entidade, :administracao, :unidades], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>

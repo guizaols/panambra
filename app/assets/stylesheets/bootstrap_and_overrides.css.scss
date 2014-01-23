@@ -1,0 +1,104 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+body {
+  padding-bottom: 40px;
+  color: #3a3a3a;
+}
+
+.brand {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+#logo {
+  background-color: #111111;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  display: table;
+  vertical-align: middle;
+  .brand {
+    margin-left: 80px;
+  }
+  .btn-group {
+    text-align: right;
+    display: table-cell;
+    padding-right: 80px;
+    .dropdown-menu {
+      text-align: left;
+      margin-right: 80px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 14px;
+      padding-bottom: 0;
+      top: 70px;
+      .nav-header {
+        padding: 0;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.navbar .nav > li > a {
+  color: #ddd;
+}
+
+.titulo-pagina {
+  line-height: 54px;
+  font-size: 36px;
+  .alert {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 24px;
+    padding-right: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    a { // <a href="" data-dismiss="alert">&times;</a>
+      font-weight: bold;
+      float: right;
+      color: inherit;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    ul {
+      margin-top: 8px;
+      list-style-type: square;
+    }
+  }
+  .alert-error {
+    padding-bottom: 8px;
+  }
+}
+
+.media {
+  .media-object img {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 6px;
+    margin-right: 6px;
+  }
+  .media-body .nav-header {
+    &:first-child {
+      margin-top: 0px;
+    }
+    padding: 0;
+    margin-top: 16px;
+    margin-bottom: 2px;
+  }
+  h4 {
+    margin-top: 0;
+    margin-bottom: 4px;
+  }
+}
+
+
+textarea {
+  height: 200px;
+}
+

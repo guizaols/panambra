@@ -1,0 +1,6 @@
+<% if @acao.save %>
+	alert("Ação criada com sucesso!");
+	window.location.reload();
+<% else %>
+	alert('<%= @acao.errors.full_messages.collect{|mensagem| "* #{mensagem}"}.join("\\n") %>');
+<% end %>

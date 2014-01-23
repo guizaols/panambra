@@ -1,0 +1,27 @@
+pt-BR:
+  activerecord:
+    attributes:
+      usuario:
+        email: "E-mail"
+        nome: "Nome"
+        login: "Login"
+        setor_id: "Setor"
+        setor: "Setor"
+        usuario_superior_id: "Superior"
+        usuario_superior: "Superior"
+        perfil_id: "Perfil"
+        perfil: "Perfil"
+        entidade_id: "Entidade"
+        entidade: "Entidade"
+        unidade_id: "Unidade"
+        unidade: "Unidade"
+        situacao: "Situação"
+        tipo: "Tipo"
+        password: "Senha"
+        password_confirmation: "Confirmação de Senha"
+        situacao: "Situação"
+        ramal: "Ramal"
+        celular: "Celular"
+        telefone: "Telefone"
+    models:
+      usuario: "Usuário"

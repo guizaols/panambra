@@ -1,0 +1,2 @@
+module ModuloEntidades::HomeHelper
+end

@@ -1,0 +1,7 @@
+$('#dialog_for_agendas').html('<%= escape_javascript render("form_agenda") %>');
+$('#dialog_for_agendas').modal({
+	title: 'Nova Agenda »'
+});
+$('#dialog_for_agendas').modal('show');
+initializeDatepickers();
+initializeTimerMask();

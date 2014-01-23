@@ -1,0 +1,17 @@
+pt-BR:
+  activerecord:
+    attributes:
+      franqueado:
+        unidade: "Unidade"
+        unidade_id: "Unidade"
+        codigo: "Código"
+        codigo_interno: "Código Interno"
+        nome: "Nome"
+        cpf: "CPF"
+        rg: "RG"
+        foto: "Foto"
+        data_inicio_relacionamento: "Data de Início do Relacionamento"
+        situacao: "Situação"
+        email: "E-mail"
+    models:
+      franqueado: "Franqueado"

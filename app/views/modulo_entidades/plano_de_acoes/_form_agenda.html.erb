@@ -1,0 +1,199 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <% if @agenda.new_record? %>
+    <h3>Nova Agenda »</h3>
+  <% else %>
+    <h3>Alterar Agenda »</h3>
+  <% end %>
+</div>
+
+<%= form_tag [:create_agenda, :entidade, @ponto_de_venda, @plano_de_acao], remote: true, html: { class: 'form-horizontal' } do %>
+  <div class="modal-body">
+    <div id="errorlist"></div>
+
+    <div class="form-agendas">
+      <div class="campos-formulario">
+        <div class="field control-group">
+          <%= label_tag 'agenda[titulo]', 'Agenda', class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'agenda[titulo]', nil, class: 'input-xlarge', maxlength: 255 %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[data]', 'Data', class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'agenda[data]', nil, class: 'input-small auto-datepicker' %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[usuario]', 'Usuário', class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'agendas[autocomplete_usuario_id]',
+                                (params[:agendas][:autocomplete_usuario_id] rescue (@agenda.usuario.nome rescue nil)),
+                                class: 'input-xlarge' %>
+            <%= loading_image_tag('loading') %>
+            <%= hidden_field_tag 'agenda[usuario_id]' %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[tipo_compromisso_id]', 'Tipo de compromisso', class: 'control-label' %>
+          <div class="controls">
+            <%= select_tag 'agenda[tipo_compromisso_id]', options_for_select(tipos_compromisso_for_select), html: { include_blank: true, class: 'input-xxlarge' } %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[descricao]', 'Descrição', class: 'control-label' %>
+          <div class="controls">
+            <%= text_area_tag 'agenda[descricao]', nil, class: 'textarea-agenda' %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[hora_inicio]', 'Horário inicial', class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'agenda[hora_inicio]', nil, class: 'input-mini timer' %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[hora_fim]', 'Horário final', class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'agenda[hora_fim]', nil, class: 'input-mini timer' %>
+          </div>
+        </div>
+
+        <div class="field control-group">
+          <%= label_tag 'agenda[notificar_participantes]', 'Notificar participantes', class: 'control-label' %>
+          <div class="controls">
+            <%= check_box_tag 'agenda[notificar_participantes]' %>
+          </div>
+        </div>
+      </div>
+    
+      <div class="formulario-lateral">
+        <div class="titulo-lateral">
+          Participantes »
+        </div>
+
+        <div class="adicionar-participantes">
+          <%= link_to '#', id: 'add_usuario' do %>
+            <i class='icon-plus-sign'></i> Adicionar
+          <% end %>
+          <%= loading_image_tag('loading-participantes') %>
+        </div>
+
+        <div id="participantes-agenda" class="field control-group">
+          <% @agenda.usuarios.each do |usuario| %>
+            <% @usuario = usuario %>
+            <%= render 'participante_fields', locals: { usuario: @usuario } %>
+          <% end %>
+          <% @usuario = nil %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <% if current_user.permitted_to?(:agendas, :new) %>
+      <%= submit_tag 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <% end %>  
+    <% if current_user.permitted_to?(:agendas, :index) %>
+      <%= link_to 'Fechar', '#', class: 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => true %>
+    <% end %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  var autocompleteUrl = '<%= url_for([:pesquisa_usuarios_para_autocomplete, :entidade, :usuarios]) %>';
+
+  $('#agendas_autocomplete_usuario_id').blur(function() {
+    if(!$(this).val()) {
+      $('#agenda_usuario_id').val('');
+    }
+  });
+
+  $(function() {
+    $('#agendas_autocomplete_usuario_id').autocomplete({
+      source: 
+        function(request,response) {
+          var resposta = '';
+          $('#loading').show();
+          $.ajax({
+            url: autocompleteUrl,
+            dataType: 'json',
+            type: 'POST',
+            data: { pesquisa: $('#agendas_autocomplete_usuario_id').val() },
+            success: function(data) {
+              $('#loading').hide();
+              response( $.map( data, function( item ) {
+                return {
+                  label: item.label,
+                  value: item.value,
+                  id: item.id
+                }
+              }));
+            }
+          });
+          return resposta;
+        },
+      select: function(event, ui) {
+        $('#agenda_usuario_id').val(ui.item.id);
+      },
+      minLength: 1, 
+      delay: 500
+    });
+
+    $('.autocomplete_participantes').live('blur', function() {
+      var $this = $(this);
+      var $hidden_id = $this.next('input:hidden');
+      if(!$this.val()) {
+        $hidden_id.val('');
+      }
+    });
+
+    $('.autocomplete_participantes').live('focus', function() {
+      var $this = $(this);
+      $this.autocomplete({
+        source:
+          function(request,response) {
+            var resposta = '';
+            $('#loading-participantes').show();
+            $.ajax({
+              url: autocompleteUrl,
+              dataType: 'json',
+              type: 'POST',
+              data: { pesquisa: $this.val() },
+              success: function(data) {
+                $('#loading-participantes').hide();
+                response( $.map( data, function( item ) {
+                  return {
+                    label: item.label,
+                    value: item.value,
+                    id: item.id
+                  }
+                }));
+              }
+            });
+            return resposta;
+          },
+        select: function(event, ui) {
+          $this.next('input:hidden').val(ui.item.id);
+        },
+        minLength: 1, 
+        delay: 500
+      });
+    });
+  });
+
+  link_to_add_elemento_filho('#add_usuario','<%= escape_javascript(render(partial: "participante_fields")) %>','#participantes-agenda', '<%= @agenda.new_record? ? params[:error_view]: false %>');
+
+  $('.remover_usuario').live('click', function(){
+    $(this).closest('div.controle-participantes').remove();
+    return false;
+  });
+</script>

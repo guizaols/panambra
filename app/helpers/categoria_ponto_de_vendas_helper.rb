@@ -1,0 +1,2 @@
+module CategoriaPontoDeVendasHelper
+end

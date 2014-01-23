@@ -1,0 +1,27 @@
+<%= form_for [:entidade, @checklist], html: { class: 'form-horizontal' } do |f| %>
+  
+  <%= error_messages(@checklist) %>
+
+  <div class="field control-group">
+    <%= f.label :nome, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nome, class: 'input-xlarge', maxlength: 255 %>
+    </div>
+  </div>
+
+  <% unless @checklist.new_record? %>
+    <div class="field control-group">
+      <%= f.label :situacao, class: "control-label" %>
+      <div class="controls">
+        <%= f.select :situacao, Checklist.retorna_situacao_para_select, { include_blank: true } %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="actions form-actions">
+    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <% if current_user.permitted_to?(:checklists, :index) %>
+      <%= link_to 'Cancelar', [:entidade, :checklists], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>

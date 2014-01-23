@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    attributes:
+      estrutura_despesa:
+        unidade: "Unidade"
+        unidade_id: "Unidade"
+        titulo: "Título"
+        codigo: "Código"
+        nivel: "Nível"
+        situacao: "Situação"
+        estrutura_despesa: "Estrutura Despesa"
+        estrutura_despesa_id: "Estrutura Despesa"
+    models:
+      estoque: "Estrutura Despesa"

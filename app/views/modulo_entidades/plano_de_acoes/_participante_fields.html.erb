@@ -1,0 +1,9 @@
+<div class="controle-participantes">
+  <%= text_field_tag 'agendas[autocomplete_participante_id][new_i][usuario_id]', 
+                      (params[:agendas][:autocomplete_participante_id][new_i][:usuario_id] rescue (@usuario.nome rescue nil)),
+                      class: 'input-xlarge autocomplete_participantes' %>
+  <%= hidden_field_tag 'agendas[usuarios][]', (@usuario.id rescue nil), id: 'agendas_usuarios' %>
+  <%= link_to '#', class: 'remover_usuario' do %>
+  	<i class='icon-remove'></i>
+  <% end %>
+</div>

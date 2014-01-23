@@ -1,0 +1,6 @@
+<% if @item_verificacao.save %>
+	alert('Questão criada com sucesso!');
+	window.location.reload();
+<% else %>
+	alert('<%= @item_verificacao.errors.full_messages.collect{|mensagem| "* #{mensagem}"}.join("\\n") %>');
+<% end %>

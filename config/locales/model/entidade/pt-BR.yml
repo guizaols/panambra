@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    attributes:
+      entidade:
+        nome: "Nome"
+        slug: "Slug"
+        situacao: "Situação"
+        password: "Senha"
+        password_confirmation: "Confirmação de Senha"
+        usuarios_attributes: "O campo"
+        usuarios: "O campo"
+    models:
+      entidade: "Entidade"

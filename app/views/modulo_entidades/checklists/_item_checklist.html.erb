@@ -1,0 +1,37 @@
+<% if @item_checklist.item_checklist_id.blank? %>
+  <li>
+    <span id="<%= @item_checklist.id %>" data-nivel="1" class="category">
+      <i class="icon-folder-open"></i>
+      <%= "(#{@item_checklist.peso}) - #{@item_checklist.nome}"  %>
+      <%= '(INATIVO)' if @item_checklist.situacao == ItemChecklist::INATIVO %>
+    </span>
+    <ul>
+      <% if @subcategorias.any? %>
+        <% @subcategorias.each do |item_checklist_sub| %>
+          <%= monta_ramos_checklist(item_checklist_sub) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+<% elsif @item_checklist.item_checklist_id.present? %>
+  <li>
+    <span id="<%= @item_checklist.id %>" data-nivel="2" class="category">
+      <i class="icon-file"></i>
+      <%= "(#{@item_checklist.peso}) - #{@item_checklist.nome}"  %>
+      <%= '(INATIVO)' if @item_checklist.situacao == ItemChecklist::INATIVO %>
+    </span>
+    <ul>
+      <% if @questoes.any? %>
+        <% @questoes.each do |questao| %>
+          <li>
+            <span id="<%= questao.id %>" data-nivel="3" class="question">
+              <i class="icon-tag"></i>
+              <%= questao.titulo %>
+               <%= '(INATIVO)' if questao.situacao == ItemVerificacao::INATIVO %>
+            </span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

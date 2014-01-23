@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    attributes:
+      plano_de_acao:
+        nome: "Nome"
+        data_abertura: "Data de abertura"
+        responsavel: "Responsável"
+        responsavel_id: "Responsável"
+    models:
+      plano_de_acao: "Plano de Ação"

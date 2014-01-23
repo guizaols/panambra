@@ -1,0 +1,52 @@
+<div class="titulo-pagina">
+  Unidades »
+</div>
+<br />
+
+<%= form_tag [:entidade, :administracao, :unidades], method: :get do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome ou apelido aqui' %>
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<% if @unidades.any? %>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Nome</th>
+      <!--   <th>Apelido</th> -->
+        <th>Situação</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @unidades.each do |unidade| %>
+        <tr>
+          <td><%= unidade.nome %></td>
+         <!--  <td><%= unidade.slug %></td> -->
+          <td><%= unidade.situacao_verbose %></td>
+          <% if current_user.permitted_to?(:unidades, :show) %>
+            <td><%= link_to 'Detalhes', [:entidade, :administracao, unidade] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:unidades, :edit) %>
+            <td><%= link_to 'Alterar', [:edit, :entidade, :administracao, unidade] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:unidades, :change_status) %>
+            <td><%= link_to "Alterar Situação",  [:change_status, :entidade, :administracao, unidade], data: { confirm: 'Deseja alterar a situação deste registro?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <strong>Sem registros para exibir!</strong>
+<% end %>
+
+<%= paginate @unidades %>
+
+<% if current_user.permitted_to?(:unidades, :new) %>
+  <div class="actions form-actions well">
+    <%= link_to 'Novo', [:new, :entidade, :administracao, :unidade], class: 'btn btn-inverse' %>
+  </div>
+<% end %>

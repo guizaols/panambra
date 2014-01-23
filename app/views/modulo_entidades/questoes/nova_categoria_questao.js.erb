@@ -1,0 +1,5 @@
+<% if @item_checklist.save %>
+	$('#subcategoria_questao').html("<%= escape_javascript(render('form_subcategoria')) %>");
+<% else %>
+	alert('<%= @item_checklist.errors.full_messages.collect{|mensagem| "* #{mensagem}"}.join("\\n") %>');
+<% end %>

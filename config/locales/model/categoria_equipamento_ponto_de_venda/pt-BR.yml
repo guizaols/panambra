@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    attributes:
+      categoria_equipamento_ponto_de_venda:
+        nome: "Nome"
+        situacao: "Situação"
+        quantidade: "Quantidade"
+        unidade: "Unidade"
+        unidade_id: "Unidade"
+    models:
+      categoria_equipamento_ponto_de_venda: "Categoria Equipamento de Ponto de Venda"

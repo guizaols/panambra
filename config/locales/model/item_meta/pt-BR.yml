@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    attributes:
+      item_meta:
+        valor_faturamento: "Faturamento"
+        valor_quantidade: "Quantidade"
+        meta: "Meta"
+        meta_id: "Meta"
+        subgrupo_produto: "Subgrupo de produto"
+        subgrupo_produto_id: "Subgrupo de produto"
+    models:
+      item_meta: "Item de Meta"

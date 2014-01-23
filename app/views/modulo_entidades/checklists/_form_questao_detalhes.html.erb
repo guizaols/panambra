@@ -1,0 +1,37 @@
+<%=form_tag  atualiza_item_verificacao_entidade_checklist_questoes_path(current_entidade,@checklist,:id=>(@item_verificacao.id)), :method=>"post",:remote=>true do %>	
+	<div class="field control-group">
+		<label class="control-label">Nome</label>
+		<div class="controls">
+			<%= @item_verificacao.titulo%>
+			<%= @item_verificacao.item_checklist_id %>
+		</div>
+		
+	</div>
+
+
+	<%if @item_verificacao.tipo == ItemVerificacao::SIM_NAO || @item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO%>
+	<table>
+	<thead>
+		<tr>
+			<th>Opção</th>
+			<th>Nota</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%@item_verificacao.alternativas.each_with_index do |alternativa,indice| %>
+		
+				<tr>
+			<td>
+				<%=alternativa.titulo %>
+			</td>
+			<td>
+				<%=alternativa.peso %>
+			</td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+
+	<%end%>
+	
+<%end%>

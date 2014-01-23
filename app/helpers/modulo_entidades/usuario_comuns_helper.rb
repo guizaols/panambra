@@ -1,0 +1,2 @@
+module ModuloEntidades::UsuarioComunsHelper
+end

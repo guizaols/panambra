@@ -1,0 +1,38 @@
+  
+  <div class="field control-group ">
+    <%= f.label :nome, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :nome,class: 'input-xlarge', maxlength: 255  %>
+      
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :email, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :email,class: 'input-xlarge', maxlength: 255   %>
+      
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :login, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :login, class: 'input-xlarge', maxlength: 255   %>
+    </div>
+  </div>
+
+
+  <div class="field control-group">
+    <%= f.label :password, class: "control-label" %>
+    <div class="controls">
+      <%= f.password_field :password, :maxlength => 30 %>
+    </div>
+  </div>
+
+<div class="field control-group">
+    <%= f.label :password_confirmation, class: "control-label" %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, :maxlength => 30 %>
+    </div>
+  </div>

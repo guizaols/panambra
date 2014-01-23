@@ -1,0 +1,41 @@
+<%=form_tag  atualiza_item_verificacao_entidade_checklist_questoes_path(current_entidade,@checklist,:id=>(@item_verificacao.id)), :method=>"post",:remote=>true do %>	
+	<div class="field control-group">
+		<label class="control-label">Nome</label>
+		<div class="controls">
+			<%= text_field_tag 'item_verificacao[titulo]',@item_verificacao.titulo, class: 'input-large',maxlength: 255 %>
+			<%= hidden_field_tag 'item_verificacao[item_checklist_id]',@item_verificacao.item_checklist_id %>
+		</div>
+		
+	</div>
+
+
+	<%if @item_verificacao.tipo == ItemVerificacao::SIM_NAO || @item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO%>
+	<table>
+	<thead>
+		<tr>
+			<th>Opção</th>
+			<th>Nota</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%@item_verificacao.alternativas.each_with_index do |alternativa,indice| %>
+		
+				<tr>
+			<td>
+				<%=text_field_tag "item_verificacao[alternativas_attributes][#{indice}][titulo]",alternativa.titulo %>
+			</td>
+			<td>
+				<%=text_field_tag "item_verificacao[alternativas_attributes][#{indice}][peso]",alternativa.peso %>
+				<%=hidden_field_tag "item_verificacao[alternativas_attributes][#{indice}][item_verificacao_id]",alternativa.item_verificacao_id %>
+				<%=hidden_field_tag "item_verificacao[alternativas_attributes][#{indice}][id]",alternativa.id %>
+			</td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+
+	<%end%>
+	<div class="controls">
+			<%= submit_tag 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+		</div>
+<%end%>

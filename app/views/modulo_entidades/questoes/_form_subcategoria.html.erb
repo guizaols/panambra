@@ -1,0 +1,18 @@
+<%=form_tag [:nova_subcategoria_questao,:entidade,@checklist,:questoes], :method=>"post",:remote=>true do %>	
+	<div class="field control-group">
+		<label class="control-label">Subcategoria</label>
+			<div class="controls">
+			    <%=select_tag 'item_checklist[item_checklist_id]',options_for_select(ItemChecklist.retorna_subcategoria_para_select(current_unidade.id,@item_checklist.id)), :id=>"subcategoria_questao_id" %> 
+			</div>
+		<div class="controls">
+			 <label>ou crie uma nova</label>
+			<%= text_field_tag 'item_checklist[nome]',nil, class: 'input-large', :id=>"subcategoria_nome",maxlength: 255 %>
+			<%= hidden_field_tag 'item_checklist[item_checklist_id]',@item_checklist.id%>
+		</div>
+		<label class="control-label">Peso</label>
+		<div class="controls">
+			<%= text_field_tag 'item_checklist[peso]',nil, class: 'input-large',:id=>"subcategoria_peso", maxlength: 255 %>
+			<%= submit_tag 'Criar Subcategoria', class: 'btn btn-inverse', data: { disable_with: 'Criando...' } %>
+		</div>
+	</div>
+<%end%>
