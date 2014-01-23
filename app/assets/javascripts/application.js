@@ -90,7 +90,7 @@ $(document).ajaxStart(function() {
 });
 
 function desenha_view_usuario() {
-	if($('#usuario_tipo').val() == '5') {
+	if($('#usuario_tipo').val() == '3') {
     $('#perfil').hide();
     $('#usuario_perfil_id').val('');
   } else {

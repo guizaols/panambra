@@ -26,41 +26,28 @@ class Usuario < ActiveRecord::Base
   attr_accessible :remember_me
   attr_accessible :nome
   attr_accessible :login
-  attr_accessible :setor_id
-  attr_accessible :usuario_superior_id
   attr_accessible :perfil_id
   attr_accessible :situacao
   attr_accessible :tipo
   attr_accessible :ramal
   attr_accessible :telefone
   attr_accessible :celular
+  attr_accessor   :authentication_key
 
   belongs_to :entidade
-  belongs_to :perfil
   belongs_to :unidade
   belongs_to :perfil
-  belongs_to :usuario_superior, class_name: 'Usuario', foreign_key: 'usuario_superior_id'
-  belongs_to :setor
-  has_many   :usuario_ponto_de_vendas
-  has_many   :agenda_usuarios
-  has_many   :agendas, through: :agenda_usuarios, uniq: true
   
   validates :login, presence: true,uniqueness: { case_sensitive: false, scope: [:unidade_id] }, length: { maximum: 255 }
   validates :tipo, presence: true
   validates :perfil, presence:true, if: :eh_usuario_comum?
-  validates :setor, presence:true, if: :eh_usuario_administrador_da_entidade?
-  validates :usuario_superior, presence:true, if: :eh_usuario_comum?
-  validates :email, uniqueness: { case_sensitive: false, scope: [:tipo,:unidade_id] }, length: { maximum: 255 }
+  validates :email, uniqueness: { case_sensitive: false, scope: [:tipo, :unidade_id] }, length: { maximum: 255 }
 
   before_validation :definir_como_ativo
-
+  before_create :create_authentication_token
+  
   scope :by_entidade_id, lambda { |entidade_id| where(entidade_id: entidade_id) }
   scope :by_unidade_id, lambda { |unidade_id| where(unidade_id: unidade_id) }
-
-  attr_accessor :authentication_key
-
-  before_create :create_authentication_token
-
   scope :search_by_authentication_key, lambda { |authentication_key| search_by_email_or_login(*([authentication_key] * 2)) }
   scope :search_by_email_or_login, lambda { |email, username| where("(email LIKE ?) OR (login LIKE ?)", email, username) }
 

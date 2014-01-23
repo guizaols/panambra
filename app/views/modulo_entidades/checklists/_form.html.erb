@@ -9,14 +9,14 @@
     </div>
   </div>
 
-  <% unless @checklist.new_record? %>
+  <%# unless @checklist.new_record? %>
     <div class="field control-group">
       <%= f.label :situacao, class: "control-label" %>
       <div class="controls">
         <%= f.select :situacao, Checklist.retorna_situacao_para_select, { include_blank: true } %>
       </div>
     </div>
-  <% end %>
+  <%# end %>
 
   <div class="actions form-actions">
     <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>

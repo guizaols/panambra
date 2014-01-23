@@ -24,31 +24,31 @@
         </a>
         <ul class="dropdown-menu pull-right">
           <div id="user_nav">
-              <% if usuario_logado? %>
-                <div>
-                  <strong>Logado como</strong>
-                  <li class="nav-header"><%= current_user.email %></li>
-                  <br />
-                  <% if current_unidade.present? %>
-                    <strong>Unidade</strong>
-                    <li class="nav-header">
-                      <%= current_unidade.nome %>
-                      <%if current_user.tipo == Usuario::ADMINISTRADOR_ENTIDADE %>
-                        <%= link_to 'Sair da Unidade', [:sair_unidade, :entidade, :administracao, :unidades] if current_unidade.present?%>
-                      <%end%>
-                    </li>
-                  <% end %>
-                  <li class="divider"></li>
-                  <li>
+            <% if usuario_logado? %>
+              <div>
+                <strong>Logado como</strong>
+                <li class="nav-header"><%= current_user.email %></li>
+                <br />
+                <% if current_unidade.present? %>
+                  <strong>Unidade</strong>
+                  <li class="nav-header">
+                    <%= current_unidade.nome %>
                     <% if current_user.tipo == Usuario::ADMINISTRADOR_ENTIDADE %>
-                      <%= link_to 'Alterar Unidade', [:escolher_unidade, :entidade, :administracao, :unidades], class: 'btn btn-inverse' if current_unidade.present? %>
+                      <%= link_to 'Sair da Unidade', [:sair_unidade, :entidade, :administracao, :unidades] if current_unidade.present?%>
                     <% end %>
-                    <%= link_to 'Sair', destroy_administracao_usuario_session_path, method: :delete, class: 'btn btn-danger' %>
                   </li>
-                </div>
-              <% else %>
-                <%= link_to 'Entrar', [:administracao, :usuario, :session], class: 'btn btn-inverse' %>
-              <% end %>
+                <% end %>
+                <li class="divider"></li>
+                <li>
+                  <% if current_user.tipo == Usuario::ADMINISTRADOR_ENTIDADE %>
+                    <%= link_to 'Alterar Unidade', [:escolher_unidade, :entidade, :administracao, :unidades], class: 'btn btn-inverse' if current_unidade.present? %>
+                  <% end %>
+                  <%= link_to 'Sair', destroy_administracao_usuario_session_path, method: :delete, class: 'btn btn-danger' %>
+                </li>
+              </div>
+            <% else %>
+              <%= link_to 'Entrar', [:administracao, :usuario, :session], class: 'btn btn-inverse' %>
+            <% end %>
           </div>
           <br clear="both" />
         </ul>
@@ -58,7 +58,6 @@
     <div class="container">
       <% if usuario_logado? %>
         <%= render carrega_partial_menu %>
-      
         <div id="flash_messages">
           <% if flash[:notice] %>
             <div class="alert alert-success">
@@ -80,9 +79,6 @@
               <%= flash[:alert] %>
             </div>
           <% end %>
-          <%#= content_tag(:div, flash[:error], id: 'flash_error') if flash[:error] %>
-          <%#= content_tag(:div, flash[:notice], id: 'flash_notice') if flash[:notice] %>
-          <%#= content_tag(:div, flash[:alert], id: 'flash_alert') if flash[:alert] %>
         </div>
       <% else %>
         <div id="flash_messages">
@@ -107,5 +103,6 @@
         </p>
       </div>
     </div>
+
   </body>
 </html>

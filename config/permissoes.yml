@@ -74,3 +74,28 @@ permissoes:
           methods:
             - change_status
 ### END UNIDADES
+
+### START USUÁRIOS
+    usuarios:
+      name: 'Usuários'
+      actions:
+        index:
+          name: 'Visualizar'
+          methods:
+            - index
+            - show
+        new:
+          name: 'Criar'
+          methods:
+            - new
+            - create
+        edit:
+          name: 'Editar'
+          methods:
+            - edit
+            - update
+        change_status:
+          name: 'Alterar Situação'
+          methods:
+            - change_status
+### END USUÁRIOS

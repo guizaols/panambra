@@ -53,7 +53,7 @@ class Perfil < ActiveRecord::Base
   end
 
   def self.permissoes_for_select
-    permissoes = YAML.load_file Rails.root.join('config', 'permissoes.yml')
+    permissoes = YAML.load_file(Rails.root.join('config', 'permissoes.yml'))
     permissoes['permissoes']
   end
 

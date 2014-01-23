@@ -3,7 +3,7 @@
 class ModuloEntidades::UsuariosController < ApplicationController
 
 	before_filter :verifica_se_esta_logado
-
+	before_filter :verifica_se_o_usuario_escolheu_uma_unidade
 
 	def index
 		params[:pesquisa] ||= {}
@@ -17,6 +17,7 @@ class ModuloEntidades::UsuariosController < ApplicationController
 	def create
 		@usuario = Usuario.new(params[:usuario])
 		@usuario.unidade = current_unidade
+		@usuario.entidade = current_unidade.entidade
 		if @usuario.save
 			redirect_to [:entidade, @usuario], notice: 'Usuário cadastrado com sucesso!'
 		else
@@ -26,7 +27,6 @@ class ModuloEntidades::UsuariosController < ApplicationController
 
 	def show
 		@usuario = Usuario.find(params[:id])
-		@usuario_pontos_de_venda = UsuarioPontoDeVenda.retorna_pontos_de_venda_do_usuario(@usuario)
 	end
 
 	def edit
@@ -52,66 +52,6 @@ class ModuloEntidades::UsuariosController < ApplicationController
 		end
 		@usuario.save
 		redirect_to [:entidade, :usuarios], notice: 'Situação alterada com sucesso!'
-	end
-
-	def pesquisa_para_autocomplete
-		@retorno = []
-		@setor = Setor.find(params[:setor_id])
-		@usuarios = Usuario.where('situacao = ? AND setor_id = ? AND (nome ILIKE ? OR login ILIKE ?)',
-															Usuario::ATIVO, @setor.id, params[:pesquisa].full_like, params[:pesquisa].full_like)
-		@usuarios.each do |objeto|
-			@retorno << { label: objeto.nome, value: objeto.nome, id: objeto.id }
-		end
-		respond_to do |format|  
-      format.json {render json: @retorno.to_json}
-    end
-	end
-
-	def pesquisa_usuarios_vendas_para_autocomplete
-		@retorno = []
-		@usuarios = Usuario.where('situacao = ? AND tipo = ? AND nome ILIKE ?',
-															Usuario::ATIVO, Usuario::CAIXA, params[:pesquisa].full_like)
-		@usuarios.each do |objeto|
-			@retorno << { label: objeto.nome, value: objeto.nome, id: objeto.id }
-		end
-		respond_to do |format|
-      format.json {render json: @retorno.to_json}
-    end
-  end
-
-	def pesquisa_usuarios_para_autocomplete
-		@retorno = []
-		@usuarios = Usuario.by_unidade_id(current_unidade.id)
-											 .where('situacao = ? AND tipo IN(?) AND (nome ILIKE ? OR login ILIKE ?)',
-											 				Usuario::ATIVO, [Usuario::CLIENTE, Usuario::CAIXA, Usuario::ADMINISTRADOR_UNIDADE],
-											 				params[:pesquisa].full_like, params[:pesquisa].full_like)
-		@usuarios_entidade = Usuario.by_entidade_id(current_unidade.entidade_id)
-																.where('situacao = ? AND tipo = ? AND (nome ILIKE ? OR login ILIKE ?)',
-											 									Usuario::ATIVO, Usuario::ADMINISTRADOR_ENTIDADE,
-											 									params[:pesquisa].full_like, params[:pesquisa].full_like)
-		(@usuarios + @usuarios_entidade).sort_by(&:nome).each do |usuario|
-			@retorno << { label: usuario.nome, value: usuario.nome, id: usuario.id }
-		end
-		respond_to do |format|  
-      format.json { render json: @retorno.to_json }
-    end
-	end
-
-	def vincula_pdv
-		@usuario_ponto_de_venda = UsuarioPontoDeVenda.where('usuario_id = ? AND ponto_de_venda_id = ?',
-																												params[:usuario_id], params[:ponto_de_venda_id])
-		if params[:operacao].to_i == 1
-			UsuarioPontoDeVenda.create!({
-																	 ponto_de_venda_id: params[:ponto_de_venda_id],
-																	 usuario_id: params[:usuario_id]
-																	})
-			render json: "alert('Ponto de Venda vinculado com sucesso!');"
-		else
-			unless @usuario_ponto_de_venda.blank?
-				@usuario_ponto_de_venda.first.destroy
-				render json: "alert('Ponto de Venda excluído com sucesso!');"
-			end
-		end
 	end
 
 end

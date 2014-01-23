@@ -72,22 +72,6 @@
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :setor, class: 'control-label' %>
-    <div class="controls">
-      <%= f.select :setor_id, Setor.retorna_setores_para_select(current_unidade.id),{:include_blank=>true} %>
-    </div>
-  </div>
-
-  <div class="field control-group">
-    <%= f.label :usuario_superior_id, class: 'control-label' %>
-    <div class="controls">
-      <%= text_field_tag 'usuarios[usuario_superior_nome]', (params[:usuarios][:usuario_superior_nome] rescue (@usuario.usuario_superior.nome rescue nil)),{class: 'input-xlarge', maxlength: 255,:id=>"autocomplete_usuario_superior"} %>  <%= loading_image_tag('loading') %>
-      <%=f.hidden_field :usuario_superior_id %>
-    </div>
-  </div>
-
-
   <div class="actions form-actions">
     <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
     <% if current_user.permitted_to?(:usuarios, :index) %>
@@ -96,63 +80,11 @@
   </div>
 <% end %>
 
-
 <script type="text/javascript">
   $(function() {
     $("#usuario_tipo").change(function(){
       desenha_view_usuario();
     });
-
-    $("#autocomplete_usuario_superior").focus(function(){
-      if($("#usuario_setor_id").val() == '') {
-        alert("Você deve selecionar um setor!");
-        ("#usuario_setor_id").focus();
-      }
-    });
-
-    $("#usuario_setor_id").change(function(){
-      $("#usuario_usuario_superior_id").val('');   
-      $("#autocomplete_usuario_superior").val('');
-    });
-
-    $("#autocomplete_usuario_superior").blur(function(){
-      if($(this).val() == '') {
-        $("#usuario_usuario_superior_id").val('');
-      }
-     });
-
-    $("#autocomplete_usuario_superior").autocomplete({
-      source: 
-        function(request,response) {
-          var resposta = '';
-          $("#loading").show();
-          $.ajax({
-            url: "<%=  pesquisa_para_autocomplete_entidade_usuarios_path(current_entidade.slug)%>",
-            dataType: "json",
-            type: "POST",
-            data: { pesquisa: $("#autocomplete_usuario_superior").val(),
-                    setor_id: $("#usuario_setor_id").val(),
-                    authenticity_token: '<%=form_authenticity_token %>' },
-            success: function( data ) {
-              $("#loading").hide();
-              response( $.map( data, function( item ) {
-                return {
-                  label: item.label,
-                  value: item.value,
-                  id: item.id
-                }
-              }));
-            }
-          });
-          return resposta;
-        },
-        select: function(event, ui) {
-          $("#usuario_usuario_superior_id").val(ui.item.id);          
-        },
-        minLength: 1, 
-        delay: 500
-      });
   });
-
   desenha_view_usuario();
 </script>

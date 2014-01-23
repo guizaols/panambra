@@ -2,6 +2,8 @@
 
 class ModuloEntidades::QuestoesController < ApplicationController
 
+	before_filter :verifica_se_esta_logado
+	before_filter :verifica_se_o_usuario_escolheu_uma_unidade
 	before_filter :carrega_checklist
 
 	

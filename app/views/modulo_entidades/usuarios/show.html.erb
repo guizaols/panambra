@@ -10,9 +10,7 @@
   <%= show_unless_blank('Ramal', @usuario.ramal) %>
   <%= show_unless_blank('Telefone', @usuario.telefone) %>
   <%= show_unless_blank('Celular', @usuario.celular) %>
-  <%= show_unless_blank('Setor', (@usuario.setor.nome rescue "Sem setor Vinculado")) %>
   <%= show_unless_blank('Situação', @usuario.situacao_verbose) %>
-  <%= show_unless_blank('Superior', (@usuario.usuario_superior.nome rescue "Sem Superior")) %>
 </dl>
 
 <div class="actions form-actions well">
@@ -23,54 +21,3 @@
     <%= link_to 'Voltar', [:entidade, :usuarios], class: 'btn' %>
   <% end %>
 </div>
-
-<% if @usuario.tipo != Usuario::CLIENTE %>
-  <div class="titulo-pagina">
-    Pontos de Venda »
-    <%= loading_image_tag('loading') %>
-  </div>
-  <% if @usuario_pontos_de_venda.any? %>
-    <table class="table table-striped table-condensed">
-      <thead>
-        <tr>
-          <th>Ação</th>
-          <th>PDV</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @usuario_pontos_de_venda.each do |pdv| %>
-          <tr>
-            <td>
-              <%= check_box_tag 'ponto_de_venda', pdv.id, pdv.usuario_ponto_de_vendas
-                                                             .where(ponto_de_venda_id: pdv.id, usuario_id: @usuario.id)
-                                                             .length > 0 ? true : false, { class: 'ponto_de_venda_usuario', data: { id: pdv.id } } %>
-            </td>
-            <td><%= "(#{pdv.codigo}) #{pdv.nome}" %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <strong>Sem registros para exibir!</strong>
-  <% end %>
-
-  <script type="text/javascript">
-    $('.ponto_de_venda_usuario').click(function() {
-      var criar = -1;
-      if($(this).is(':checked')) {
-        criar = 1;
-      } else {
-        criar = 2;
-      }
-      $.ajax({
-        url: '<%= url_for([:vincula_pdv, :entidade, :usuarios]) %>',
-        dataType: 'script',
-        type: 'POST',
-        data: { usuario_id: '<%= @usuario.id %>',
-                ponto_de_venda_id: $(this).data('id'),
-                operacao: criar
-              }
-      });
-    });
-  </script>
-<% end %>

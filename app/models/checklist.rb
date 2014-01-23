@@ -15,14 +15,16 @@ class Checklist < ActiveRecord::Base
                    uniqueness: { case_sensitive: false, scope: [:unidade_id] },
   								 length: { maximum: 255 }
   validates :unidade, presence: true
+  validates :situacao, presence: true
+  validate  :valida_se_ja_existe_um_ativo_na_unidade
 
   scope :by_unidade_id, lambda { |unidade_id| where(unidade_id: unidade_id) }
 
 
-  def initialize(attributes = {})
-  	attributes['situacao'] ||= ATIVO
-  	super
-  end
+  # def initialize(attributes = {})
+  # 	attributes['situacao'] ||= ATIVO
+  # 	super
+  # end
 
   def situacao_verbose
   	case situacao
@@ -61,6 +63,13 @@ class Checklist < ActiveRecord::Base
                                 item_checklists.item_checklist_id IS NULL AND
                                 item_checklists.situacao = ?',
                                 self.unidade.id, self.id, ATIVO)
+  end
+
+  def valida_se_ja_existe_um_ativo_na_unidade
+    p self.unidade.checklists.where(situacao: ATIVO)
+    if self.situacao == ATIVO && self.unidade.checklists.where(situacao: ATIVO).present?
+      errors.add :base, 'Já existe um checklist ativo na unidade!'
+    end
   end
 
 end

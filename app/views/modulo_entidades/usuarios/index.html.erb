@@ -15,30 +15,27 @@
     <thead>
       <tr>
         <th>Nome</th>
-        <th>Email</th>
-        <th>Setor</th>
-        <th>Superior</th>
+        <th>E-mail</th>
+        <th>Tipo</th>
         <th>Situação</th>
         <th colspan="4"></th>
       </tr>
     </thead>
     <tbody>
-      <% @usuarios.each do |o| %>
-
+      <% @usuarios.each do |usuario| %>
         <tr>
-          <td><%= o.nome %></td>
-          <td><%= o.email %></td>
-          <td><%= o.setor.nome %></td>
-          <td><%= o.usuario_superior.nome rescue "Não Vinculado" %></td>
-          <td><%= o.situacao_verbose %></td>
+          <td><%= usuario.nome %></td>
+          <td><%= usuario.email %></td>
+          <td><%= usuario.tipo_verbose %></td>
+          <td><%= usuario.situacao_verbose %></td>
           <% if current_user.permitted_to?(:usuarios, :show) %>
-            <td><%= link_to 'Detalhes', [:entidade, o] %></td>
+            <td><%= link_to 'Detalhes', [:entidade, usuario] %></td>
           <% end %>
           <% if current_user.permitted_to?(:usuarios, :edit) %>
-            <td><%= link_to 'Alterar', [:edit, :entidade, o] %></td>
+            <td><%= link_to 'Alterar', [:edit, :entidade, usuario] %></td>
           <% end %>
           <% if current_user.permitted_to?(:usuarios, :change_status) %>
-            <td><%= link_to 'Alterar Status',  [:change_status, :entidade, o], data: { confirm: 'Deseja alterar a situação deste registro?' } %></td>
+            <td><%= link_to 'Alterar Status',  [:change_status, :entidade, usuario], data: { confirm: 'Deseja alterar a situação deste registro?' } %></td>
           <% end %>
         </tr>
       <% end %>

@@ -3,17 +3,20 @@
     <div class="container">
 
       <ul class="nav">
-        <li>
-          <%= link_to [:entidade, :usuarios] do %>
-            <i class="icon-user icon-white"></i> Usuários
-          <% end %>
-        </li>
-
-        <li>
-          <%= link_to [:entidade, :checklists] do %>
-            <i class="icon-ok-circle icon-white"></i> Checklists
-          <% end %>
-        </li>
+        <% if current_user.permitted_to?(:usuarios, :index) %>
+          <li>
+            <%= link_to [:entidade, :usuarios] do %>
+              <i class="icon-user icon-white"></i> Usuários
+            <% end %>
+          </li>
+        <% end %>
+        <% if current_user.permitted_to?(:checklists, :index) %>
+          <li>
+            <%= link_to [:entidade, :checklists] do %>
+              <i class="icon-ok-circle icon-white"></i> Checklists
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

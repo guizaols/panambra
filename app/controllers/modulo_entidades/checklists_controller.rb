@@ -2,17 +2,18 @@
 
 class ModuloEntidades::ChecklistsController < ApplicationController
 
+	before_filter :verifica_se_esta_logado
 	before_filter :verifica_se_o_usuario_escolheu_uma_unidade
 
 
 	def index
 		params[:pesquisa] ||= {}
-		@checklists = Checklist.pesquisa(current_unidade.id, params[:pesquisa]).page(params[:page]).per(15)
+		@checklists = Checklist.pesquisa(current_unidade.id, params[:pesquisa])
+													 .page(params[:page]).per(15)
 	end
 
 	def show
 		@checklist = Checklist.find(params[:id])
-		# @item_checklists = ItemChecklist.carrega_categorias(current_unidade)
 		@item_checklists = @checklist.carrega_categorias
 	end
 
@@ -67,10 +68,9 @@ class ModuloEntidades::ChecklistsController < ApplicationController
 		@item_checklist = @item_verificacao.item_checklist
 		@checklist = @item_checklist.checklist
 		respond_to do |format|
-			format.js{}
+			format.js
 		end
 	end
-
 	
 	def update
 		@checklist = Checklist.find(params[:id])
@@ -116,4 +116,5 @@ class ModuloEntidades::ChecklistsController < ApplicationController
       end
     end
   end
+
 end
