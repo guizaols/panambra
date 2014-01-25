@@ -1,0 +1,9 @@
+<% if @retorno.first %>
+	$('#mensagens').html('');
+	$('#mensagens').hide();
+	alert('Pesquisa realizada com sucesso! Obrigado pela atenção e volte sempre!');
+	window.location.href = '<%= url_for([:entidade, :root]) %>';
+<% else %>
+	$('#mensagens').html('<b><%= @retorno.last %></b>');
+	$('#mensagens').show();
+<% end %>

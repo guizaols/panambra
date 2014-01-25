@@ -17,7 +17,7 @@ class Entidade < ActiveRecord::Base
                    length: { maximum: 255 }, format: { with: /\A[a-z0-9]+\z/ }
                
 
-  # O dependent => destroy não foi testado
+  ### O dependent: destroy não foi testado
   has_many :usuarios, dependent: :destroy
   has_many :perfils, dependent: :destroy
   

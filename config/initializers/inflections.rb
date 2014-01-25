@@ -23,4 +23,6 @@ ActiveSupport::Inflector.inflections do |inflect|
 	inflect.irregular 'acao', 'acoes'
 	inflect.irregular 'prestacao_conta', 'prestacao_contas'
 	inflect.irregular 'importacao', 'importacoes'
+	inflect.irregular 'auditoria', 'auditorias'
+	inflect.irregular 'resposta', 'respostas'
 end

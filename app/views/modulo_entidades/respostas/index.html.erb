@@ -1,0 +1,49 @@
+<div class="titulo-pagina">
+  Respostas »
+</div>
+<br />
+
+<%= form_tag [:entidade, :respostas], method: :get do %>
+  <div class="input-append">
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<% if @respostas.any? %>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Situação</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @respostas.each do |objeto| %>
+        <tr>
+          <td><%= objeto.nome %></td>
+          <td><%= objeto.situacao_verbose %></td>
+          <% if current_user.permitted_to?(:respostas, :show) %>
+            <td><%= link_to 'Detalhes', [:entidade, objeto] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:respostas, :edit) %>
+            <td><%= link_to 'Alterar', [:edit, :entidade, objeto] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:respostas, :change_status) %>
+            <td><%= link_to "Alterar Situação",  [:change_status, :entidade, objeto], data: { confirm: 'Deseja alterar a situação deste registro?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <strong>Sem registros para exibir!</strong>
+<% end %>
+
+<%= paginate @respostas %>
+
+<% if current_user.permitted_to?(:respostas, :new) %>
+  <div class="actions form-actions well">
+    <%= link_to 'Novo', [:new, :entidade, :resposta], class: 'btn btn-inverse' %>
+  </div>
+<% end %>

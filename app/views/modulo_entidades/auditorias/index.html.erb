@@ -1,0 +1,49 @@
+<div class="titulo-pagina">
+  Auditorias »
+</div>
+<br />
+
+<%= form_tag [:entidade, :auditorias], method: :get do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome' %>
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<% if @auditorias.any? %>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Nome</th>
+        <th>Situação</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @auditorias.each do |objeto| %>
+        <tr>
+          <td><%= objeto.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
+          <td><%= objeto.cliente_id %></td>
+          <td><%= objeto.situacao_verbose %></td>
+          <% if current_user.permitted_to?(:auditorias, :show) %>
+            <td><%= link_to 'Visualizar', [:entidade, objeto] %></td>
+          <% end %>
+          <% if current_user.permitted_to?(:auditorias, :edit) %>
+            <td><%= link_to 'Responder', [:edit, :entidade, objeto] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <strong>Sem registros para exibir!</strong>
+<% end %>
+
+<%= paginate @auditorias %>
+
+<% if current_user.permitted_to?(:auditorias, :new) %>
+  <div class="actions form-actions well">
+    <%= link_to 'Liberar Auditoria', [:new, :entidade, :auditoria], class: 'btn btn-inverse' %>
+  </div>
+<% end %>

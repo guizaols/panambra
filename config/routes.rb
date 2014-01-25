@@ -56,6 +56,7 @@ Template::Application.routes.draw do
       member do
         get :change_status
       end
+      
       collection do 
         post :edit_questao_ajax
         post :edit_categoria_ajax
@@ -64,6 +65,7 @@ Template::Application.routes.draw do
         post :altera_situacao_questao
         post :detalhe_questao
       end
+
       resources :questoes do 
         collection do 
           post :nova_categoria_questao
@@ -76,7 +78,11 @@ Template::Application.routes.draw do
           post :cria_acao
         end
       end
+
     end
+
+
+    resources :auditorias
 
 
     resources :usuarios do

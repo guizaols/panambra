@@ -2,15 +2,28 @@
 
 class Resposta < ActiveRecord::Base
 
-  attr_accessible :item_verificacao_id
-  attr_accessible :agenda_id
+	### ALTERNATIVAS
+	SIM = 58324
+	NAO = 43239
+
   attr_accessible :resposta
   attr_accessible :resposta_texto
+  attr_accessible :auditoria_id
+  attr_accessible :item_verificacao_id
 
-  validates :item_verificacao, presence: true
-  validates :agenda, presence: true
-
+  belongs_to :auditoria
   belongs_to :item_verificacao
-  belongs_to :agenda
   
+	validates :auditoria, presence: true
+	validates :item_verificacao, presence: true	
+
+
+  def resposta_verbose
+		case resposta
+			when SIM; 'Sim'
+			when NAO; 'Não'
+			else nil
+		end
+	end
+
 end

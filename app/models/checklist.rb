@@ -66,7 +66,6 @@ class Checklist < ActiveRecord::Base
   end
 
   def valida_se_ja_existe_um_ativo_na_unidade
-    p self.unidade.checklists.where(situacao: ATIVO)
     if self.situacao == ATIVO && self.unidade.checklists.where(situacao: ATIVO).present?
       errors.add :base, 'Já existe um checklist ativo na unidade!'
     end

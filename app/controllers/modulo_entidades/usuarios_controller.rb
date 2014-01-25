@@ -21,7 +21,7 @@ class ModuloEntidades::UsuariosController < ApplicationController
 		if @usuario.save
 			redirect_to [:entidade, @usuario], notice: 'Usuário cadastrado com sucesso!'
 		else
-			render action: 'new'
+			render action: :new
 		end
 	end
 
@@ -40,7 +40,7 @@ class ModuloEntidades::UsuariosController < ApplicationController
 		if @usuario.update_attributes(params[:usuario])
 			redirect_to [:entidade, @usuario], notice: 'Usuário atualizado com sucesso!'
 		else
-			render action: 'edit'
+			render action: :edit
 		end
 	end
 

@@ -17,6 +17,13 @@
             <% end %>
           </li>
         <% end %>
+        <% if current_user.permitted_to?(:auditorias, :new) %>
+          <li>
+            <%= link_to [:new, :entidade, :auditoria] do %>
+              <i class="icon-check icon-white"></i> Liberar Pesquisa
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

@@ -1,0 +1,19 @@
+<div class="titulo-pagina">
+  Responder Pesquisa »
+</div>
+<br />
+
+<div id="mensagens" class="alert alert-error" style="display:none"></div>
+
+<%= form_for [:entidade, @auditoria], remote: true do |f| %>
+	<% @auditoria.carrega_itens_checklist.each_with_index do |item_checklist, index| %>
+		<%= monta_checklist_de_auditoria(item_checklist, index) %>
+	<% end %>
+
+  <div class="actions form-actions">
+    <%= f.submit 'Salvar', class: 'btn btn-inverse' %>
+    <% if current_user.permitted_to?(:auditorias, :index) %>
+      <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>

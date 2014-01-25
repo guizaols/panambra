@@ -1,0 +1,10 @@
+<div class="control-group">
+  <label for="item_verificacao_<%= item_verificacao.id %>" class="control-label">
+    <b><%= numero %>)</b>
+    <%= item_verificacao.titulo %>
+  </label>
+  <div class="controls">
+    <%= text_area_tag "respostas[#{item_verificacao.id}]", (params['respostas'].present? ? params['respostas']["#{item_verificacao.id}"] : nil), class: 'text-area-medium' %>
+  </div>
+</div>
+<br />

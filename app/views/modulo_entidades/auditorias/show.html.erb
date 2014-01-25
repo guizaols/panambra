@@ -1,0 +1,41 @@
+<div class="titulo-pagina">
+  Detalhes - Pesquisa »
+</div>
+
+<dl class="dl-horizontal">
+  <%= show_unless_blank('Cliente', @auditoria.cliente_id) %>
+  <%= show_unless_blank('Número NF', @auditoria.numero_nf) %>
+  <%= show_unless_blank('Checklist', @auditoria.checklist.nome) %>
+  <%= show_unless_blank('Situação', @auditoria.situacao_verbose) %>
+</dl>
+
+<% if @auditoria.respostas.any? %>
+  <table class="table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Pergunta</th>
+        <th>Tipo</th>
+        <th>Alternativa</th>
+        <th>Texto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @auditoria.respostas.each do |resposta| %>
+        <tr>
+          <td><%= resposta.item_verificacao.titulo %></td>
+          <td><%= resposta.item_verificacao.tipo_verbose %></td>
+          <td><%= resposta.resposta_verbose %></td>
+          <td><%= resposta.resposta_texto %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <strong>Sem respostas para exibir!</strong>
+<% end %>
+
+<div class="actions form-actions well">
+  <% if current_user.permitted_to?(:auditoria, :index) %>
+    <%= link_to 'Voltar', [:entidade, :auditoria], class: 'btn' %>
+  <% end %>
+</div>

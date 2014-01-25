@@ -20,6 +20,7 @@ class Unidade < ActiveRecord::Base
   has_many :orcamentos, dependent: :destroy
   has_many :usuarios, dependent: :destroy
   has_many :checklists, dependent: :destroy
+  has_many :auditorias, dependent: :destroy
 
   validates :nome, presence: true, uniqueness: { case_sensitive: false, scope: [:entidade_id] },
   								 length: { maximum: 255 }
@@ -56,6 +57,10 @@ class Unidade < ActiveRecord::Base
     unidades = unidades.where('nome ILIKE ? OR slug ILIKE ?', params[:texto].full_like, params[:texto].full_like) if params[:texto].present?
     unidades = unidades.order(:nome)
     unidades
+  end
+
+  def retorna_checklist_ativo
+    self.checklists.where(situacao: Checklist::ATIVO).first rescue nil
   end
 
 end

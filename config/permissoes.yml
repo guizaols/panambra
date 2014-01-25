@@ -49,3 +49,24 @@ permissoes:
           methods:
             - change_status
 ### END USUÁRIOS
+
+### START AUDITORIAS
+    auditorias:
+      name: 'Pesquisas'
+      actions:
+        index:
+          name: 'Visualizar'
+          methods:
+            - index
+            - show
+        new:
+          name: 'Liberar Pesquisa'
+          methods:
+            - new
+            - create
+        edit:
+          name: 'Responder Pesquisa'
+          methods:
+            - edit
+            - update
+### END USUÁRIOS
