@@ -10,12 +10,14 @@ class Auditoria < ActiveRecord::Base
   attr_accessible :numero_nf
   attr_accessible :situacao
 
+  belongs_to :cliente
 	belongs_to :unidade
 	belongs_to :checklist
 
   has_many :respostas
 
-	validates :unidade, presence: true
+	validates :cliente, presence: true
+  validates :unidade, presence: true
 	validates :checklist, presence: true
 
 	scope :by_unidade_id, lambda { |unidade_id| where(unidade_id: unidade_id) }

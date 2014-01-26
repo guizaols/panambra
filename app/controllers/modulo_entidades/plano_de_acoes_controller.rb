@@ -9,7 +9,9 @@ class ModuloEntidades::PlanoDeAcoesController < ApplicationController
 
 	def index
 		params[:pesquisa] ||= {}
-		@plano_de_acoes = PlanoDeAcao.pesquisa(@ponto_de_venda.id, params[:pesquisa]).page(params[:page]).per(15)
+		@plano_de_acoes = PlanoDeAcao.pesquisa(@ponto_de_venda.id, params[:pesquisa])
+																 .page(params[:page])
+																 .per(15)
 	end
 
 	def show

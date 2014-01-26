@@ -10,7 +10,10 @@
   <div class="field control-group">
     <%= label_tag :cpf_cnpj, 'CPF/CNPJ do Cliente', class: 'control-label' %>
     <div class="controls">
-      <%= text_field_tag :cpf_cnpj, nil, class: 'input-xlarge', maxlength: 255 %>
+      <%= text_field_tag :cpf_cnpj,
+          (params[:cpf_cnpj] rescue nil),
+          class: 'input-xlarge', maxlength: 255
+      %>
     </div>
   </div>
 
@@ -18,7 +21,14 @@
     <%= label_tag :numero_nf, 'Número NF', class: 'control-label' %>
     <div class="controls">
       <%= text_field_tag :numero_nf, nil, class: 'input-xlarge', maxlength: 255 %>
+      <%= loading_image_tag('loading') %>
     </div>
+  </div>
+
+  <div id="cliente">
+    <%= hidden_field_tag 'cliente[cpf_cnpj]' %>
+    <%= hidden_field_tag 'cliente[codigo]' %>
+    <%= hidden_field_tag 'cliente[nome]' %>
   </div>
 
   <div class="actions form-actions">
@@ -28,3 +38,50 @@
     <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(function() {
+    $('#cpf_cnpj').autocomplete({
+      source: 
+        function(request, response) {
+          var resposta = '';
+          $('#loading').show();
+          $.ajax({
+            url: '<%= url_for([:autocomplete_by_cpf_cnpj, :entidade, :clientes]) %>',
+            dataType: 'json',
+            type: 'POST',
+            data: { pesquisa: $('#cpf_cnpj').val() },
+            success: function(data) {
+              $('#loading').hide();
+              response( $.map( data, function(item) {
+                return {
+                  label: item.label,
+                  value: item.value,
+                  id: item.id,
+                  cpf_cnpj: item.cpf_cnpj,
+                  codigo: item.codigo,
+                  nome: item.nome
+                }
+              }));
+            }
+          });
+          return resposta;
+        },
+      select: function(event, ui) {
+        $('#cliente_cpf_cnpj').val(ui.item.cpf_cnpj);
+        $('#cliente_codigo').val(ui.item.codigo);
+        $('#cliente_nome').val(ui.item.nome);
+      },
+      minLength: 1, 
+      delay: 500
+    });
+
+    $('#cpf_cnpj').blur(function() {
+      if(!$(this).val()) {
+        $('#cliente_cpf_cnpj').val('');
+        $('#cliente_codigo').val('');
+        $('#cliente_nome').val('');
+      }
+    });
+  }); 
+</script>

@@ -9,7 +9,8 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	def index
 		params[:pesquisa] ||= {}
 		@auditorias = Auditoria.pesquisa(current_unidade.id, params[:pesquisa])
-													 .page(params[:page]).per(15)
+													 .page(params[:page])
+													 .per(15)
 	end
 
 	def show
@@ -24,7 +25,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@auditoria = Auditoria.new
 		@auditoria.unidade = current_unidade
 		@auditoria.checklist = current_unidade.retorna_checklist_ativo
-		# @auditoria.cliente = 
+		@auditoria.cliente = Cliente.cria_ou_recupera(current_unidade.id, params[:cliente])
 		if @auditoria.save
 			redirect_to [:entidade, :auditorias], notice: 'Auditoria liberada com sucesso!'
 		else

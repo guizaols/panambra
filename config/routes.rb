@@ -85,6 +85,13 @@ Template::Application.routes.draw do
     resources :auditorias
 
 
+    resources :clientes do
+      collection do
+        post :autocomplete_by_cpf_cnpj
+      end
+    end
+
+
     resources :usuarios do
       member do
         get :change_status

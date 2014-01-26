@@ -3,7 +3,7 @@
 </div>
 
 <dl class="dl-horizontal">
-  <%= show_unless_blank('Cliente', @auditoria.cliente_id) %>
+  <%= show_unless_blank('Cliente', (@auditoria.cliente.cpf_cnpj rescue nil)) %>
   <%= show_unless_blank('Número NF', @auditoria.numero_nf) %>
   <%= show_unless_blank('Checklist', @auditoria.checklist.nome) %>
   <%= show_unless_blank('Situação', @auditoria.situacao_verbose) %>

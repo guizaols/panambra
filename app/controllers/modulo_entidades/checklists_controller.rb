@@ -9,7 +9,8 @@ class ModuloEntidades::ChecklistsController < ApplicationController
 	def index
 		params[:pesquisa] ||= {}
 		@checklists = Checklist.pesquisa(current_unidade.id, params[:pesquisa])
-													 .page(params[:page]).per(15)
+													 .page(params[:page])
+													 .per(15)
 	end
 
 	def show

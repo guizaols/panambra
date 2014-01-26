@@ -38,10 +38,13 @@ class Usuario < ActiveRecord::Base
   belongs_to :unidade
   belongs_to :perfil
   
-  validates :login, presence: true,uniqueness: { case_sensitive: false, scope: [:unidade_id] }, length: { maximum: 255 }
+  validates :login, presence: true,
+                    uniqueness: { case_sensitive: false, scope: [:unidade_id] },
+                    length: { maximum: 255 }
   validates :tipo, presence: true
   validates :perfil, presence:true, if: :eh_usuario_comum?
-  validates :email, uniqueness: { case_sensitive: false, scope: [:tipo, :unidade_id] }, length: { maximum: 255 }
+  validates :email, uniqueness: { case_sensitive: false, scope: [:tipo, :unidade_id] },
+                    length: { maximum: 255 }
 
   before_validation :definir_como_ativo
   before_create :create_authentication_token

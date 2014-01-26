@@ -15,7 +15,7 @@
     <thead>
       <tr>
         <th>Data</th>
-        <th>Nome</th>
+        <th>Cliente</th>
         <th>Situação</th>
         <th colspan="4"></th>
       </tr>
@@ -24,14 +24,22 @@
       <% @auditorias.each do |objeto| %>
         <tr>
           <td><%= objeto.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
-          <td><%= objeto.cliente_id %></td>
+          <td><%= objeto.cliente.cpf_cnpj rescue nil %></td>
           <td><%= objeto.situacao_verbose %></td>
-          <% if current_user.permitted_to?(:auditorias, :show) %>
-            <td><%= link_to 'Visualizar', [:entidade, objeto] %></td>
-          <% end %>
-          <% if current_user.permitted_to?(:auditorias, :edit) %>
-            <td><%= link_to 'Responder', [:edit, :entidade, objeto] %></td>
-          <% end %>
+          <td>
+            <% if current_user.permitted_to?(:auditorias, :show) && 
+                  objeto.situacao == Auditoria::RESPONDIDA
+            %>
+              <%= link_to 'Visualizar', [:entidade, objeto] %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_user.permitted_to?(:auditorias, :edit) && 
+                  objeto.situacao == Auditoria::LIBERADA
+            %>
+              <%= link_to 'Responder', [:edit, :entidade, objeto] %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -44,6 +52,6 @@
 
 <% if current_user.permitted_to?(:auditorias, :new) %>
   <div class="actions form-actions well">
-    <%= link_to 'Liberar Auditoria', [:new, :entidade, :auditoria], class: 'btn btn-inverse' %>
+    <%= link_to 'Liberar Pesquisa', [:new, :entidade, :auditoria], class: 'btn btn-inverse' %>
   </div>
 <% end %>
