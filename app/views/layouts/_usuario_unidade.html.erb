@@ -24,6 +24,13 @@
             <% end %>
           </li>
         <% end %>
+        <% if current_user.permitted_to?(:auditorias, :inicir_pesquisa) %>
+          <li>
+            <%= link_to [:iniciar_pesquisa, :entidade, :auditorias] do %>
+              <i class="icon-play icon-white"></i> Iniciar Pesquisa
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

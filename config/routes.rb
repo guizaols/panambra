@@ -82,7 +82,11 @@ Template::Application.routes.draw do
     end
 
 
-    resources :auditorias
+    resources :auditorias do
+      collection do
+        get :iniciar_pesquisa
+      end
+    end
 
 
     resources :clientes do

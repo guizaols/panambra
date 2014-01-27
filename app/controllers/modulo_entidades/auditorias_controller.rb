@@ -42,4 +42,8 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@retorno = @auditoria.salvar_respostas(params)
 	end
 
+	def iniciar_pesquisa
+		@retorno = Auditoria.retorna_auditoria_para_ser_respondida
+	end
+
 end

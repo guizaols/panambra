@@ -69,4 +69,8 @@ permissoes:
           methods:
             - edit
             - update
-### END USUÁRIOS
+        inicir_pesquisa:
+          name: 'Iniciar Pesquisa'
+          methods:
+            - inicir_pesquisa
+### END AUDITORIAS

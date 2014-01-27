@@ -1,0 +1,8 @@
+<div class="titulo-pagina">
+  <% if @retorno.first %>
+    <%= link_to 'INICIAR PESQUISA »', [:edit, :entidade, @retorno.last] %>
+  <% else %>
+    AGUARDANDO LIBERAÇÃO DE PESQUISA...
+  <% end %>
+</div>
+<br />

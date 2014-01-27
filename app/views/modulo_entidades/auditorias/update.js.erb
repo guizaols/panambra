@@ -2,7 +2,7 @@
 	$('#mensagens').html('');
 	$('#mensagens').hide();
 	alert('Pesquisa realizada com sucesso! Obrigado pela atenção e volte sempre!');
-	window.location.href = '<%= url_for([:entidade, :root]) %>';
+	window.location.href = '<%= url_for([:iniciar_pesquisa, :entidade, :auditorias]) %>';
 <% else %>
 	$('#mensagens').html('<b><%= @retorno.last %></b>');
 	$('#mensagens').show();

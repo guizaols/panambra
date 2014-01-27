@@ -3,7 +3,8 @@
 class Auditoria < ActiveRecord::Base
   
 	### SITUAÇÃO
-	LIBERADA 	 = 19326
+	PENDENTE   = 63524
+  LIBERADA 	 = 19326
 	RESPONDIDA = 98743
 
   attr_accessible :cliente_id
@@ -24,12 +25,13 @@ class Auditoria < ActiveRecord::Base
 
 
   def initialize(attributes = {})
-  	attributes['situacao'] ||= LIBERADA
+  	attributes['situacao'] ||= PENDENTE
   	super
   end
 
   def situacao_verbose
   	case situacao
+    when PENDENTE; 'Pendente'
   	when LIBERADA; 'Liberada'
   	when RESPONDIDA; 'Respondida'
   	end
@@ -82,15 +84,24 @@ class Auditoria < ActiveRecord::Base
 
           self.update_column(:situacao, RESPONDIDA)
           if possui_respostas_validas
-          	[true, 'Auditoria finalizada com sucesso!']
+          	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
           else
-        		[false, 'Preencha a auditoria!']
+        		[false, 'Preencha a pesquisa, por favor!']
         	end
         end
       end
     rescue Exception => e
     	# p e.message
       [false, e.message]
+    end
+  end
+
+  def self.retorna_auditoria_para_ser_respondida
+    auditoria = Auditoria.where(situacao: LIBERADA)
+    if auditoria.present?
+      [true, auditoria.first]
+    else
+      [false, 'Sem pesquisas no momento. Aguardando alguma liberação!']
     end
   end
 

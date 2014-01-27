@@ -25,11 +25,6 @@ end
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'devise'
-gem 'carrierwave'
-gem 'brazilian-rails'
-gem 'rmagick'
-# Bootstrap Datepicker
-# gem 'bootstrap-datepicker-rails'
 
 gem 'rspec-rails', group: [:test, :development]
 group :test do
@@ -59,14 +54,8 @@ gem 'jbuilder'
 # V8 JavaScript Interpreter
 gem 'therubyracer'
 
-# FriendlyID
-gem 'friendly_id'#, github: 'FriendlyId/friendly_id', branch: 'master'
-
 # Thin Server
 gem 'thin'
-
-# iCalendar
-gem 'icalendar'
 
 #Nice for Excel and CSV
 gem 'roo'
