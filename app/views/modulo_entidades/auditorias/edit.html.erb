@@ -12,7 +12,7 @@
 
   <div class="actions form-actions">
     <%= f.submit 'Salvar', class: 'btn btn-inverse' %>
-    <% if current_user.permitted_to?(:auditorias, :index) %>
+    <% if current_user.present? && current_user.permitted_to?(:auditorias, :index) %>
       <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
     <% end %>
   </div>

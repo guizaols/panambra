@@ -11,13 +11,6 @@ class Unidade < ActiveRecord::Base
   attr_accessible :entidade_id
 
   belongs_to :entidade
-  has_many :grupo_produtos, dependent: :destroy
-  has_many :subgrupo_produtos, dependent: :destroy
-  has_many :franqueados, dependent: :destroy
-  has_many :estoques, dependent: :destroy
-  has_many :tipo_compromissos, dependent: :destroy
-  has_many :ponto_de_vendas, dependent: :destroy
-  has_many :orcamentos, dependent: :destroy
   has_many :usuarios, dependent: :destroy
   has_many :checklists, dependent: :destroy
   has_many :auditorias, dependent: :destroy

@@ -28,9 +28,9 @@ Template::Application.routes.draw do
     end
   end
 
-  match ":entidade_slug" => "home#index", as: :entidade, module: :modulo_entidades
-  scope ":entidade_slug", as: :entidade, module: :modulo_entidades do
-    match "acessar" => "home#index"
+  match ':entidade_slug' => 'home#index', as: :entidade, module: :modulo_entidades
+  scope ':entidade_slug', as: :entidade, module: :modulo_entidades do
+    match 'acessar' => 'home#index'
     namespace :administracao do
 
       resources :unidades do
@@ -78,7 +78,6 @@ Template::Application.routes.draw do
           post :cria_acao
         end
       end
-
     end
 
 
@@ -99,6 +98,12 @@ Template::Application.routes.draw do
     resources :usuarios do
       member do
         get :change_status
+      end
+    end
+
+    resources :relatorios do
+      collection do
+        get :pesquisas_respondidas
       end
     end
 

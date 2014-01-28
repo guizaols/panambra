@@ -1,0 +1,11 @@
+<div class="titulo-pagina">
+  Pesquisas Respondidas »
+</div>
+<br />
+
+<%= form_tag [:pesquisas_respondidas, :entidade, :relatorios], method: :get do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome' %>
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>

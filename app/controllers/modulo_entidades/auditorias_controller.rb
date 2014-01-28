@@ -2,8 +2,8 @@
 
 class ModuloEntidades::AuditoriasController < ApplicationController
 
-	before_filter :verifica_se_esta_logado
-	before_filter :verifica_se_o_usuario_escolheu_uma_unidade
+	before_filter :verifica_se_esta_logado, except: [:edit, :update]
+	before_filter :verifica_se_o_usuario_escolheu_uma_unidade, except: [:edit, :update]
 
 
 	def index

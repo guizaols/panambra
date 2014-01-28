@@ -2,60 +2,49 @@
 
 class Acao < ActiveRecord::Base
   
-self.table_name = 'acoes'
+  self.table_name = 'acoes'
 
-  TIRAR_FOTO = 1
-  ENVIAR_EMAIL = 2
-  GERAR_TAREFA = 3
-  COMENTARIO = 4 
+  # TIRAR_FOTO   = 34531
+  ENVIAR_EMAIL = 67543
+  # GERAR_TAREFA = 34589
+  # COMENTARIO   = 12387
 
-
-
-  attr_accessible :alternativa_id
-  attr_accessible :destinatarios
-  attr_accessible :item_verificacao_id
   attr_accessible :tipo
-
-
-  validates :tipo,:presence=>true, inclusion: {in:[TIRAR_FOTO, ENVIAR_EMAIL,GERAR_TAREFA,COMENTARIO]}
-  validates :destinatarios,:presence=>true, :if=>:tipo_enviar_email?
+  attr_accessible :alternativa_id
+  attr_accessible :item_verificacao_id
+  attr_accessible :usuario_ids
 
   belongs_to :item_verificacao
+  belongs_to :questao
   belongs_to :alternativa
+  has_many   :acao_usuarios
+  has_many   :usuarios, through: :acao_usuarios, uniq: true
 
-  before_validation :limpa_destinatarios
-
-
-  def limpa_destinatarios
-  	self.destinatarios = "" if tipo.present? && tipo != ENVIAR_EMAIL
-  end
-
-
+  validates :tipo, presence: true,
+                   uniqueness: { case_sensitive: false, scope: [:item_verificacao_id, :alternativa_id] },
+                   inclusion: { in:[ENVIAR_EMAIL] }
+  validates :usuario_ids, presence: true, if: :tipo_enviar_email?
 
   def tipo_enviar_email?
   	self.tipo == ENVIAR_EMAIL
   end
 
-
   def tipo_verbose
   	case tipo
-	  	when TIRAR_FOTO;"Tirar Foto"
-	  	when ENVIAR_EMAIL;"Enviar E-mail"
-	  	when GERAR_TAREFA;"Gerar Tarefa"
-	  	when COMENTARIO;"Comentário"
+	  	# when TIRAR_FOTO; 'Tirar foto'
+	  	when ENVIAR_EMAIL; 'Enviar e-mail'
+	  	# when GERAR_TAREFA; 'Gerar tarefa'
+	  	# when COMENTARIO; 'Comentário'
   	end
   end
 
   def self.retorna_tipo_para_select
   	[
-  		[""],
-  		["Tirar Foto",TIRAR_FOTO],
-  		["Enviar E-mail",ENVIAR_EMAIL],
-  		["Gerar Tarefa",GERAR_TAREFA],
-  		["Comentário",COMENTARIO]
+  		# ['Tirar foto', TIRAR_FOTO],
+  		['Enviar e-mail', ENVIAR_EMAIL]
+  		# ['Gerar tarefa', GERAR_TAREFA],
+  		# ['Comentário', COMENTARIO]
   	]
   end
-
-
 
 end

@@ -15,7 +15,7 @@ class Auditoria < ActiveRecord::Base
 	belongs_to :unidade
 	belongs_to :checklist
 
-  has_many :respostas
+  has_many :respostas, order: 'id ASC'
 
 	validates :cliente, presence: true
   validates :unidade, presence: true
@@ -84,6 +84,10 @@ class Auditoria < ActiveRecord::Base
 
           self.update_column(:situacao, RESPONDIDA)
           if possui_respostas_validas
+            ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
+            self.notifica_responsaveis_do_checklist
+            ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
+
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
           else
         		[false, 'Preencha a pesquisa, por favor!']
@@ -103,6 +107,60 @@ class Auditoria < ActiveRecord::Base
     else
       [false, 'Sem pesquisas no momento. Aguardando alguma liberação!']
     end
+  end
+
+  def notifica_responsaveis_do_checklist
+    begin
+      retorno ||= {}
+      self.respostas.each do |resposta|
+        if resposta.resposta.present?
+          sim_ou_nao = (resposta.resposta == Resposta::SIM ? 'SIM' : 'NÃO')
+          acoes = resposta.item_verificacao.acoes.joins(:alternativa)
+                          .where('UPPER(alternativas.titulo) = ?', sim_ou_nao)
+          acoes.each do |acao|
+            emails = acao.usuarios.pluck(:email).compact.uniq
+            if emails.present?
+              emails.each do |email|
+                retorno[email] ||= []
+                retorno[email] << resposta
+              end
+            end
+          end
+        else
+          acoes = resposta.item_verificacao.acoes
+                          .where(item_verificacao_id: resposta.item_verificacao_id)
+          acoes.each do |acao|
+            emails = acao.usuarios.pluck(:email).compact.uniq
+            if emails.present?
+              emails.each do |email|
+                retorno[email] ||= []
+                retorno[email] << resposta
+              end
+            end
+          end
+        end
+      end
+      
+      retorno.each do |email, respostas|
+        AuditoriaMailer.envia_notificacao_para_responsaveis(email, respostas).deliver
+      end
+    rescue Exception => e
+      p e.message
+      p e.backtrace
+    end
+
+    # self.checklist.item_checklists.each do |item_checklist|
+    #   item_checklist.item_verificacaos.each do |item_verificacao|
+    #     item_verificacao.acoes.each do |acao|
+    #       if self.respostas.where(item_verificacao_id: acao.item_verificacao_id).present?
+    #         p acao.item_verificacao.titulo
+    #         p self.respostas.where(item_verificacao_id: acao.item_verificacao_id)
+    #         p acao.usuarios.pluck(:email)
+    #         p '==================================================================='
+    #       end
+    #     end
+    #   end
+    # end
   end
 
 end

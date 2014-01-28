@@ -45,3 +45,19 @@ label.perfil-secao {
 	height: 100px;
 	width: 400px;
 }
+
+div#form_acoes {
+	left: 35%;
+	width: 900px;
+	height: 600px;
+}
+
+div.acao-float-left {
+	float: left;
+	max-width: 700px;
+}
+
+li.acao-float-left {
+	float: left;
+	width: 300px;
+}

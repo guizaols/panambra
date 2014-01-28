@@ -9,9 +9,9 @@ class ItemVerificacao < ActiveRecord::Base
   INATIVO = 2
 
   ### TIPO
-  SIM_NAO = 1
+  SIM_NAO       = 1
   SIM_NAO_TEXTO = 2
-  TEXTO = 3
+  TEXTO         = 3
 
   attr_accessible :item_checklist_id
   attr_accessible :tipo
@@ -19,10 +19,9 @@ class ItemVerificacao < ActiveRecord::Base
   attr_accessible :alternativas_attributes
   attr_accessible :situacao
 
-
   belongs_to :item_checklist
-  has_many :alternativas
-  has_many :acoes, class_name: 'Acao', foreign_key: 'item_verificacao_id'
+  has_many   :alternativas
+  has_many   :acoes, class_name: 'Acao', foreign_key: 'item_verificacao_id'
   accepts_nested_attributes_for :alternativas, allow_destroy: true
 
   validates :tipo,  presence: true, inclusion: { in: [SIM_NAO, SIM_NAO_TEXTO, TEXTO] }

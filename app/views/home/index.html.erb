@@ -20,3 +20,22 @@
   	</div>
 	<% end %>
 </div>
+
+<% unless administracao_usuario_signed_in? %>
+  <div class="titulo-pagina">
+    <% if @retorno.first %>
+      <%= link_to 'INICIAR PESQUISA »', [:edit, @retorno.last.unidade.entidade, @retorno.last] %>
+    <% else %>
+      AGUARDANDO LIBERAÇÃO DE PESQUISA...
+    <% end %>
+  </div>
+  <br />
+
+  <script type="text/javascript">
+    jQuery(function($) {
+      $('.btn-group').remove();
+      $('.footer').remove();
+      setInterval('window.location.reload()', 5000);
+    });
+  </script>
+<% end %>
