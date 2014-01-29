@@ -3,17 +3,29 @@
     <div class="container">
 
       <ul class="nav">
-        <% if current_user.permitted_to?(:usuarios, :index) %>
-          <li>
-            <%= link_to [:entidade, :usuarios] do %>
-              <i class="icon-user icon-white"></i> Usuários
-            <% end %>
+        <% if current_user.permitted_to?(:usuarios, :index) &&
+              current_user.permitted_to?(:checklists, :index) %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="icon-th-large icon-white"></i>
+              Cadastros
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <% if current_user.permitted_to?(:usuarios, :index) %>
+                <li><%= link_to 'Usuários', [:entidade, :usuarios] %></li>
+              <% end %>
+              <% if current_user.permitted_to?(:checklists, :index) %>
+                <li><%= link_to 'Checklists', [:entidade, :checklists] %></li>
+              <% end %>
+            </ul>
           </li>
         <% end %>
-        <% if current_user.permitted_to?(:checklists, :index) %>
+
+        <% if current_user.permitted_to?(:auditorias, :index) %>
           <li>
-            <%= link_to [:entidade, :checklists] do %>
-              <i class="icon-ok-circle icon-white"></i> Checklists
+            <%= link_to [:entidade, :auditorias] do %>
+              <i class="icon-th-list icon-white"></i> Pesquisas
             <% end %>
           </li>
         <% end %>
@@ -24,7 +36,7 @@
             <% end %>
           </li>
         <% end %>
-        <% if current_user.permitted_to?(:auditorias, :inicir_pesquisa) %>
+        <% if current_user.permitted_to?(:auditorias, :iniciar_pesquisa) %>
           <li>
             <%= link_to [:iniciar_pesquisa, :entidade, :auditorias] do %>
               <i class="icon-play icon-white"></i> Iniciar Pesquisa
@@ -39,8 +51,12 @@
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Ações', [:entidade, :relatorios] %></li>
-            <li><%= link_to 'Pesquisas Respondidas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
+            <% if current_user.permitted_to?(:relatorios, :relatorio_acoes) %>
+              <li><%= link_to 'Ações', [:entidade, :relatorios] %></li>
+            <% end %>
+            <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) %>
+              <li><%= link_to 'Pesquisas Respondidas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
+            <% end %>
           </ul>
         </li>  
 

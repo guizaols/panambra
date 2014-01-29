@@ -22,20 +22,28 @@
 </div>
 
 <% unless administracao_usuario_signed_in? %>
-  <div class="titulo-pagina">
-    <% if @retorno.first %>
-      <%= link_to 'INICIAR PESQUISA »', [:edit, @retorno.last.unidade.entidade, @retorno.last] %>
-    <% else %>
+  <% if @retorno.first %>
+    <div class="iniciar_pesquisar">
+      <%= link_to edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1), method: :get, class: 'btn btn-danger' do %>
+        <br /><br /><br /><br /><br />
+        INICIAR PESQUISA
+      <% end %>
+    </div>
+  <% else %>
+    <div class="aguardando_pesquisa">
       AGUARDANDO LIBERAÇÃO DE PESQUISA...
-    <% end %>
-  </div>
-  <br />
+      <br /><br />
+      <div id="loading_aguardando_pesquisa" class="progress progress-striped active">
+        <div class="bar" style="width: 100%;" ></div>
+      </div>
+    </div>
+  <% end %>
 
   <script type="text/javascript">
     jQuery(function($) {
       $('.btn-group').remove();
       $('.footer').remove();
-      setInterval('window.location.reload()', 5000);
+      // setInterval('window.location.reload()', 5000);
     });
   </script>
 <% end %>

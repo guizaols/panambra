@@ -21,7 +21,7 @@ class Acao < ActiveRecord::Base
   has_many   :usuarios, through: :acao_usuarios, uniq: true
 
   validates :tipo, presence: true,
-                   uniqueness: { case_sensitive: false, scope: [:item_verificacao_id, :alternativa_id] },
+                   # uniqueness: { case_sensitive: false, scope: [:item_verificacao_id, :alternativa_id] },
                    inclusion: { in:[ENVIAR_EMAIL] }
   validates :usuario_ids, presence: true, if: :tipo_enviar_email?
 

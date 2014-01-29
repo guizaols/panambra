@@ -36,7 +36,6 @@ label.perfil-secao {
 	color: white;
 }
 
-
 .ui-autocomplete {
   z-index: 9999 !important;
 }
@@ -60,4 +59,35 @@ div.acao-float-left {
 li.acao-float-left {
 	float: left;
 	width: 300px;
+}
+
+div.aguardando_pesquisa {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -500px;
+  width: 1300px;
+  font-size: 50px;
+}
+
+div#loading_aguardando_pesquisa {
+	width: 1050px;
+}
+
+div.iniciar_pesquisar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -500px;
+  width: 1300px;
+  font-size: 50px;
+}
+
+div.iniciar_pesquisar a {
+	width: 1000px;
+	height: 250px;
+	font-size: 80px;
+	text-align: center;
 }

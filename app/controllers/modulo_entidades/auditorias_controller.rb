@@ -40,6 +40,9 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	def update
 		@auditoria = Auditoria.find(params[:id])
 		@retorno = @auditoria.salvar_respostas(params)
+		if @retorno.first 
+			@auditoria.notifica_responsaveis_do_checklist
+		end
 	end
 
 	def iniciar_pesquisa

@@ -7,4 +7,8 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@auditorias = Relatorio.pesquisas_respondidas(current_unidade.id, params[:pesquisa])
 	end
 
+	def relatorio_acoes
+		params[:pesquisa] ||= {}
+	end
+
 end

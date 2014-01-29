@@ -85,7 +85,7 @@ class Auditoria < ActiveRecord::Base
           self.update_column(:situacao, RESPONDIDA)
           if possui_respostas_validas
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
-            self.notifica_responsaveis_do_checklist
+            # self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
 
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
@@ -148,19 +148,6 @@ class Auditoria < ActiveRecord::Base
       p e.message
       p e.backtrace
     end
-
-    # self.checklist.item_checklists.each do |item_checklist|
-    #   item_checklist.item_verificacaos.each do |item_verificacao|
-    #     item_verificacao.acoes.each do |acao|
-    #       if self.respostas.where(item_verificacao_id: acao.item_verificacao_id).present?
-    #         p acao.item_verificacao.titulo
-    #         p self.respostas.where(item_verificacao_id: acao.item_verificacao_id)
-    #         p acao.usuarios.pluck(:email)
-    #         p '==================================================================='
-    #       end
-    #     end
-    #   end
-    # end
   end
 
 end

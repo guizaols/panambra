@@ -69,8 +69,22 @@ permissoes:
           methods:
             - edit
             - update
-        inicir_pesquisa:
+        iniciar_pesquisa:
           name: 'Iniciar Pesquisa'
           methods:
-            - inicir_pesquisa
+            - iniciar_pesquisa
 ### END AUDITORIAS
+
+### START RELATÓRIO
+    relatorios:
+      name: 'Relatórios'
+      actions:
+        pesquisas_respondidas:
+          name: 'Pesquisas Respondidas'
+          methods:
+            - pesquisas_respondidas
+        relatorio_acoes:
+          name: 'Relatório de Ações'
+          methods:
+            - relatorio_acoes
+### END RELATÓRIO

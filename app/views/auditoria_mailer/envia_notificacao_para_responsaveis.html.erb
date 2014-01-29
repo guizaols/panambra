@@ -1,15 +1,22 @@
 <p>
-	O cliente <%= @respostas.first.auditoria.cliente.nome.upcase %> deu às seguintes respostas na pesquisa:
+	O cliente <b><%= @respostas.first.auditoria.cliente.nome.upcase %></b> respondeu a pesquisa abaixo:
 	<br /><br />
 	
 	<% @respostas.each do |resposta| %>
 		<%= resposta.item_verificacao.titulo %>
 		<ul>
 			<% if resposta.resposta.present? %>
-				<li><%= resposta.resposta_verbose %></li>
+				<li class="no_bullet">
+					<b>R:</b>
+					<%= resposta.resposta_verbose %>
+				</li>
 			<% end %>
 			<% if resposta.resposta_texto.present? %>
-				<li><%= resposta.resposta_texto %></li>
+				<li class="no_bullet">
+					<% texto = resposta.resposta.present? ? '<b>TEXTO:</b>' : '<b>R:</b>' %>
+					<%= texto.html_safe %>
+					<%= resposta.resposta_texto %>
+				</li>
 			<% end %>
 		</ul>
 	<% end %>

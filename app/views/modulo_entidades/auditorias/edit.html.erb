@@ -11,9 +11,18 @@
 	<% end %>
 
   <div class="actions form-actions">
-    <%= f.submit 'Salvar', class: 'btn btn-inverse' %>
+    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
     <% if current_user.present? && current_user.permitted_to?(:auditorias, :index) %>
       <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
     <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  jQuery(function($) {
+    <% if params[:respondendo].present? %>
+      $('.btn-group').remove();
+      $('.footer').remove();
+    <% end %>
+  });
+</script>
