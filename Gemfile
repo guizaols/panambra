@@ -4,11 +4,14 @@ ruby '1.9.3'
 
 gem 'rails', '3.2.13'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 # PostgreSQL
 gem 'pg'
+
+# Oracle Connection
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
+gem 'ruby-oci8', '~> 2.1.0'
+# gem 'ruby-oci8', --platform x86-mingw32
+# gem 'ruby-oci8', platforms: :mingw32
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,6 +30,7 @@ gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'devise'
 
 gem 'rspec-rails', group: [:test, :development]
+
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
@@ -56,12 +60,3 @@ gem 'therubyracer'
 
 # Thin Server
 gem 'thin'
-
-#Nice for Excel and CSV
-gem 'roo'
-
-#Delayed Job
-gem 'delayed_job_active_record'
-
-#Delayed Job Web
-gem 'delayed_job_web'

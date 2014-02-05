@@ -1,6 +1,6 @@
 Template::Application.routes.draw do 
 
-  get '/delayed_job' => DelayedJobWeb, anchor: false
+  # get '/delayed_job' => DelayedJobWeb, anchor: false
 
   namespace :api do
     namespace :v1 do
