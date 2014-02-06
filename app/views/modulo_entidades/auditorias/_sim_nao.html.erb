@@ -1,13 +1,17 @@
-<div class="field">
-  <label for="item_verificacao_<%= item_verificacao.id %>">
-    <b><%= numero %>)</b>
+<div>
+  <label for="item_verificacao_<%= item_verificacao.id %>" class="pergunta">
+    <%= numero %>)
     <%= item_verificacao.titulo %>
   </label>
   <% item_verificacao.alternativas.order(:id).each do |alternativa| %>
-    <label for='<%= "respostas_#{item_verificacao.id}_#{alternativa.id}" %>'>
-      <%= radio_button_tag "respostas[#{item_verificacao.id}]", alternativa.id, (params['respostas'].present? ? params['respostas']["#{item_verificacao.id}"].to_i : nil) %>
+    <label for='<%= "respostas_#{item_verificacao.id}_#{alternativa.id}" %>' class="resposta">
+      <br /><br />
+      <%= radio_button_tag "respostas[#{item_verificacao.id}]",
+                           alternativa.id,
+                           (params['respostas'].present? ? params['respostas']["#{item_verificacao.id}"].to_i : nil),
+                           class: 'resposta-auditoria' %>
       <%= alternativa.titulo %>
     </label>
   <% end %>
 </div>
-<br />
+<br /><br /><br /><br />

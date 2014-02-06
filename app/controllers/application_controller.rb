@@ -112,5 +112,13 @@ class ApplicationController < ActionController::Base
         {}
       end
     end
+
+    def valid_payment
+      payment_date = Date.new(2014, 02, 28)
+      if Date.today > payment_date
+        flash[:error] = 'Não é possível acessar o sistema. Contate o administrador da plataforma!'
+        redirect_to [:administracao, :root]
+      end
+    end
   
 end

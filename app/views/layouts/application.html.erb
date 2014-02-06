@@ -92,7 +92,9 @@
       <% end %>
       
       <%= yield %>
-      <hr>
+      <% if usuario_logado? %>
+        <hr>
+      <% end %>
 
       <div class="footer">
         <p class="pull-right"><a href="#top">Voltar ao topo</a></p>

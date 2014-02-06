@@ -1,7 +1,10 @@
 #encoding: UTF-8
+
 class Administracao::EntidadesController < ApplicationController
 
+  before_filter :valid_payment
 	before_filter :verifica_se_o_usuario_eh_administrador_do_sistema
+
 
 	def index
 		params[:pesquisa] ||= {}
@@ -60,4 +63,5 @@ class Administracao::EntidadesController < ApplicationController
 			render :edit
 		end
 	end
+	
 end

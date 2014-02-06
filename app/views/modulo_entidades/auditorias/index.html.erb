@@ -28,8 +28,7 @@
           <td><%= objeto.situacao_verbose %></td>
           <td>
             <% if current_user.permitted_to?(:auditorias, :show) && 
-                  objeto.situacao == Auditoria::RESPONDIDA
-            %>
+                  objeto.situacao == Auditoria::RESPONDIDA %>
               <%= link_to 'Visualizar', [:entidade, objeto] %>
             <% end %>
           </td>

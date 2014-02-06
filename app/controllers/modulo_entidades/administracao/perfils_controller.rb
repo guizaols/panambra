@@ -2,7 +2,9 @@
 
 class ModuloEntidades::Administracao::PerfilsController < ApplicationController
 
+	before_filter :valid_payment
 	before_filter :verifica_se_o_usuario_eh_administrador_de_entidade
+
 
 	def index
 		params[:pesquisa] ||= {}

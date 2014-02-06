@@ -2,11 +2,13 @@
 
 class Administracao::AdministradoresController < ApplicationController
 	
+	before_filter :valid_payment
 	before_filter :verifica_se_o_usuario_eh_administrador_do_sistema
+
 
 	def index
 		params[:pesquisa] ||= {}
-		unless params[:pesquisa][:texto].blank?
+		if params[:pesquisa][:texto].present?
 		 	@administradores = Usuario.pesquisa_administradores(params[:pesquisa])
 		 														.page(params[:page]).per(15)
 		else

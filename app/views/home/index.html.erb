@@ -25,7 +25,7 @@
   <% if @retorno.first %>
     <div class="iniciar_pesquisar">
       <%= link_to edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1), method: :get, class: 'btn btn-danger' do %>
-        <br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br />
         INICIAR PESQUISA
       <% end %>
     </div>
@@ -43,7 +43,8 @@
     jQuery(function($) {
       $('.btn-group').remove();
       $('.footer').remove();
-      setInterval('window.location.reload()', 5000);
+      $('body').css('height', '400px');
+      // setInterval('window.location.reload()', 5000);
     });
   </script>
 <% end %>

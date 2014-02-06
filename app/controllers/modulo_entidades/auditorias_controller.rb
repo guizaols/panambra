@@ -2,6 +2,7 @@
 
 class ModuloEntidades::AuditoriasController < ApplicationController
 
+	before_filter :valid_payment
 	before_filter :verifica_se_esta_logado, except: [:edit, :update]
 	before_filter :verifica_se_o_usuario_escolheu_uma_unidade, except: [:edit, :update]
 
