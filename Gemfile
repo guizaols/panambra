@@ -55,8 +55,6 @@ gem 'bcrypt-ruby'
 # JSON Templating
 gem 'jbuilder'
 
-# V8 JavaScript Interpreter
-gem 'therubyracer'
-
 # Thin Server
 gem 'thin'
+gem 'thin_service'

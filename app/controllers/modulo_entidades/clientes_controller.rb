@@ -15,17 +15,22 @@ class ModuloEntidades::ClientesController < ApplicationController
 
   def autocomplete_by_cpf_cnpj
     @retorno = []
-    @clientes = Cliente.where('unidade_id = ? AND cpf_cnpj LIKE ?',
-                               current_unidade.id, params[:pesquisa].full_like)
-                        .order(:nome, :cpf_cnpj)
+
+    p @ultimo_numero
+
+    @nota_fiscal = ErpNotaFiscal.where('NUMERO_NOTA_FISCAL = ?', params[:pesquisa])
+    @clientes = ErpCliente.where('CLIENTE = ?', @nota_fiscal.cliente) rescue nil
+
+    #p @nota_fiscal
+    #p @clientes
 
     if @clientes.present?
       @clientes.each do |objeto|
-        @retorno << { label: "#{objeto.codigo} - #{objeto.nome}",
-                      value: "#{objeto.codigo} - #{objeto.nome}",
+        @retorno << { label: "#{objeto.cliente} - #{objeto.nome}",
+                      value: "#{objeto.cliente} - #{objeto.nome}",
                       id: objeto.id,
-                      cpf_cnpj: objeto.cpf_cnpj,
-                      codigo: objeto.codigo,
+                      # cpf_cnpj: objeto.cpf_cnpj,
+                      codigo: objeto.cliente,
                       nome: objeto.nome
                     }
       end

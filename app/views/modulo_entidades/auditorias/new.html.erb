@@ -8,19 +8,12 @@
 	<%= error_messages(@auditoria) %>
 
   <div class="field control-group">
-    <%= label_tag :cpf_cnpj, 'CPF/CNPJ do Cliente', class: 'control-label' %>
-    <div class="controls">
-      <%= text_field_tag :cpf_cnpj,
-          (params[:cpf_cnpj] rescue nil),
-          class: 'input-xlarge', maxlength: 255
-      %>
-    </div>
-  </div>
-
-  <div class="field control-group">
     <%= label_tag :numero_nf, 'Número NF', class: 'control-label' %>
     <div class="controls">
-      <%= text_field_tag :numero_nf, nil, class: 'input-xlarge', maxlength: 255 %>
+      <%= text_field_tag :numero_nf,
+          (params[:numero_nf] rescue nil),
+          class: 'input-xlarge', maxlength: 255
+      %>
       <%= loading_image_tag('loading') %>
     </div>
   </div>
@@ -41,7 +34,7 @@
 
 <script type="text/javascript">
   $(function() {
-    $('#cpf_cnpj').autocomplete({
+    $('#numero_nf').autocomplete({
       source: 
         function(request, response) {
           var resposta = '';
@@ -50,7 +43,7 @@
             url: '<%= url_for([:autocomplete_by_cpf_cnpj, :entidade, :clientes]) %>',
             dataType: 'json',
             type: 'POST',
-            data: { pesquisa: $('#cpf_cnpj').val() },
+            data: { pesquisa: $('#numero_nf').val() },
             success: function(data) {
               $('#loading').hide();
               response( $.map( data, function(item) {
@@ -76,7 +69,7 @@
       delay: 500
     });
 
-    $('#cpf_cnpj').blur(function() {
+    $('#numero_nf').blur(function() {
       if(!$(this).val()) {
         $('#cliente_cpf_cnpj').val('');
         $('#cliente_codigo').val('');
