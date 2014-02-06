@@ -57,3 +57,4 @@ gem 'jbuilder'
 
 # Thin Server
 gem 'thin'
+gem 'thin_service'
