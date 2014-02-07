@@ -61,7 +61,7 @@
         <% nao_conf = objeto.numero_de_nao_conformidades rescue 0%>
         <% conf = objeto.numero_de_conformidades rescue 0 %>
         <tr>
-        <td><%=objeto.created_at.strftime("%d/%m/%Y %H:%M:%S")%></td>
+        <td><%=objeto.created_at.strftime("%d/%m/%Y")%></td>
         <td><%=objeto.cliente.nome rescue nil%></td>
         <td><%=nao_conf rescue nil %></td>
         <td><%=conf rescue nil %></td>
