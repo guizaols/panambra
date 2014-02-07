@@ -1,0 +1,125 @@
+<div class="titulo-pagina">
+  Pesquisas Detalhadas »
+</div>
+<br />
+
+<style>
+ul {list-style-type:none}
+</style>
+
+<%= form_tag [:pesquisas_detalhadas, :entidade, :relatorios], method: :get do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial' %>*
+    <br />
+    <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final' %>
+    <br />*
+    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select,:selected=>(params[:pesquisa][:checklist_id] rescue nil))%>*
+    <br/>
+    <br />
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<br />
+
+
+<%if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank?%>
+<ul>
+  <%total_sim_geral = 0 %>
+  <%total_nao_geral = 0 %>
+  <%@checklist.item_checklists.where("item_checklist_id IS NULL").each do |item_checklist| %>
+    <li><h3><b><%=item_checklist.nome%></b></h3></li>
+    <li>
+      <ul>
+          <%ItemChecklist.where("item_checklist_id = ?",item_checklist.id).each do |subcategoria| %>
+            <li><h4><b><%=subcategoria.nome%></b></h4></li>
+            <li>
+              <ul>
+
+                <%subcategoria.item_verificacaos.each do |questao| %>
+                  <li><i><%=questao.titulo%></i></li>
+                  <li>
+                    <table  class="table table-striped table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Data Pesquisa</th>
+                          <th>Cliente</th>
+                          <th>Resposta</th>
+                          <th>Resposta Texto</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <%total_sim = 0%>
+                        <%total_nao = 0%>
+                        <%Resposta.joins(:auditoria).where("respostas.item_verificacao_id = ? AND DATE(auditorias.created_at) BETWEEN ? AND ?",questao.id,@data_inicial.to_date,@data_final.to_date).each do |resposta| %>
+                          <tr>
+                            <td><%=resposta.auditoria.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue nil%></td>
+                            <td><%=resposta.auditoria.cliente.nome rescue nil%></td>
+                            <td><%=resposta.resposta_verbose%></td>
+                            <td><%=resposta.resposta_texto%></td>
+                            <%if !resposta.resposta.blank? && resposta.resposta == Resposta::SIM %>
+                                <%total_sim += 1 %>
+                                <%total_sim_geral += 1 %>
+                            <%elsif !resposta.resposta.blank? && resposta.resposta == Resposta::NAO%>
+                                <%total_nao += 1 %>
+                                <%total_nao_geral += 1 %>
+                            <%end%>
+                          </tr>
+                        <%end%>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th></th>
+                          <th>Total</th>
+                          <th>Conformidades</th>
+                          <th>Não Conformidades</th>
+                        </tr>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th><%=total_sim%></th>
+                          <th><%=total_nao%></th>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </li>
+                <%end%>
+              </ul>
+            </li>
+          <%end%>
+      </ul>
+  </li>
+  <%end%>
+</ul>
+<center>
+  <h3>Totais</h3>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Total Conformidades</th>
+        <th>Total Não Conformidades</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%=total_sim_geral %></td>
+        <td><%=total_nao_geral %></td>
+      </tr>
+    </tbody>
+  </table>
+</center>
+<%else%>
+<p><b>Nenhum registro encontrado com estes parâmetros! Lembre-se o preenchimento de TODOS os campos de pesquisa é obrigatório!</b></p>
+<%end%>
+
+
+
+ 
+
+<script type="text/javascript">
+  $("#pesquisa_data_inicial").datepicker();
+  $("#pesquisa_data_final").datepicker();
+  $("#pesquisa_data_inicial").mask("99/99/9999");
+  $("#pesquisa_data_final").mask("99/99/9999");
+</script>

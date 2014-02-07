@@ -104,6 +104,7 @@ Template::Application.routes.draw do
     resources :relatorios do
       collection do
         get :pesquisas_respondidas
+        get :pesquisas_detalhadas
       end
     end
 

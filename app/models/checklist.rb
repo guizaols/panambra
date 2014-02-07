@@ -56,6 +56,10 @@ class Checklist < ActiveRecord::Base
     Checklist.where(situacao: ATIVO, unidade_id: unidade_id).collect{ |x| [x.nome, x.id] }
   end
 
+  def self.retorna_checklist_para_select
+    Checklist.where(situacao: ATIVO).collect{|x| [x.nome,x.id]}
+  end
+
   def carrega_categorias
     self.item_checklists.joins(:checklist)
                         .where('checklists.unidade_id = ? AND

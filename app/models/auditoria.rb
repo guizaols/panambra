@@ -115,6 +115,30 @@ class Auditoria < ActiveRecord::Base
     end
   end
 
+  def numero_de_nao_conformidades
+    nao_conformidade = 0
+    self.respostas.each do |resposta|
+      if resposta.item_verificacao.tipo < 3
+        if resposta.resposta == Resposta::NAO
+          nao_conformidade += 1
+        end
+      end
+    end
+    nao_conformidade
+  end
+
+  def numero_de_conformidades
+    conformidade = 0
+    self.respostas.each do |resposta|
+      if resposta.item_verificacao.tipo < 3
+        if resposta.resposta == Resposta::SIM
+          conformidade += 1
+        end
+      end
+    end
+    conformidade
+  end
+
   def notifica_responsaveis_do_checklist
     begin
       retorno ||= {}

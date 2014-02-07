@@ -1,11 +1,96 @@
 <div class="titulo-pagina">
-  Pesquisas Respondidas »
+  Pesquisas Consolidadas »
 </div>
 <br />
 
 <%= form_tag [:pesquisas_respondidas, :entidade, :relatorios], method: :get do %>
   <div class="input-append">
-    <%= text_field_tag 'pesquisa[texto]', params[:pesquisa][:texto], class: 'input-xxlarge', placeholder: 'insira o nome' %>
+    <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial' %>*
+    <br />
+    <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final' %>
+    <br />*
+    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select,:selected=>(params[:pesquisa][:checklist_id] rescue nil))%>*
+    <br/>
+    <br />
     <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
   </div>
 <% end %>
+
+<br />
+
+<%unless @auditorias.blank?%>
+
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+        function drawChart() {
+      
+          var data = google.visualization.arrayToDataTable([
+           ['Element', 'Total', { role: 'style' }],
+           ['Conformidades', <%=@numero_de_conformidades%> , 'green'],            // RGB value
+           ['Não Confomidades', <%=@numero_de_nao_conformidades%>, 'red'],            // RGB value
+      ]);
+
+        var options = {
+          title: 'Demonstração de Itens de Verificação',
+          legend: { position: "none" }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+    </script>
+
+<div id="chart_div" style="width: 900px; height: 500px;align:center"></div>
+
+
+
+ <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Data da Auditoria</th>
+        <th>Cliente</th>
+        <th>Não Conformidades</th>
+        <th>Conformidades</th>
+        <th></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%numero_total_de_conformidades = 0 %>
+      <%numero_total_de_nao_conformidades = 0 %>
+      <% @auditorias.each do |objeto| %>
+        <% nao_conf = objeto.numero_de_nao_conformidades rescue 0%>
+        <% conf = objeto.numero_de_conformidades rescue 0 %>
+        <tr>
+        <td><%=objeto.created_at.strftime("%d/%m/%Y %H:%M:%S")%></td>
+        <td><%=objeto.cliente.nome rescue nil%></td>
+        <td><%=nao_conf rescue nil %></td>
+        <td><%=conf rescue nil %></td>
+        <% numero_total_de_conformidades += conf %>
+        <% numero_total_de_nao_conformidades += nao_conf %>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <th>Totais</th>
+        <th><%=numero_total_de_nao_conformidades%></th>
+        <th><%=numero_total_de_conformidades%></th>
+      </tr>
+    </tfoot>
+  </table>
+  <%else%>
+  <p><b>Nenhum registro encontrado com estes parâmetros! Lembre-se o preenchimento de TODOS os campos de pesquisa é obrigatório!</b></p>
+<%end%>
+
+
+<script type="text/javascript">
+$("#pesquisa_data_inicial").datepicker();
+$("#pesquisa_data_final").datepicker();
+$("#pesquisa_data_inicial").mask("99/99/9999");
+$("#pesquisa_data_final").mask("99/99/9999");
+</script>
