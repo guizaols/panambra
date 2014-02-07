@@ -46,8 +46,8 @@ label.perfil-secao {
 }
 
 .text-area-large {
-	height: 200px;
-	width: 570px;
+	height: 150px;
+	width: 700px;
 }
 
 div#form_acoes {
@@ -104,13 +104,14 @@ div.formulario-auditoria {
 }
 
 label.pergunta {
-	font-size: 30px;
-	font-weight: bold;
+	font-size: 40px;
+	/*font-weight: bold;*/
 	line-height: 100%
 }
 
 label.resposta {
 	font-size: 30px;
+	text-transform: uppercase;
 }
 
 .titulo-auditoria {
@@ -121,10 +122,11 @@ label.resposta {
   font-weight: bold;
 }
 
-input[type=radio].resposta-auditoria {
-/*    border: 0px;
-    width: 100%;
-    height: 2em;*/
+.botoes-radio{
+	width: 350px;
+	height: 150px;
+	font-size: 60pt !important;
+	font-weight: bold;
 }
 
 input.finalizar {

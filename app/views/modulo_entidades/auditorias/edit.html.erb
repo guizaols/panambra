@@ -20,10 +20,22 @@
 
 <script type="text/javascript">
   jQuery(function($) {
-    <% if params[:respondendo].present? %>
+    // <%# if params[:respondendo].present? %>
       $('body').addClass('layout-auditoria');
-      $('.btn-group').remove();
+      $('.dropdown').remove();
       $('.footer').remove();
-    <% end %>
+    // <%# end %>
+
+   $('.botoes-radio').click(function() {
+      var botao_id = $(this).attr('id');
+      var alternativa_id = $(this).attr('id').split('_')[2];
+      var hidden_id = botao_id.replace('botao', 'respostas');
+      var resposta = hidden_id.split('_')[0] + '_' + hidden_id.split('_')[1];
+      var pai_id = $('#' + resposta).attr('id');
+      $('#' + pai_id).find('input[type=hidden]').each(function() {
+        $(this).val('');
+      });
+      $('#' + hidden_id).val(alternativa_id);
+   });
   });
 </script>

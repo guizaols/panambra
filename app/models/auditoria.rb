@@ -70,12 +70,18 @@ class Auditoria < ActiveRecord::Base
 	                new_resp.resposta_texto = resposta.strip
 	                new_resp.save!
 	              else
-	                alternativa = Alternativa.find(resposta) rescue nil
-	                new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
-	                if item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO
-	                  new_resp.resposta_texto = params['respostas_opcoes'][item_verificacao.id.to_s][alternativa.id.to_s]
-	                end
-	                new_resp.save!
+	                resposta.each do |opcao, resp|
+                    if resp.present?
+                      alternativa = Alternativa.find(opcao) rescue nil
+                      if alternativa.present?
+      	                new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
+                        if item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO
+                          new_resp.resposta_texto = params['respostas_opcoes'][item_verificacao.id.to_s]
+                        end
+                        new_resp.save!
+                      end
+                    end
+                  end
 	              end
             	end
             	### END RESPOSTAS
@@ -85,12 +91,12 @@ class Auditoria < ActiveRecord::Base
           self.update_column(:situacao, RESPONDIDA)
           if possui_respostas_validas
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
-            # self.notifica_responsaveis_do_checklist
+            self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
 
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
           else
-        		[false, 'Preencha a pesquisa, por favor!']
+        		[false, 'Por favor, preencha a pesquisa!']
         	end
         end
       end

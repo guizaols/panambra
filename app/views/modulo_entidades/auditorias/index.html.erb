@@ -24,7 +24,10 @@
       <% @auditorias.each do |objeto| %>
         <tr>
           <td><%= objeto.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
-          <td><%= objeto.cliente.cpf_cnpj rescue nil %></td>
+          <td>
+          	<%= objeto.cliente.codigo rescue nil %> -
+          	<%= objeto.cliente.nome rescue nil %>
+          </td>
           <td><%= objeto.situacao_verbose %></td>
           <td>
             <% if current_user.permitted_to?(:auditorias, :show) && 

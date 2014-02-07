@@ -14,16 +14,16 @@ class ModuloEntidades::ClientesController < ApplicationController
 											 .per(15)
 	end
 
-  def autocomplete_by_cpf_cnpj
+  def autocomplete_by_nf
     @retorno = []
 
-    p @ultimo_numero
+    @nota_fiscal = ErpNotaFiscal.where('EMPRESA = ?', 1)
+                                .where('REVENDA = ?', 1)
+                                .where('TIPO_TRANSACAO IN(?)', ['V21', 'G21', '021', 'U21'])
+                                .where('NUMERO_NOTA_FISCAL = ?', params[:pesquisa])
+                                .first rescue nil
 
-    @nota_fiscal = ErpNotaFiscal.where('NUMERO_NOTA_FISCAL = ?', params[:pesquisa])
-    @clientes = ErpCliente.where('CLIENTE = ?', @nota_fiscal.cliente) rescue nil
-
-    #p @nota_fiscal
-    #p @clientes
+    @clientes = ErpCliente.where('CLIENTE = ?', @nota_fiscal.cliente) rescue nil if @nota_fiscal.present?
 
     if @clientes.present?
       @clientes.each do |objeto|
@@ -31,6 +31,7 @@ class ModuloEntidades::ClientesController < ApplicationController
                       value: "#{objeto.cliente} - #{objeto.nome}",
                       id: objeto.id,
                       # cpf_cnpj: objeto.cpf_cnpj,
+                      cpf_cnpj: nil,
                       codigo: objeto.cliente,
                       nome: objeto.nome
                     }

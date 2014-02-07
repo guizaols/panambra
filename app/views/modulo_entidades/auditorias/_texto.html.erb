@@ -1,9 +1,9 @@
 <div>
   <label for="item_verificacao_<%= item_verificacao.id %>" class="pergunta">
-    <%= numero %>)
+    <b><%= numero %>)</b>
     <%= item_verificacao.titulo %>
   </label>
-  <br /><br />
+  <br />
   <%= text_area_tag "respostas[#{item_verificacao.id}]",
   									(params['respostas'].present? ? params['respostas']["#{item_verificacao.id}"] : nil),
   									class: 'text-area-large' %>
