@@ -11,7 +11,7 @@
   		<%= monta_checklist_de_auditoria(item_checklist, index) %>
   	<% end %>
 
-    <%= f.submit 'FINALIZAR', class: 'btn btn-inverse finalizar', data: { disable_with: 'Salvando...' } %>
+    <%= f.submit 'FINALIZAR', class: 'btn btn-inverse finalizar', data: { disable_with: 'FINALIZANDO A PESQUISA...' } %>
     <% if current_user.present? && current_user.permitted_to?(:auditorias, :index) %>
       <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
     <% end %>
@@ -20,7 +20,7 @@
 
 <div id="loading" class="modal hide fade" data-show="false" >
   <div class="modal-body">
-    <%= image_tag "big-ajax-loader.gif" %>
+    <%= image_tag "big-loader.gif" %>
     <br />
     <p>Processando, aguarde!</p>
   </div>

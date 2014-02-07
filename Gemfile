@@ -8,8 +8,8 @@ gem 'rails', '3.2.13'
 gem 'pg'
 
 # Oracle Connection
-# gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
-# gem 'ruby-oci8', '~> 2.1.0'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
+gem 'ruby-oci8', '~> 2.1.0'
 # gem 'ruby-oci8', --platform x86-mingw32
 # gem 'ruby-oci8', platforms: :mingw32
 

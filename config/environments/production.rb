@@ -59,16 +59,26 @@ Template::Application.configure do
   config.action_mailer.default_url_options = { host: 'panambra.com.br' }
 
   # Configure SMTP for Action Mailer.
+  # Change mail delvery to either :smtp, :sendmail, :file, :test
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'mail.panambra.com.br',
+    address: 'smtp.gmail.com',
+    authentication: 'plain',
+    domain: 'devconnit.com',
+    password: 'no-reply#135792468',
     port: 587,
-    domain: 'panambra.com.br',
-    user_name: '',
-    password: '',
-    authentication: :plain,
-    enable_starttls_auto: true
+    user_name: 'no-reply@devconnit.com'
   }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: 'mail.panambra.com.br',
+  #   port: 587,
+  #   domain: 'panambra.com.br',
+  #   user_name: 'autentica',
+  #   password: 'oLXp8HUf',
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

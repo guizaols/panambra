@@ -25,7 +25,7 @@
   </div>
 
   <div class="actions form-actions">
-    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    <%= f.submit 'Liberar', class: 'btn btn-inverse', data: { disable_with: 'Liberando...' } %>
     <% if current_user.permitted_to?(:auditorias, :index) %>
       <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
     <% end %>

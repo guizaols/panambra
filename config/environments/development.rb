@@ -27,6 +27,21 @@ Template::Application.configure do
     port: 587,
     user_name: 'no-reply@devconnit.com'
   }
+
+  # config.action_mailer.default_url_options = { host: 'panambra.com.br' }
+
+  # # Configure SMTP for Action Mailer.
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: 'mail.panambra.com.br',
+  #   port: 587,
+  #   domain: 'panambra.com.br',
+  #   user_name: 'autentica',
+  #   password: 'oLXp8HUf',
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
+
   
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
