@@ -57,4 +57,6 @@ gem 'jbuilder'
 
 # Thin Server
 gem 'thin'
+
+# Thin Server como serviço no Windows
 gem 'thin_service'

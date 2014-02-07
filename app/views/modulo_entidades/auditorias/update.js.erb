@@ -8,6 +8,7 @@
 		window.location.href = '<%= url_for([:root]) %>';
 	<% end %>
 <% else %>
-	$('#mensagens').html('<b><%= @retorno.last %></b>');
-	$('#mensagens').show();
+	alert('<%= @retorno.last %>');
+	// $('#mensagens').html('<b><%#= @retorno.last %></b>');
+	// $('#mensagens').show();
 <% end %>

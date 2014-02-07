@@ -90,7 +90,7 @@ Template::Application.routes.draw do
 
     resources :clientes do
       collection do
-        post :autocomplete_by_cpf_cnpj
+        post :autocomplete_by_nf
       end
     end
 

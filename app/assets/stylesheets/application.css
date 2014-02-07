@@ -45,6 +45,11 @@ label.perfil-secao {
 	width: 400px;
 }
 
+.text-area-large {
+	height: 150px;
+	width: 700px;
+}
+
 div#form_acoes {
 	left: 35%;
 	width: 900px;
@@ -77,8 +82,8 @@ div#loading_aguardando_pesquisa {
 
 div.iniciar_pesquisar {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 29%;
   margin-top: -100px;
   margin-left: -500px;
   width: 1300px;
@@ -86,8 +91,54 @@ div.iniciar_pesquisar {
 }
 
 div.iniciar_pesquisar a {
-	width: 1000px;
-	height: 250px;
-	font-size: 80px;
+	width: 1300px;
+	height: 350px;
+	font-size: 100px;
 	text-align: center;
+}
+
+div.formulario-auditoria {
+	position: absolute;
+	/*left: 29% !important;*/
+	width: 900px;
+}
+
+label.pergunta {
+	font-size: 40px;
+	/*font-weight: bold;*/
+	line-height: 100%
+}
+
+label.resposta {
+	font-size: 30px;
+	text-transform: uppercase;
+}
+
+.titulo-auditoria {
+	position: absolute;
+	/*left: 29% !important;*/
+  line-height: 54px;
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.botoes-radio{
+	width: 350px;
+	height: 150px;
+	font-size: 60pt !important;
+	font-weight: bold;
+}
+
+input.finalizar {
+	width: 500px;
+	height: 100px;
+	font-weight: bold;
+	font-size: 30px; 
+}
+
+.layout-auditoria {
+	position: absolute !important;
+	width: 900px !important;
+	left: 5% !important;
+	overflow-x: hidden;
 }

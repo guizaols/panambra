@@ -12,7 +12,7 @@
     <div class="controls">
       <%= text_field_tag :numero_nf,
           (params[:numero_nf] rescue nil),
-          class: 'input-xlarge', maxlength: 255
+          class: 'input-xxlarge', maxlength: 255
       %>
       <%= loading_image_tag('loading') %>
     </div>
@@ -40,7 +40,7 @@
           var resposta = '';
           $('#loading').show();
           $.ajax({
-            url: '<%= url_for([:autocomplete_by_cpf_cnpj, :entidade, :clientes]) %>',
+            url: '<%= url_for([:autocomplete_by_nf, :entidade, :clientes]) %>',
             dataType: 'json',
             type: 'POST',
             data: { pesquisa: $('#numero_nf').val() },
