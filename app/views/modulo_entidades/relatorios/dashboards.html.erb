@@ -1,0 +1,37 @@
+<div class="titulo-pagina">
+  Dashboard »
+</div>
+<br />
+
+<style>
+ul {list-style-type:none}
+</style>
+
+<%= form_tag [:dashboards, :entidade, :relatorios], method: :get do %>
+  <div class="input-append">
+    <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial' %>*
+    <br />
+    <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final' %>
+    <br />*
+    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select(current_unidade.id),:selected=>(params[:pesquisa][:checklist_id] rescue nil))%>*
+    <br/>
+    <br />
+    <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
+  </div>
+<% end %>
+
+<br />
+
+<h3>Geral de Conformidades</h3>
+<br />
+
+    
+
+    <script type="text/javascript">
+  $("#pesquisa_data_inicial").datepicker();
+  $("#pesquisa_data_final").datepicker();
+  $("#pesquisa_data_inicial").mask("99/99/9999");
+  $("#pesquisa_data_final").mask("99/99/9999");
+</script>
+
+

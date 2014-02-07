@@ -3,15 +3,11 @@
 </div>
 <br />
 
-<%= form_tag [:pesquisas_respondidas, :entidade, :relatorios], method: :get do %>
+<%= form_tag [:pesquisas_respondidas, :entidade, :relatorios], method: :get, class: 'form-inline' do %>
   <div class="input-append">
-    <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial' %>*
-    <br />
-    <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final' %>
-    <br />*
-    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select,:selected=>(params[:pesquisa][:checklist_id] rescue nil))%>*
-    <br/>
-    <br />
+    <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial', class: 'input-small' %>*
+    <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final', class: 'input-small' %>
+    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select(current_unidade.id),:selected=>(params[:pesquisa][:checklist_id] rescue nil)), class: 'input-xxlarge' %>
     <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
   </div>
 <% end %>

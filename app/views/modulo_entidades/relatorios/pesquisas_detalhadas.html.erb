@@ -11,15 +11,41 @@ ul {list-style-type:none}
   <div class="input-append">
     <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial', class: 'input-small' %>
     <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final', class: 'input-small' %>
-    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select,:selected=>(params[:pesquisa][:checklist_id] rescue nil)), class: 'input-xxlarge' %>
+    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select(current_unidade.id),:selected=>(params[:pesquisa][:checklist_id] rescue nil)), class: 'input-xxlarge' %>
     <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
   </div>
 <% end %>
-
 <br />
 
 
 <%if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank?%>
+<center>
+  <h3>Totais</h3>
+   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['gauge']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Conformidade', <%= @numero_de_conformidades%>],
+          ['Não Conformidade', <%=@numero_de_nao_conformidades%>],
+        ]);
+
+        var options = {
+          width: 400, height: 300,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div_relogio'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <div id='chart_div_relogio'></div>
+  </center>
 <ul>
   <%total_sim_geral = 0 %>
   <%total_nao_geral = 0 %>
@@ -89,7 +115,7 @@ ul {list-style-type:none}
   <%end%>
 </ul>
 <center>
-  <h3>Totais</h3>
+
   <table class="table table-striped table-condensed">
     <thead>
       <tr>
