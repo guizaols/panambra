@@ -8,17 +8,20 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@numero_de_conformidades = 0
 		@numero_de_nao_conformidades = 0
 		@auditorias.each do |auditoria|
-			p "daiuhsdfiuahsdfuihsdaui 123984723984758934"
 			@numero_de_conformidades += auditoria.numero_de_conformidades
 			@numero_de_nao_conformidades += auditoria.numero_de_nao_conformidades
 		end
-		p "siudhfaiusdhfiuasd"
-		p @numero_de_conformidades
-		p @numero_de_nao_conformidades
 	end
 
 	def relatorio_acoes
 		params[:pesquisa] ||= {}
+	end
+
+	def pesquisas_detalhadas
+		params[:pesquisa] ||= {}
+		@checklist = Checklist.find params[:pesquisa][:checklist_id] rescue nil
+		@data_inicial = params[:pesquisa][:data_inicial] rescue nil
+		@data_final = params[:pesquisa][:data_final] rescue nil
 	end
 
 end

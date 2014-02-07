@@ -57,6 +57,9 @@
             <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) %>
               <li><%= link_to 'Pesquisas Consolidadas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
             <% end %>
+            <% if current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) %>
+              <li><%= link_to 'Pesquisas Detalhadas', [:pesquisas_detalhadas, :entidade, :relatorios] %></li>
+            <% end %>
           </ul>
         </li>  
 
