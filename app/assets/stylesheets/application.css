@@ -72,18 +72,18 @@ div.aguardando_pesquisa {
   left: 50%;
   margin-top: -50px;
   margin-left: -500px;
-  width: 1300px;
-  font-size: 50px;
+  width: 1200px;
+  font-size: 37pt;
 }
 
 div#loading_aguardando_pesquisa {
-	width: 1050px;
+	width: 1000px;
 }
 
 div.iniciar_pesquisar {
   position: fixed;
   top: 40%;
-  left: 29%;
+  left: 34%;
   margin-top: -100px;
   margin-left: -500px;
   width: 1300px;

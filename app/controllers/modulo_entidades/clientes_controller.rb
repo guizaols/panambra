@@ -27,8 +27,8 @@ class ModuloEntidades::ClientesController < ApplicationController
 
     if @clientes.present?
       @clientes.each do |objeto|
-        @retorno << { label: "#{objeto.cliente} - #{objeto.nome}",
-                      value: "#{objeto.cliente} - #{objeto.nome}",
+        @retorno << { label: "(#{@nota_fiscal.numero_nota_fiscal}) #{objeto.cliente} - #{objeto.nome}",
+                      value: "(#{@nota_fiscal.numero_nota_fiscal}) #{objeto.cliente} - #{objeto.nome}",
                       id: objeto.id,
                       # cpf_cnpj: objeto.cpf_cnpj,
                       cpf_cnpj: nil,
@@ -37,7 +37,7 @@ class ModuloEntidades::ClientesController < ApplicationController
                     }
       end
     else
-      @retorno << { label: 'Clientes não encontrados!', value: 'Clientes não encontrados!', id: nil }
+      @retorno << { label: 'Nota fiscal não encontrada!', value: 'Nota fiscal não encontrada!', id: nil }
     end
     respond_to do |format|  
       format.json { render json: @retorno.to_json }

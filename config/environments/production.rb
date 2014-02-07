@@ -56,16 +56,16 @@ Template::Application.configure do
   config.threadsafe!
 
   # Configure default url options
-  config.action_mailer.default_url_options = { host: 'chilli-beans.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'panambra.com.br' }
 
   # Configure SMTP for Action Mailer.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: 'mail.panambra.com.br',
     port: 587,
-    domain: 'devconnit.com',
-    user_name: 'no-reply@devconnit.com',
-    password: 'no-reply#135792468',
+    domain: 'panambra.com.br',
+    user_name: '',
+    password: '',
     authentication: :plain,
     enable_starttls_auto: true
   }
