@@ -9,7 +9,7 @@ class Relatorio < ActiveRecord::Base
 		checklist_id = params[:checklist_id] rescue nil
 
 		if !checklist_id.blank? && !data_final.blank? && !data_inicial.blank?
-			auditorias = Auditoria.where("checklist_id = ?",checklist_id)
+			auditorias = Auditoria.where("unidade_id = ? AND checklist_id = ?",unidade_id,checklist_id)
 			auditorias = auditorias.where("DATE(created_at) between ? AND ?",data_inicial.to_date, data_final.to_date)
 			return auditorias
 		else

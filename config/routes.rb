@@ -105,6 +105,7 @@ Template::Application.routes.draw do
       collection do
         get :pesquisas_respondidas
         get :pesquisas_detalhadas
+        get :dashboards
       end
     end
 

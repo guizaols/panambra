@@ -9,7 +9,7 @@
     <br />
     <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final' %>
     <br />*
-    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select,:selected=>(params[:pesquisa][:checklist_id] rescue nil))%>*
+    <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select(current_unidade.id),:selected=>(params[:pesquisa][:checklist_id] rescue nil))%>*
     <br/>
     <br />
     <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
