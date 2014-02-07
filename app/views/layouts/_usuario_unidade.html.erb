@@ -55,7 +55,7 @@
               <li><%= link_to 'Ações', [:entidade, :relatorios] %></li>
             <% end %>
             <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) %>
-              <li><%= link_to 'Pesquisas Respondidas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
+              <li><%= link_to 'Pesquisas Consolidadas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
             <% end %>
           </ul>
         </li>  
