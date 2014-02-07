@@ -18,7 +18,6 @@ pickle-email-*.html
 
 #Ignore bundler config
 /.bundle
-/lib/notification/*
 /lib/.DS_Store
 
 #Ignore the default SQLite database.
@@ -38,7 +37,6 @@ pickle-email-*.html
 
 #Ignore uploaded files.
 /public/uploads/*
-/public/importacao_logs/*
 
 #Ignore Linux system files.
 !.gitignore
@@ -68,20 +66,6 @@ nbactions.xml
 
 #Ignore Files to importation
 /uploads
-
-#Ignore Importations Logs
-/app/assets/log_importation
-
-#Ignore Reports e Extratos
-/app/assets/reports
-/app/assets/files_generated
-
-#Ignore answers_zip
-/app/assets/answers_zip
-
-#Ignore Importation Logs
-/lib/importation
-/lib/importation/
 
 # Igonore compiled asstes
 .sass-cache/
