@@ -83,8 +83,8 @@ permissoes:
           name: 'Pesquisas Respondidas'
           methods:
             - pesquisas_respondidas
-        relatorio_acoes:
-          name: 'Relatório de Ações'
+        pesquisas_detalhadas:
+          name: 'Pesquisas Detalhadas'
           methods:
-            - relatorio_acoes
+            - pesquisas_detalhadas
 ### END RELATÓRIO

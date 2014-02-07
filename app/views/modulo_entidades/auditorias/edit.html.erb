@@ -18,15 +18,25 @@
   <% end %>
 </div>
 
+<div id="loading" class="modal hide fade" data-show="false" >
+  <div class="modal-body">
+    <%= image_tag "big-ajax-loader.gif" %>
+    <br />
+    <p>Processando, aguarde!</p>
+  </div>
+</div>
+
 <script type="text/javascript">
   jQuery(function($) {
-    // <%# if params[:respondendo].present? %>
-      $('body').addClass('layout-auditoria');
-      $('.dropdown').remove();
-      $('.footer').remove();
-    // <%# end %>
+    $('body').addClass('layout-auditoria');
+    $('.dropdown').remove();
+    $('.footer').remove();
 
-   $('.botoes-radio').click(function() {
+    $('.finalizar').click(function() {
+      $('#loading').modal('toggle');  
+    });
+
+    $('.botoes-radio').click(function() {
       var botao_id = $(this).attr('id');
       var alternativa_id = $(this).attr('id').split('_')[2];
       var hidden_id = botao_id.replace('botao', 'respostas');

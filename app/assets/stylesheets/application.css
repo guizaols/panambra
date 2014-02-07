@@ -142,3 +142,12 @@ input.finalizar {
 	left: 5% !important;
 	overflow-x: hidden;
 }
+
+#loading img {
+	position: relative;
+	left: 37% !important;
+}
+
+#loading p {
+	text-align: center;
+}

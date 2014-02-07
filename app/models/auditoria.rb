@@ -65,13 +65,14 @@ class Auditoria < ActiveRecord::Base
               new_resp.auditoria = self
               new_resp.item_verificacao = item_verificacao
               if resposta.present?
-              	possui_respostas_validas = true
 	              if item_verificacao.tipo == ItemVerificacao::TEXTO
+                  possui_respostas_validas = true
 	                new_resp.resposta_texto = resposta.strip
 	                new_resp.save!
 	              else
 	                resposta.each do |opcao, resp|
                     if resp.present?
+                      possui_respostas_validas = true
                       alternativa = Alternativa.find(opcao) rescue nil
                       if alternativa.present?
       	                new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
