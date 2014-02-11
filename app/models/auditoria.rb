@@ -108,9 +108,9 @@ class Auditoria < ActiveRecord::Base
   end
 
   def self.retorna_auditoria_para_ser_respondida
-    auditoria = Auditoria.where(situacao: LIBERADA)
-    if auditoria.present?
-      [true, auditoria.first]
+    auditorias = Auditoria.where(situacao: LIBERADA)
+    if auditorias.present?
+      [true, auditorias.first]
     else
       [false, 'Sem pesquisas no momento. Aguardando alguma liberação!']
     end

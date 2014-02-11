@@ -69,9 +69,5 @@ function loadFormCheckList(action, element) {
           ajax.url  = urlForDetalhesDeUmaQuestao();
           $.ajax(ajax);
           break;
-
-
-          
   }
-
 }

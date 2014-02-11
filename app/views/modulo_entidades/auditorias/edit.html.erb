@@ -7,8 +7,12 @@
 
 <div class="formulario-auditoria">
   <%= form_for [:entidade, @auditoria], remote: true do |f| %>
-  	<% @auditoria.carrega_itens_checklist.each_with_index do |item_checklist, index| %>
-  		<%= monta_checklist_de_auditoria(item_checklist, index) %>
+    <% index = 1 %>
+  	<% @auditoria.carrega_itens_checklist.each do |item_checklist| %>
+      <% item_checklist.item_verificacaos.each do |item_verificacao| %>
+  		  <%= monta_checklist_de_auditoria(item_verificacao, index) %>
+        <% index += 1 %>
+      <% end %>    
   	<% end %>
 
     <%= f.submit 'FINALIZAR', class: 'btn btn-inverse finalizar', data: { disable_with: 'FINALIZANDO A PESQUISA...' } %>
