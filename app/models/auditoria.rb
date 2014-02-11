@@ -89,8 +89,8 @@ class Auditoria < ActiveRecord::Base
             end
           end
 
-          self.update_column(:situacao, RESPONDIDA)
           if possui_respostas_validas
+            self.update_column(:situacao, RESPONDIDA)
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
             self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
