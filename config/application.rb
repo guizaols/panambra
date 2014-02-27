@@ -39,7 +39,6 @@ module Template
     #config.i18n.default_locale = "en-US"
     config.i18n.default_locale = 'pt-BR'
 
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'UTF-8'
 
