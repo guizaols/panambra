@@ -18,6 +18,7 @@ class ItemVerificacao < ActiveRecord::Base
   attr_accessible :titulo
   attr_accessible :alternativas_attributes
   attr_accessible :situacao
+  attr_accessible :de_para
 
   belongs_to :item_checklist
   has_many   :alternativas

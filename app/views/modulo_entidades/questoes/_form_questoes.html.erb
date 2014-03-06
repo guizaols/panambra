@@ -7,8 +7,12 @@
 			</div>
 		<label class="control-label">Título</label>
 		<div class="controls">
-			<%= text_field_tag 'item_verificacao[titulo]',nil, class: 'input-large', maxlength: 255 %>
-			<%= hidden_field_tag 'item_verificacao[item_checklist_id]',@item_checklist.id %>
+			<%= text_field_tag 'item_verificacao[titulo]', nil, class: 'input-large', maxlength: 255 %>
+			<%= hidden_field_tag 'item_verificacao[item_checklist_id]', @item_checklist.id %>
+		</div>
+		<label class="control-label">De-Para</label>
+		<div class="controls">
+			<%= text_field_tag 'item_verificacao[de_para]', nil, class: 'input-small numeric', maxlength: 10 %>
 			<%= submit_tag 'Criar Questão', class: 'btn btn-inverse', data: { disable_with: 'Criando...' } %>
 		</div>
 	</div>
@@ -16,6 +20,7 @@
 <% end %>
 
 <script type="text/javascript">
+	initializeNumericMask();
 	$('#item_verificacao_tipo').live('change', function() {
 		$('#alternativas').html('');
 		var opcao = $(this).val();

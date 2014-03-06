@@ -1,9 +1,10 @@
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <ul class="nav"> 
-        <li><%= link_to 'Unidades', [:entidade, :administracao, :unidades] %></li>
+      <ul class="nav">
+      	<li><%= link_to 'Configurações', [:edit, :entidade, :administracao, Configuracao.retorna_configuracao] %></li>
         <li><%= link_to 'Perfis', [:entidade, :administracao, :perfils] %></li>
+        <li><%= link_to 'Unidades', [:entidade, :administracao, :unidades] %></li>
         <li><%= link_to 'Escolher Unidade', [:escolher_unidade, :entidade, :administracao, :unidades] %></li>
       </ul>
     </div>

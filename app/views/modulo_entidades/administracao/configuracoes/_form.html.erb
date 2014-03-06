@@ -1,0 +1,110 @@
+<%= form_for [:entidade, :administracao, @configuracao], html: { class: 'form-horizontal' } do |f| %>
+  
+  <%= error_messages(@configuracao) %>
+
+  <h4>CAC_CONTATO</h4>
+  <div class="field control-group">
+    <%= f.label :empresa, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :empresa, class: 'input-small numeric', maxlength: 6 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :revenda, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :revenda, class: 'input-small numeric', maxlength: 2 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :situacao, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :situacao, class: 'input-small', maxlength: 1 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :des_contato, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :des_contato, class: 'input-xxlarge', maxlength: 2000 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :ativo_passivo, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ativo_passivo, class: 'input-small', maxlength: 1 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :departamento, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :departamento, class: 'input-small numeric', maxlength: 3 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :tipo_contato, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :tipo_contato, ErpCacTipoContato.retorna_for_select %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :subtipo_contato, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :subtipo_contato, ErpCacSubtipoContato.retorna_for_select %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :forma_contato, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :forma_contato, ErpCacFormaContato.retorna_for_select %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :origem, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :origem, class: 'input-small', maxlength: 1 %>
+    </div>
+  </div>
+
+
+  <h4>CAC_PROVIDENCIA</h4>
+  <div class="field control-group">
+    <%= f.label :providencia, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :providencia, class: 'input-small numeric', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :tipo_providencia, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tipo_providencia, class: 'input-small', maxlength: 1 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :subtipo_providencia, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :subtipo_providencia, class: 'input-small', maxlength: 1 %>
+    </div>
+  </div>
+
+  <h4>CAC_RESPOSTA</h4>
+  <div class="field control-group">
+    <%= f.label :questionario, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :questionario, class: 'input-small', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="actions form-actions">
+    <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+  </div>
+<% end %>

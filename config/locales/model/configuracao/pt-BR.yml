@@ -1,0 +1,22 @@
+pt-BR:
+  activerecord:
+    attributes:
+      configuracao:
+        empresa: "EMPRESA"
+        revenda: "REVENDA"
+        situacao: "SITUACAO"
+        des_contato: "DES_CONTATO"
+        ativo_passivo: "ATIVO_PASSIVO"
+        departamento: "DEPARTAMENTO"
+        tipo_contato: "TIPO_CONTATO"
+        subtipo_contato: "SUB_TIPO_CONTATO"
+        forma_contato: "FORMA_CONTATO"
+        origem: "ORIGEM"
+        providencia: "PROVIDENCIA"
+        tipo_providencia: "TIPO_PROVIDENCIA"
+        subtipo_providencia: "SUB_TIPO_PROVIDENCIA"
+        questionario: "QUESTIONARIO"
+    models:
+      configuracao: "Configuração"
+
+  

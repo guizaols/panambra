@@ -1,2 +1,6 @@
 $('#form_edit_questao').html("<%= escape_javascript(render('form_questao')) %>");
-$("#form_edit_questao").dialog({title: 'Alterar Questão', width: '900'});
+$("#form_edit_questao").dialog({
+	modal: true,
+	title: 'Alterar Questão',
+	width: 600
+});

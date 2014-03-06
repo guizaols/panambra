@@ -1,9 +1,0 @@
-pt-BR:
-  activerecord:
-    attributes:
-      equipe_ponto_de_venda:
-        data_admissao: "Data de admissão"
-        data_demissao: "Data de demissão"
-        email: "E-mail"
-    models:
-      equipe_ponto_de_venda: "Equipe de Ponto de Venda"

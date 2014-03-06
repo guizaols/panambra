@@ -1,10 +1,9 @@
-
-<%=form_tag  atualiza_categoria_entidade_checklist_questoes_path(current_entidade,@checklist,:id=>@item_checklist.id), :method=>"post",:remote=>true do %>	
+<%= form_tag atualiza_categoria_entidade_checklist_questoes_path(current_entidade, @checklist, id: @item_checklist.id), method: :post, remote: true do %>	
 	<div class="field control-group">
 		<label class="control-label">Nome</label>
 		<div class="controls">
-			<%= text_field_tag 'item_checklist[nome]',@item_checklist.nome, class: 'input-large',maxlength: 255 %>
-			<%= hidden_field_tag 'item_checklist[item_checklist_id]',@item_checklist.item_checklist_id %>
+			<%= text_field_tag 'item_checklist[nome]',@item_checklist.nome, class: 'input-xxlarge', maxlength: 255 %>
+			<%= hidden_field_tag 'item_checklist[item_checklist_id]', @item_checklist.item_checklist_id %>
 		</div>
 		<label class="control-label">Peso</label>
 		<div class="controls">
@@ -12,4 +11,4 @@
 			<%= submit_tag 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
 		</div>
 	</div>
-<%end%>
+<% end %>

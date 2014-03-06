@@ -114,35 +114,40 @@
   	return 'detalhe_questao'
   }
 
-	$("#nova_questao").click(function(){
-		$("#form_nova_questao").dialog({title: 'Nova Questão', width: '900',beforeClose: function(event, ui) { 
-               window.location.reload();
-            }});
+	$('#nova_questao').click(function(){
+		$('#form_nova_questao').dialog({
+			modal: true,
+			title: 'Nova Questão',
+			width: '900',
+			beforeClose: function(event, ui) { 
+      	window.location.reload();
+    	}
+    });
 		return false;
 	});
 
 	$("#categoria_questao_id").change(function(){
-		$("#subcategoria_questao").html("");
+		$("#subcategoria_questao").html('');
 		$.ajax({
-        		url: '<%= url_for([:carrega_subcategoria, :entidade,@checklist,:questoes]) %>',
-        		type: 'POST',
-        		data: { categoria_questao_id: $("#categoria_questao_id").val()  },
-        		dataType: 'script'
-      		});
+      url: '<%= url_for([:carrega_subcategoria, :entidade, @checklist, :questoes]) %>',
+      type: 'POST',
+      data: { categoria_questao_id: $("#categoria_questao_id").val()  },
+      dataType: 'script'
+    });
 		return false;
 	});
 
 	$("#nome_categoria").focus(function(){
-		$("#categoria_questao_id").val("");
-		$("#subcategoria_questao").html("");
-		$("#form_questao").html("");
+		$("#categoria_questao_id").val('');
+		$("#subcategoria_questao").html('');
+		$("#form_questao").html('');
 		return false;
 	});
 
 	$("#peso_categoria").focus(function(){
-		$("#categoria_questao_id").val("");
-		$("#form_questao").html("");
-		$("#subcategoria_questao").html("");
+		$("#categoria_questao_id").val('');
+		$("#form_questao").html('');
+		$("#subcategoria_questao").html('');
 		return false;
 	});
 
@@ -161,11 +166,11 @@
 	$("#subcategoria_questao_id").live('change', function(){
 		$("#form_questao").html('');
 		$.ajax({
-        		url: '<%= url_for([:carrega_form_questao, :entidade,@checklist,:questoes]) %>',
-        		type: 'POST',
-        		data: { subcategoria_questao_id: $("#subcategoria_questao_id").val()  },
-        		dataType: 'script'
-      		});
+    	url: '<%= url_for([:carrega_form_questao, :entidade, @checklist, :questoes]) %>',
+      type: 'POST',
+      data: { subcategoria_questao_id: $("#subcategoria_questao_id").val() },
+      dataType: 'script'
+    });
 		return false;
 	});
 </script>

@@ -49,6 +49,9 @@ Template::Application.routes.draw do
           get :change_status
         end
       end
+
+      resources :configuracoes
+
       root to: 'home#index'
     end
 

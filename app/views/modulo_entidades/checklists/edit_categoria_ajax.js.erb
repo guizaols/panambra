@@ -1,2 +1,6 @@
 $('#form_edit_categoria').html("<%= escape_javascript(render('form_categoria_questao')) %>");
-$("#form_edit_categoria").dialog({title: 'Alterar Categoria/Subcategoria de Questão', width: '900'});
+$("#form_edit_categoria").dialog({
+	modal: true,
+	title: 'Alterar Categoria/Subcategoria de Questão',
+	width: 600
+});
