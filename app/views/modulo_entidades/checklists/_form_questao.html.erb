@@ -1,9 +1,14 @@
 <%= form_tag atualiza_item_verificacao_entidade_checklist_questoes_path(current_entidade, @checklist, id: @item_verificacao.id), method: :post, remote: true do %>	
 	<div class="field control-group">
-		<label class="control-label">Nome</label>
+		<label class="control-label">Título</label>
 		<div class="controls">
 			<%= text_field_tag 'item_verificacao[titulo]', @item_verificacao.titulo, class: 'input-xxlarge', maxlength: 255 %>
 			<%= hidden_field_tag 'item_verificacao[item_checklist_id]', @item_verificacao.item_checklist_id %>
+		</div>
+
+		<label class="control-label">De-Para</label>
+		<div class="controls">
+			<%= text_field_tag 'item_verificacao[de_para]', @item_verificacao.de_para, class: 'input-small numeric', maxlength: 10 %>
 		</div>
 	</div>
 
@@ -35,3 +40,7 @@
 		<%= submit_tag 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
 	</div>
 <% end %>
+
+<script type="text/javascript">
+	initializeNumericMask();
+</script>
