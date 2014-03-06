@@ -79,6 +79,7 @@ Template::Application.routes.draw do
           post :atualiza_categoria
           post :atualiza_item_verificacao
           post :cria_acao
+          post :carrega_alternativa
         end
       end
     end

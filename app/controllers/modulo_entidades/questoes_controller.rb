@@ -31,6 +31,12 @@ class ModuloEntidades::QuestoesController < ApplicationController
 	  end
 	end
 
+	def carrega_alternativa
+		respond_to do |format|
+		  format.js
+	  end
+	end
+
 	def nova_questao
 		@item_verificacao = ItemVerificacao.new(params[:item_verificacao])
 	end
