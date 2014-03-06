@@ -1,6 +1,6 @@
 <h2>Nova Questão</h2>
 <%= form_tag [:nova_questao, :entidade, @checklist, :questoes], method: :post, remote: true do %>	
-	<div class="field control-group">
+	<div class="field control-group" style="float:left;">
 		<label class="control-label">Tipo</label>
 			<div class="controls">
 			  <%= select_tag 'item_verificacao[tipo]', options_for_select([''] + ItemVerificacao.retorna_tipo_para_select) %>
@@ -20,7 +20,7 @@
 	<div id="link_add_alternativa" style="display:none">
 		<%=link_to "Adicionar Alternativa","#",{:id=>"add_alternativa"} %>
 	</div>
-  <div id="alternativas"></div>
+  	<div id="alternativas" style="padding:30px"></div>
 <% end %>
 
 <script type="text/javascript">

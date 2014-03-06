@@ -68,7 +68,6 @@ Template::Application.routes.draw do
         post :altera_situacao_questao
         post :detalhe_questao
       end
-
       resources :questoes do 
         collection do 
           post :nova_categoria_questao

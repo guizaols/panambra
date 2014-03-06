@@ -7,6 +7,17 @@ class ModuloEntidades::QuestoesController < ApplicationController
 	before_filter :verifica_se_o_usuario_escolheu_uma_unidade
 	before_filter :carrega_checklist
 
+	def index
+		@item_checklists = @checklist.item_checklists
+		@questoes = []
+		@item_checklists.each do |item|
+			item.item_verificacaos.each do |q|
+				@questoes << q
+			end
+		end
+
+	end
+
 	
 	def nova_categoria_questao
 		@item_checklist = ItemChecklist.new(params[:item_checklist])

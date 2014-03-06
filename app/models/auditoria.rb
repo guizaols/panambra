@@ -75,7 +75,15 @@ class Auditoria < ActiveRecord::Base
                       possui_respostas_validas = true
                       alternativa = Alternativa.find(opcao) rescue nil
                       if alternativa.present?
-      	                new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
+                        if alternativa.titulo == 'Sim'
+                          new_resp.resposta = Resposta::SIM
+                        elsif alternativa.titulo == 'Não'
+                          new_resp.resposta = Resposta::NAO
+                        else
+                          new_resp.resposta = alternativa.id
+                        end
+      	                #new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
+
                         if item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO
                           new_resp.resposta_texto = params['respostas_opcoes'][item_verificacao.id.to_s]
                         end
@@ -144,8 +152,17 @@ class Auditoria < ActiveRecord::Base
     begin
       retorno ||= {}
       self.respostas.each do |resposta|
+        p resposta
+        p resposta.item_verificacao
         if resposta.resposta.present?
-          sim_ou_nao = (resposta.resposta == Resposta::SIM ? 'SIM' : 'NÃO')
+         sim_ou_nao = nil #(resposta.resposta == Resposta::SIM ? 'SIM' : 'NÃO')
+         if resposta.resposta == Resposta::SIM
+          sim_ou_nao = "SIM"
+         elsif resposta.resposta == Resposta::NAO
+          sim_ou_nao = "NÃO"
+         else
+          sim_ou_nao = Alternativa.find(resposta.resposta).titulo.upcase
+         end
           acoes = resposta.item_verificacao.acoes.joins(:alternativa)
                           .where('UPPER(alternativas.titulo) = ?', sim_ou_nao)
           acoes.each do |acao|

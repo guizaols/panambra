@@ -14,8 +14,13 @@
   <% if current_user.permitted_to?(:checklists, :edit) %>
     <%= link_to 'Alterar', [:edit, :entidade, @checklist], class: 'btn btn-inverse' %>
   <% end %>
+
   <% if current_user.permitted_to?(:questions, :new) %>
   	<%= link_to 'Nova Questão', '#', id: 'nova_questao', class: 'btn btn-inverse' %>
+  <% end %>
+
+  <% if current_user.permitted_to?(:questions, :index) %>
+  	<%= link_to 'Questões',[:entidade,@checklist,:questoes], class: 'btn btn-inverse' %>
   <% end %>
 </div>
 
@@ -49,7 +54,7 @@
 		</div>
 	</div>
 	<div class="lado_direito" style="float_left">
-		<div id="form_questao"></div>
+		<div id="form_questao" ></div>
 	</div>
 </div>
 
