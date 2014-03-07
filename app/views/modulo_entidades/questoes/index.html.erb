@@ -9,6 +9,7 @@
       <tr>
         <th>Titulo</th>
         <th>Tipo</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +17,13 @@
         <tr>
           <td><%= q.titulo %></td>
           <td><%= q.tipo_verbose %></td>
+          <td></td>
+          <%if q.tipo == 4%>
+          <td><%=link_to "Inserir Imagens",inserir_imagem_entidade_checklist_questoes_path(@checklist.unidade.entidade,@checklist,:questao_id=>q.id) %>
+            
+            <%else%>
+            <td>Não permitido</td>
+            <%end%>
         </tr>
       <% end %>
     </tbody>

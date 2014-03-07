@@ -152,8 +152,9 @@ class Auditoria < ActiveRecord::Base
     begin
       retorno ||= {}
       self.respostas.each do |resposta|
-        p resposta
-        p resposta.item_verificacao
+
+
+
         if resposta.resposta.present?
          sim_ou_nao = nil #(resposta.resposta == Resposta::SIM ? 'SIM' : 'NÃO')
          if resposta.resposta == Resposta::SIM
@@ -189,9 +190,28 @@ class Auditoria < ActiveRecord::Base
         end
       end
       
+      
+
+
       retorno.each do |email, respostas|
+        usu = Usuario.where("email = ? AND unidade_id = ?",email,self.unidade_id).first
+        respostas.each do |r|
+          nao_conformidade = NaoConformidade.new 
+          nao_conformidade.status = NaoConformidade::CRIADO
+          nao_conformidade.data = Date.today
+          nao_conformidade.usuario_id = usu.id
+          nao_conformidade.cliente_id = self.cliente_id
+          nao_conformidade.auditoria_id = self.id
+          nao_conformidade.item_verificacao_id = r.item_verificacao_id
+          nao_conformidade.unidade_id = self.unidade_id
+          nao_conformidade.save
+        end
         AuditoriaMailer.envia_notificacao_para_responsaveis(email, respostas).deliver
       end
+
+
+
+
     rescue Exception => e
       p e.message
       p e.backtrace

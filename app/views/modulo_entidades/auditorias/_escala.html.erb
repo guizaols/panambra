@@ -16,9 +16,9 @@
       <!-- </label> -->
       <button id="botao_<%= item_verificacao.id %>_<%= alternativa.id %>"
               data-id="<%= alternativa.id %>" type="button"
-              class="botoes-radio btn <%= ('btn-primary') %>"
+                class="botoes-radio btn <%= ('btn-primary') %>"
               data-status="<%= (alternativa.titulo.downcase == 'sim' ? 1 : 0) %>">
-        <%= (alternativa.titulo.upcase) %>
+        <%= (alternativa.arquivo.blank? ? (alternativa.titulo.upcase) : (image_tag(alternativa.arquivo))) %>
       </button>
       <%= hidden_field_tag "respostas[#{item_verificacao.id}][#{alternativa.id}]", nil %>
     <% end %>

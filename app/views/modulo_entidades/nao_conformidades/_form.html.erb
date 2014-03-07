@@ -1,0 +1,49 @@
+<%= form_for(@nao_conformidade) do |f| %>
+  <% if @nao_conformidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@nao_conformidade.errors.count, "error") %> prohibited this nao_conformidade from being saved:</h2>
+
+      <ul>
+      <% @nao_conformidade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :item_verificacao_id %><br />
+    <%= f.number_field :item_verificacao_id %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br />
+    <%= f.date_select :data %>
+  </div>
+  <div class="field">
+    <%= f.label :usuario_id %><br />
+    <%= f.number_field :usuario_id %>
+  </div>
+  <div class="field">
+    <%= f.label :usuario_delegado_id %><br />
+    <%= f.number_field :usuario_delegado_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cliente_id %><br />
+    <%= f.number_field :cliente_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :comentarios %><br />
+    <%= f.text_area :comentarios %>
+  </div>
+  <div class="field">
+    <%= f.label :data_escalonada %><br />
+    <%= f.date_select :data_escalonada %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

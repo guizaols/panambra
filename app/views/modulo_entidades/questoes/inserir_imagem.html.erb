@@ -1,0 +1,44 @@
+<%= form_tag [:upload_imagem,:entidade, @checklist, :questoes], :multipart => true do  %>
+  
+  
+  <div class="field control-group">
+    <span>Alternativa</span>
+    <div class="controls">
+      <%= select_tag 'item_verificacao[alternativa_id]',options_for_select(@alternativas.collect{|x| [x.titulo,x.id]})%>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <span>Arquivo</span>
+    <div class="controls">
+      <%= file_field_tag 'arquivo' %>
+    </div>
+  </div>
+
+  <div class="actions form-actions">
+    <%= submit_tag 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+    
+  </div>
+
+ <%end%>
+
+
+ <h3>Alternativas</h3>
+ <br />
+ <table>
+ 		<thead>
+ 			<tr>
+ 				<td>Alternativa</td>
+ 				<td>Imagem</td>
+ 			</tr>
+ 		</thead>
+ 		<tbody>
+ 			<%@alternativas.each do |alternativa| %>
+ 				<tr>
+ 					<td><%=alternativa.titulo%></td>
+ 					<td><%= image_tag alternativa.arquivo%></td>
+ 				</tr>
+ 			<%end%>
+ 		</tbody>
+
+ </table>

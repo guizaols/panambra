@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Item verificacao:</b>
+  <%= @nao_conformidade.item_verificacao_id %>
+</p>
+
+<p>
+  <b>Data:</b>
+  <%= @nao_conformidade.data %>
+</p>
+
+<p>
+  <b>Usuario:</b>
+  <%= @nao_conformidade.usuario_id %>
+</p>
+
+<p>
+  <b>Usuario delegado:</b>
+  <%= @nao_conformidade.usuario_delegado_id %>
+</p>
+
+<p>
+  <b>Cliente:</b>
+  <%= @nao_conformidade.cliente_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @nao_conformidade.status %>
+</p>
+
+<p>
+  <b>Comentarios:</b>
+  <%= @nao_conformidade.comentarios %>
+</p>
+
+<p>
+  <b>Data escalonada:</b>
+  <%= @nao_conformidade.data_escalonada %>
+</p>
+
+
+<%= link_to 'Edit', edit_nao_conformidade_path(@nao_conformidade) %> |
+<%= link_to 'Back', nao_conformidades_path %>
