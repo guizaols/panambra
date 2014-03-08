@@ -18,7 +18,7 @@ class Configuracao < ActiveRecord::Base
 	attr_accessible :questionario
 
 
-	def self.retorna_configuracao
+	def self.cria_ou_retorna_configuracao
 		Configuracao.last.present? ? Configuracao.last : Configuracao.create!
 	end
 
