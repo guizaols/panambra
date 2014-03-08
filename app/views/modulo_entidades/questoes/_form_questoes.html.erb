@@ -1,6 +1,6 @@
 <h2>Nova Questão</h2>
 <%= form_tag [:nova_questao, :entidade, @checklist, :questoes], method: :post, remote: true do %>	
-	<div class="field control-group">
+	<div class="field control-group" style="float:left;">
 		<label class="control-label">Tipo</label>
 			<div class="controls">
 			  <%= select_tag 'item_verificacao[tipo]', options_for_select([''] + ItemVerificacao.retorna_tipo_para_select) %>
@@ -16,18 +16,39 @@
 			<%= submit_tag 'Criar Questão', class: 'btn btn-inverse', data: { disable_with: 'Criando...' } %>
 		</div>
 	</div>
-  <div id="alternativas"></div>
+	<br />
+	<div id="link_add_alternativa" style="display:none">
+		<%=link_to "Adicionar Alternativa","#",{:id=>"add_alternativa"} %>
+	</div>
+  	<div id="alternativas" style="padding:30px"></div>
 <% end %>
 
 <script type="text/javascript">
 	initializeNumericMask();
 	$('#item_verificacao_tipo').live('change', function() {
 		$('#alternativas').html('');
-		var opcao = $(this).val();
+		var opcao = $("#item_verificacao_tipo").val();
 		if(opcao == 2 || opcao == 1) {
+			$("#link_add_alternativa").hide();
 			$('#alternativas').html("<%= escape_javascript(render('alternativa')) %>");
-		} else {
+		}else if (opcao == 4)
+		{
+			$("#link_add_alternativa").show();
+		} 
+		else {
+			$("#link_add_alternativa").hide();
 			$("#alternativas").html('');
 		}
+	});
+
+	$("#link_add_alternativa").click(function(){
+
+		$.ajax({
+      url: '<%= url_for([:carrega_alternativa, :entidade, @checklist, :questoes]) %>',
+      type: 'POST',
+      data: { categoria_questao_id: $("#categoria_questao_id").val()  },
+      dataType: 'script'
+    });
+		return false;
 	});
 </script>

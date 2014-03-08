@@ -28,6 +28,11 @@
               <i class="icon-th-list icon-white"></i> Pesquisas
             <% end %>
           </li>
+           <li>
+            <%= link_to [:entidade, :nao_conformidades] do %>
+              <i class="icon-th-list icon-white"></i> Não Conformidades
+            <% end %>
+          </li>
         <% end %>
         <% if current_user.permitted_to?(:auditorias, :new) %>
           <li>

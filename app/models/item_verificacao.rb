@@ -12,6 +12,7 @@ class ItemVerificacao < ActiveRecord::Base
   SIM_NAO       = 1
   SIM_NAO_TEXTO = 2
   TEXTO         = 3
+  ESCALA = 4
 
   attr_accessible :item_checklist_id
   attr_accessible :tipo
@@ -25,7 +26,7 @@ class ItemVerificacao < ActiveRecord::Base
   has_many   :acoes, class_name: 'Acao', foreign_key: 'item_verificacao_id'
   accepts_nested_attributes_for :alternativas, allow_destroy: true
 
-  validates :tipo,  presence: true, inclusion: { in: [SIM_NAO, SIM_NAO_TEXTO, TEXTO] }
+  validates :tipo,  presence: true, inclusion: { in: [SIM_NAO, SIM_NAO_TEXTO, TEXTO,ESCALA] }
   validates :titulo, presence: true
   validates :item_checklist, presence: true
 
@@ -39,7 +40,8 @@ class ItemVerificacao < ActiveRecord::Base
   	[
   		['Sim/Não', SIM_NAO],
   		['Sim/Não + Texto', SIM_NAO_TEXTO],
-  		['Texto', TEXTO]
+  		['Texto', TEXTO],
+      ['Escala',ESCALA]
   	]
   end
 
@@ -48,6 +50,7 @@ class ItemVerificacao < ActiveRecord::Base
   		when SIM_NAO; 'Sim/Não'
   		when SIM_NAO_TEXTO; 'Sim/Não + Texto'
   		when TEXTO; 'Texto'
+      when ESCALA; 'Escala'
   	end
   end
 

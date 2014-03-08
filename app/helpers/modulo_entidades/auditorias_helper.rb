@@ -8,6 +8,8 @@ module ModuloEntidades::AuditoriasHelper
 				render('sim_nao_texto', item_verificacao: item_verificacao, numero: index)
 		 	elsif item_verificacao.tipo == ItemVerificacao::TEXTO
 				render('texto', item_verificacao: item_verificacao, numero: index)
+			elsif item_verificacao.tipo == ItemVerificacao::ESCALA
+				render('escala', item_verificacao: item_verificacao, numero: index)
 	   	end
 	  end
 	end

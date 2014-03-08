@@ -1,0 +1,32 @@
+<% index = Digest::SHA1.hexdigest([Time.now, rand].join)[0..10] %>
+<% p index %>
+<table>
+	<thead>
+		<tr>
+			<th>Título</th>
+			<th>Nota</th>
+			<th></th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="tr_<%=index%>">
+			<td>
+				<%= text_field_tag "item_verificacao[alternativas_attributes][#{index}][titulo]" %>
+			</td>
+			<td>
+				<%= text_field_tag "item_verificacao[alternativas_attributes][#{index}][peso]" %>
+			</td>
+			<td>
+				<%=link_to "Excluir","#",{:class=>"link_excluir"}%>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	$('.link_excluir').click(function(){
+		$(this).closest("table").remove();
+		return false;
+	});
+</script>

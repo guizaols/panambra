@@ -1,13 +1,13 @@
 Template::Application.routes.draw do 
 
+  
+
+
   # get '/delayed_job' => DelayedJobWeb, anchor: false
 
   namespace :api do
     namespace :v1 do
-      post "log_acra" => "acra_logs#create"
       post "authentications" => "authentications#create"
-      post "agendas" => "agendas#getAgendas"
-      post "respostas" => "respostas#create"
     end
   end
 
@@ -50,10 +50,14 @@ Template::Application.routes.draw do
         end
       end
 
+
+
       resources :configuracoes
 
       root to: 'home#index'
     end
+
+    resources :nao_conformidades
 
     resources :checklists do
       member do
@@ -68,7 +72,6 @@ Template::Application.routes.draw do
         post :altera_situacao_questao
         post :detalhe_questao
       end
-
       resources :questoes do 
         collection do 
           post :nova_categoria_questao
@@ -79,7 +82,13 @@ Template::Application.routes.draw do
           post :atualiza_categoria
           post :atualiza_item_verificacao
           post :cria_acao
+          post :carrega_alternativa
+          get :inserir_imagem
+          post :upload_imagem
         end
+
+        
+
       end
     end
 

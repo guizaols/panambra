@@ -22,7 +22,7 @@ class Resposta < ActiveRecord::Base
 		case resposta
 			when SIM; 'Sim'
 			when NAO; 'Não'
-			else nil
+			else; (Alternativa.find(self.resposta).titulo rescue nil)
 		end
 	end
 
