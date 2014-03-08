@@ -11,13 +11,13 @@ class ErpCacRespostaItem < ConexaoPanambra
     retorno
   end
 
-  def self.salva_cac_resposta_item
+  def self.salva_cac_resposta_item(cac_resposta, questao_de_para, resposta_pesquisa)
     configuracao = Configuracao.first
     ErpCacRespostaItem.create({
-      resposta: resposta, ## NUMERO DA RESPOSTA
+      resposta: cac_resposta, ## NUMERO DA RESPOSTA
       empresa: configuracao.empresa,
-      questao: questao, ## DE-PARA
-      escolha: resposta ## RESPOSTA DE CADA QUESTAO
+      questao: questao_de_para, ## DE-PARA
+      escolha: resposta_pesquisa ## RESPOSTA DE CADA QUESTAO
     })
   end
 

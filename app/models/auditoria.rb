@@ -82,7 +82,7 @@ class Auditoria < ActiveRecord::Base
                         else
                           new_resp.resposta = alternativa.id
                         end
-      	                #new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
+      	                # new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
 
                         if item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO
                           new_resp.resposta_texto = params['respostas_opcoes'][item_verificacao.id.to_s]
@@ -92,6 +92,13 @@ class Auditoria < ActiveRecord::Base
                     end
                   end
 	              end
+
+              ### INTEGRAÇÃO COM O ERP
+                ErpCacContato.salva_cac_contato(self)
+                ErpCacProvidencia.salva_providencia
+                cac_resposta = ErpCacResposta.salva_cac_resposta(self)
+                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, item_verificacao.de_para, new_resp.resposta)
+              ### INTEGRAÇÃO COM O ERP
             	end
             	### END RESPOSTAS
             end

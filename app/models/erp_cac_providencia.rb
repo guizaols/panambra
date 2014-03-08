@@ -11,7 +11,7 @@ class ErpCacProvidencia < ConexaoPanambra
     retorno
   end
 
-  def self.salva_cac_previdencia
+  def self.salva_cac_providencia
     configuracao = Configuracao.first
     ErpCacProvidencia.create({
       empresa: configuracao.empresa,

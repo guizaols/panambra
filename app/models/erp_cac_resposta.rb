@@ -11,18 +11,19 @@ class ErpCacResposta < ConexaoPanambra
     retorno
   end
 
-  def self.salva_cac_resposta
+  def self.salva_cac_resposta(auditoria)
     configuracao = Configuracao.first
-    ErpCacResposta.create({
+    resposta = ErpCacResposta.create({
       resposta: ErpGerNumerador.retorna_proximo_numero, ## VERIFICAR SE NÃO É PRECISO MUDAR A TABELA
       empresa: configuracao.empresa,
       revenda: configuracao.revenda,
       questionario: configuracao.questionario,
-      # cliente: auditoria.cliente.codigo,
+      cliente: auditoria.cliente.codigo,
       # usuario: configuracao.usuario_abriu, ??
       dta_resposta: Date.today,
       pessoa_contato: auditoria.cliente.nome[0..29]
     })
+    resposta
   end
 
 end
