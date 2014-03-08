@@ -92,13 +92,6 @@ class Auditoria < ActiveRecord::Base
                     end
                   end
 	              end
-
-              ### INTEGRAÇÃO COM O ERP
-                ErpCacContato.salva_cac_contato(self)
-                ErpCacProvidencia.salva_providencia
-                cac_resposta = ErpCacResposta.salva_cac_resposta(self)
-                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, item_verificacao.de_para, new_resp.resposta)
-              ### INTEGRAÇÃO COM O ERP
             	end
             	### END RESPOSTAS
             end
@@ -106,6 +99,17 @@ class Auditoria < ActiveRecord::Base
 
           if possui_respostas_validas
             self.update_column(:situacao, RESPONDIDA)
+
+            ### INTEGRAÇÃO COM O ERP
+              ErpCacContato.salva_cac_contato(self)
+              ErpCacProvidencia.salva_providencia
+              cac_resposta = ErpCacResposta.salva_cac_resposta(self)
+              self.respostas.each do |res|
+                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res.resposta_verbose)
+                ## TEM QUE VER A RESPOSTA, PQ DIZEM QUE É SÓ NUMBER
+              end
+            ### INTEGRAÇÃO COM O ERP
+
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
             self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
