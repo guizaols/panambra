@@ -42,7 +42,7 @@
       $('#opcao').val($(this).data('id'));
     });
 
-    $('.botao_sim').click(function() {
+    $('#botao_sim').click(function() {
       $.ajax({
         url: urlRetornaClientesErp,
         type: 'POST',
