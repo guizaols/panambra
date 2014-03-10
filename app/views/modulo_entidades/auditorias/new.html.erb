@@ -7,22 +7,25 @@
 
 	<%= error_messages(@auditoria) %>
 
-  <div class="field control-group">
-    <%= label_tag :numero_nf, 'Número NF', class: 'control-label' %>
-    <div class="controls">
-      <%= text_field_tag :numero_nf,
-          (params[:numero_nf] rescue nil),
-          class: 'input-xxlarge', maxlength: 255
-      %>
-      <%= loading_image_tag('loading') %>
-    </div>
+  <div class="btn-group" data-toggle="buttons-radio" id="opcaoes %>">
+    <button id="botao_sim" data-id="<%= Auditoria::SIM %>" type="button"
+            class="botoes-radio-liberacao btn btn-primary %>">
+      SIM
+    </button>
+
+    <button id="botao_nao" data-id="<%= Auditoria::NAO %>" type="button"
+            class="botoes-radio-liberacao btn btn-danger %>">
+      NÃO
+    </button>
+
+    <button id="botao_espontanea" data-id="<%= Auditoria::ESPONTANEA %>" type="button"
+            class="botoes-radio-liberacao btn btn-inverse %>">
+      ESPONTÂNEA
+    </button>
+    <%= hidden_field_tag 'opcao', nil %>
   </div>
 
-  <div id="cliente">
-    <%= hidden_field_tag 'cliente[cpf_cnpj]' %>
-    <%= hidden_field_tag 'cliente[codigo]' %>
-    <%= hidden_field_tag 'cliente[nome]' %>
-  </div>
+  <div id="dialog_for_clientes" class="modal hide fade" data-show="false"></div>
 
   <div class="actions form-actions">
     <%= f.submit 'Liberar', class: 'btn btn-inverse', data: { disable_with: 'Liberando...' } %>
@@ -33,48 +36,19 @@
 <% end %>
 
 <script type="text/javascript">
+  var urlRetornaClientesErp = '<%= url_for([:retorna_clientes, :entidade, :auditorias]) %>';
   $(function() {
-    $('#numero_nf').autocomplete({
-      source: 
-        function(request, response) {
-          var resposta = '';
-          $('#loading').show();
-          $.ajax({
-            url: '<%= url_for([:autocomplete_by_nf, :entidade, :clientes]) %>',
-            dataType: 'json',
-            type: 'POST',
-            data: { pesquisa: $('#numero_nf').val() },
-            success: function(data) {
-              $('#loading').hide();
-              response( $.map( data, function(item) {
-                return {
-                  label: item.label,
-                  value: item.value,
-                  id: item.id,
-                  cpf_cnpj: item.cpf_cnpj,
-                  codigo: item.codigo,
-                  nome: item.nome
-                }
-              }));
-            }
-          });
-          return resposta;
-        },
-      select: function(event, ui) {
-        $('#cliente_cpf_cnpj').val(ui.item.cpf_cnpj);
-        $('#cliente_codigo').val(ui.item.codigo);
-        $('#cliente_nome').val(ui.item.nome);
-      },
-      minLength: 1, 
-      delay: 500
+    $('.botoes-radio-liberacao').click(function() {
+      $('#opcao').val($(this).data('id'));
     });
 
-    $('#numero_nf').blur(function() {
-      if(!$(this).val()) {
-        $('#cliente_cpf_cnpj').val('');
-        $('#cliente_codigo').val('');
-        $('#cliente_nome').val('');
-      }
+    $('.botao_sim').click(function() {
+      $.ajax({
+        url: urlRetornaClientesErp,
+        type: 'POST',
+        dataType: 'script'
+      });
+      return false;
     });
-  }); 
+  });
 </script>

@@ -1,8 +1,5 @@
 Template::Application.routes.draw do 
 
-  
-
-
   # get '/delayed_job' => DelayedJobWeb, anchor: false
 
   namespace :api do
@@ -50,8 +47,6 @@ Template::Application.routes.draw do
         end
       end
 
-
-
       resources :configuracoes
 
       root to: 'home#index'
@@ -86,16 +81,14 @@ Template::Application.routes.draw do
           get :inserir_imagem
           post :upload_imagem
         end
-
-        
-
       end
     end
 
 
     resources :auditorias do
       collection do
-        get :iniciar_pesquisa
+        get  :iniciar_pesquisa
+        post :retorna_clientes
       end
     end
 

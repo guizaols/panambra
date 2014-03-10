@@ -129,6 +129,13 @@ label.resposta {
 	font-weight: bold;
 }
 
+.botoes-radio-liberacao {
+	width: 400px;
+	height: 150px;
+	font-size: 40pt !important;
+	font-weight: bold;
+}
+
 input.finalizar {
 	width: 500px;
 	height: 100px;

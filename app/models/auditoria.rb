@@ -7,6 +7,11 @@ class Auditoria < ActiveRecord::Base
   LIBERADA 	 = 19326
 	RESPONDIDA = 98743
 
+  ### STATUS BOTÕES DA VIEW
+  SIM        = 12659
+  NAO        = 85465
+  ESPONTANEA = 77462
+
   attr_accessible :cliente_id
   attr_accessible :numero_nf
   attr_accessible :situacao

@@ -50,4 +50,33 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@retorno = Auditoria.retorna_auditoria_para_ser_respondida
 	end
 
+	def retorna_clientes
+    @retorno = []
+    configuracao = Configuracao.first
+
+    @clientes = ErpFatFrenteCaixa.where('REVENDA = ?' configuracao.revenda)
+    														 .where('SITUACAO = ?', 'P')
+    														 .where('CAIXA IN(3)')
+    														 .where('ORIGEM = ?', configuracao.origem)
+    														 .limit(10)
+
+    if @clientes.present?
+      @clientes.each do |objeto|
+        @retorno << { label: "(#{objeto.cliente} - #{objeto.nome}",
+                      value: "(#{objeto.cliente} - #{objeto.nome}",
+                      id: objeto.id,
+                      # cpf_cnpj: objeto.cpf_cnpj,
+                      cpf_cnpj: nil,
+                      codigo: objeto.cliente,
+                      nome: objeto.nome
+                    }
+      end
+    else
+      @retorno << { label: 'Cliente não encontrado!', value: 'Cliente não encontrado!', id: nil }
+    end
+    respond_to do |format|  
+      format.json { render json: @retorno.to_json }
+    end
+  end
+
 end
