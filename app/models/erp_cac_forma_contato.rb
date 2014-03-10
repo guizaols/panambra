@@ -1,6 +1,6 @@
 #encoding: UTF-8
 
-class ErpFormaContato < ConexaoPanambra 
+class ErpCacFormaContato < ConexaoPanambra 
 
   ### FORMA CONTATO
   self.table_name = 'CAC_FORMA_CONTATO'
@@ -12,8 +12,9 @@ class ErpFormaContato < ConexaoPanambra
   end
 
   def self.retorna_for_select
-    ErpFormaContato.order(:name)
-    							 .map {|forma| [forma.name, forma.id] }
+    ErpCacFormaContato.order(:forma_contato)
+    							    .map {|forma| [("#{forma.forma_contato} - #{forma.des_forma_contato}"), forma.forma_contato] }
+                      .uniq
   end
 
 end
