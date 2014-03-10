@@ -61,6 +61,9 @@ class ModuloEntidades::AuditoriasController < ApplicationController
     														 		 .pluck(:cliente_emissao_nf)
     														 		 .uniq
     @clientes = ErpCliente.where('CLIENTE IN(?)', @clientes_ids) rescue nil if @clientes_ids.present?
+  	respond_to do |format|
+  		format.js
+  	end
   end
 
 end
