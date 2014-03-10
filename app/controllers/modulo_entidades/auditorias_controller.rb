@@ -53,10 +53,11 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	def retorna_clientes
     configuracao = Configuracao.first
     @clientes 	 = []
-    @clientes_ids = ErpFatFrenteCaixa.where('REVENDA = ?', configuracao.revenda)
-    														 		 .where('SITUACAO = ?', 'P')
-    														 		 .where('CAIXA IN(3)')
-    														 		 .where('ORIGEM = ?', configuracao.origem)
+    @clientes_ids = ErpFatFrenteCaixa.where(revenda: configuracao.revenda)
+    														 		 .where(situacao: 'P')
+    														 		 .where(caixa: [3])
+    														 		 .where(origem: configuracao.origem)
+    														 		 .order(:nome)
     														 		 .limit(10)
     														 		 .pluck(:cliente_emissao_nf)
     														 		 .uniq
