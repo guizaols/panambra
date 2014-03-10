@@ -54,14 +54,18 @@ class ModuloEntidades::AuditoriasController < ApplicationController
     @retorno = []
     configuracao = Configuracao.first
 
-    @clientes = ErpFatFrenteCaixa.where('REVENDA = ?' configuracao.revenda)
-    														 .where('SITUACAO = ?', 'P')
-    														 .where('CAIXA IN(3)')
-    														 .where('ORIGEM = ?', configuracao.origem)
-    														 .limit(10)
+    @clientes_ids = ErpFatFrenteCaixa.where('REVENDA = ?' configuracao.revenda)
+    														 		 .where('SITUACAO = ?', 'P')
+    														 		 .where('CAIXA IN(3)')
+    														 		 .where('ORIGEM = ?', configuracao.origem)
+    														 		 .limit(10)
+    														 		 .pluck(:cliente_emissao_nf)
+    														 		 .uniq
+
+    @clientes = ErpCliente.where('CLIENTE IN(?)', @clientes_ids) rescue nil if @clientes_ids.present?
 
     if @clientes.present?
-      @clientes.each do |objeto|
+			@clientes.each do |objeto|
         @retorno << { label: "(#{objeto.cliente} - #{objeto.nome}",
                       value: "(#{objeto.cliente} - #{objeto.nome}",
                       id: objeto.id,
