@@ -11,23 +11,23 @@ class ErpCacContato < ConexaoPanambra
     retorno
   end
 
-  def self.salva_cac_contato(auditoria)
+  def self.salva_cac_contato(auditoria, contato_cac_contato)
     configuracao = Configuracao.first
     ErpCacContato.create({
       empresa: configuracao.empresa,
       revenda: configuracao.revenda,
-      contato: ErpGerNumerador.retorna_proximo_numero,
-      dta_contato: Date.today,
-      dta_fechamento: Date.today,
+      contato: contato_cac_contato,
+      dta_contato: DateTime.now,
+      dta_fechamento: DateTime.now,
       situacao: configuracao.situacao,
       des_contato: configuracao.des_contato,
       ativo_passivo: configuracao.ativo_passivo,
       departamento: configuracao.departamento,
       tipo_contato: configuracao.tipo_contato,
       sub_tipo_contato: configuracao.subtipo_contato,
-      # usuario_abriu: configuracao.usuario_abriu, ??
-      # usuario_encaminhado_original: configuracao.usuario_encaminhado_original, ??
-      # usuario_encaminhado: configuracao.usuario_encaminhado, ??
+      usuario_abriu: configuracao.usuario_responsavel,
+      usuario_encaminhado_original: configuracao.usuario_responsavel,
+      usuario_encaminhado: configuracao.usuario_responsavel,
       cliente: auditoria.cliente.codigo,
       forma_contato: configuracao.forma_contato,
       origem: configuracao.origem

@@ -51,9 +51,8 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	end
 
 	def retorna_clientes
-    @retorno = []
     configuracao = Configuracao.first
-
+    @clientes 	 = []
     @clientes_ids = ErpFatFrenteCaixa.where('REVENDA = ?' configuracao.revenda)
     														 		 .where('SITUACAO = ?', 'P')
     														 		 .where('CAIXA IN(3)')
@@ -61,26 +60,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
     														 		 .limit(10)
     														 		 .pluck(:cliente_emissao_nf)
     														 		 .uniq
-
     @clientes = ErpCliente.where('CLIENTE IN(?)', @clientes_ids) rescue nil if @clientes_ids.present?
-
-    if @clientes.present?
-			@clientes.each do |objeto|
-        @retorno << { label: "(#{objeto.cliente} - #{objeto.nome}",
-                      value: "(#{objeto.cliente} - #{objeto.nome}",
-                      id: objeto.id,
-                      # cpf_cnpj: objeto.cpf_cnpj,
-                      cpf_cnpj: nil,
-                      codigo: objeto.cliente,
-                      nome: objeto.nome
-                    }
-      end
-    else
-      @retorno << { label: 'Cliente não encontrado!', value: 'Cliente não encontrado!', id: nil }
-    end
-    respond_to do |format|  
-      format.json { render json: @retorno.to_json }
-    end
   end
 
 end

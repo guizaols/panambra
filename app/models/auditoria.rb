@@ -106,9 +106,11 @@ class Auditoria < ActiveRecord::Base
             self.update_column(:situacao, RESPONDIDA)
 
             ### INTEGRAÇÃO COM O ERP
-              ErpCacContato.salva_cac_contato(self)
-              ErpCacProvidencia.salva_providencia
-              cac_resposta = ErpCacResposta.salva_cac_resposta(self)
+              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
+
+              ErpCacContato.salva_cac_contato(self, contato_cac_contato)
+              ErpCacProvidencia.salva_providencia(contato_cac_contato)
+              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
               self.respostas.each do |res|
                 ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res.resposta_verbose)
                 ## TEM QUE VER A RESPOSTA, PQ DIZEM QUE É SÓ NUMBER
