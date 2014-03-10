@@ -53,7 +53,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	def retorna_clientes
     configuracao = Configuracao.first
     @clientes 	 = []
-    @clientes_ids = ErpFatFrenteCaixa.where('REVENDA = ?' configuracao.revenda)
+    @clientes_ids = ErpFatFrenteCaixa.where('REVENDA = ?', configuracao.revenda)
     														 		 .where('SITUACAO = ?', 'P')
     														 		 .where('CAIXA IN(3)')
     														 		 .where('ORIGEM = ?', configuracao.origem)
