@@ -60,7 +60,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
     														 		 .limit(10)
     														 		 .pluck(:cliente_emissao_nf)
     														 		 .uniq
-    @clientes = ErpCliente.where('CLIENTE IN(?)', @clientes_ids) rescue nil if @clientes_ids.present?
+    @clientes = ErpFatCliente.where(cliente: @clientes_ids) rescue nil if @clientes_ids.present?
   end
 
 end
