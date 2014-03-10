@@ -57,11 +57,11 @@ class ModuloEntidades::AuditoriasController < ApplicationController
     														 		 .where(situacao: 'P')
     														 		 .where(caixa: [3])
     														 		 .where(origem: configuracao.origem)
-    														 		 .order(:nome)
     														 		 .limit(10)
     														 		 .pluck(:cliente_emissao_nf)
     														 		 .uniq
-    @clientes = ErpFatCliente.where(cliente: @clientes_ids) rescue nil if @clientes_ids.present?
+    @clientes = ErpFatCliente.where(cliente: @clientes_ids).order(:nome) rescue nil if @clientes_ids.present?
+    # @clientes = Cliente.all
   end
 
 end
