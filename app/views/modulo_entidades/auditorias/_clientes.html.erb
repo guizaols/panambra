@@ -25,10 +25,6 @@
 </div>
 
 <div class="modal-footer">
-  <% if current_user.permitted_to?(:checklist, :new) %>
-    <%= submit_tag 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
-  <% end %>
-  <% if current_user.permitted_to?(:checklist, :index) %>
-		<%= link_to 'Fechar', '#', class: 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => true %>
-	<% end %>
+	<%= submit_tag 'Selecionar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+	<%= link_to 'Fechar', '#', class: 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => true %>
 </div>
