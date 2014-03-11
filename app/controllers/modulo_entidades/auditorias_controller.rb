@@ -33,8 +33,6 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 			@auditoria.cliente = Cliente.cria_ou_recupera(current_unidade.id, params[:cliente])
 		end
 
-		p @auditoria.cliente
-
 		if @auditoria.save
 			redirect_to [:entidade, :auditorias], notice: 'Auditoria liberada com sucesso!'
 		else
