@@ -16,20 +16,13 @@ class Api::V1Controller < ApiController
     end
 
     def current_api_user
-      if params[:authentication_key]
-        @users = Usuario.where(situacao:Usuario::ATIVO)
-        @users = @users.where("(api_authentication_token = ? OR login = ? OR email = ?) AND tipo = ?",params[:authentication_key],params[:authentication_key],params[:authentication_key],Usuario::VENDAS).first
-        unless params[:password].blank?
-          @users.valid_password?(params[:password])
-        else
-         if @users.api_authentication_token == params[:authentication_token]
-          @users
-        else
-          {}
-         end
-        end
+      if params[:api_token]
+        @users = Usuario.where("authentication_token = ?",params[:api_token]).first
+      else
+        nil
       end
     end
+
 
     def api_user_authenticated?
       current_api_user.present?

@@ -62,3 +62,7 @@ gem 'thin'
 gem 'thin_service'
 
 gem 'carrierwave'
+
+# Push Notifications
+gem 'push-core'
+gem 'push-gcm'

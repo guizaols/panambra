@@ -204,7 +204,8 @@ class Auditoria < ActiveRecord::Base
           nao_conformidade.auditoria_id = self.id
           nao_conformidade.item_verificacao_id = r.item_verificacao_id
           nao_conformidade.unidade_id = self.unidade_id
-          nao_conformidade.save
+          nao_conformidade.save!
+          Gcm.send_android_message(usu.gcm)
         end
         AuditoriaMailer.envia_notificacao_para_responsaveis(email, respostas).deliver
       end
@@ -213,6 +214,7 @@ class Auditoria < ActiveRecord::Base
 
 
     rescue Exception => e
+      p "asdiufhaiusdfhiuashfuiahsdiufhasdiufhiuashfiuasdhui"
       p e.message
       p e.backtrace
     end
