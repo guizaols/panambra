@@ -42,6 +42,7 @@ p params[:cliente]
 
 	def edit
 		@auditoria = Auditoria.find(params[:id])
+		render :layout=>"auditoria_inicial"
 	end
 
 	def update
