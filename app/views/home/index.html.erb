@@ -23,27 +23,25 @@
 
 <% unless administracao_usuario_signed_in? %>
   <% if @retorno.first %>
-      <%= link_to edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1), method: :get do %>
-          
-          <%=image_tag 'logo_panambra_pos_vendas.png', :id=>"imgpos" %>
-          <%= image_tag 'texto_pesquisa_inicial.png', :id=>"txtposinicio" %>
-      <% end %>
-  <%else%>
-        <%=image_tag 'logo_atendimento.png', :id=>"imgpos"%>
-        <div class="aguardando_pesquisa">
-
-        <!--   AGUARDANDO LIBERAÇÃO DE PESQUISA
+    <%= link_to edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1), method: :get do %>
+    <%= image_tag 'logo_panambra_pos_vendas.png', id: 'imgpos' %>
+    <%= image_tag 'texto_pesquisa_inicial.png', id: 'txtposinicio' %>
+  <% end %>
+<% else %>
+  <%= image_tag 'logo_atendimento.png', id: 'imgpos' %>
+  <div class="aguardando_pesquisa">
+<!-- 
+          AGUARDANDO LIBERAÇÃO DE PESQUISA
           <br /><br />
           <div id="loading_aguardando_pesquisa" class="progress progress-striped active">
             <div class="bar" style="width: 100%;" ></div>
           </div>
-        </div>     -->
-
-        <script type="text/javascript">
-          jQuery(function($) {
-            setInterval('window.location.reload()', 5000);
-          });
-        </script>
-  <%end%>
-
+        </div>    
+ -->
+    <script type="text/javascript">
+      jQuery(function($) {
+        setInterval('window.location.reload()', 5000);
+      });
+    </script>
+  <% end %>
 <% end %>

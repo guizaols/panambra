@@ -4,7 +4,7 @@
     <%= item_verificacao.titulo %>
   </label>
 
-  <div class="btn-group" data-toggle="buttons-radio" id="respostas_<%= item_verificacao.id %>">
+  <div class="btn-group centralizada" data-toggle="buttons-radio" id="respostas_<%= item_verificacao.id %>">
     <% item_verificacao.alternativas.order(:id).each do |alternativa| %>
       <!-- <label for='<%#= "respostas_#{item_verificacao.id}_#{alternativa.id}" %>' class="resposta"> -->
         <!-- <br /><br /> -->

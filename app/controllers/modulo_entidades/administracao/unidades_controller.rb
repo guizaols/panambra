@@ -69,7 +69,7 @@ class ModuloEntidades::Administracao::UnidadesController < ApplicationController
 			flash[:error] = 'Erro! Você deve selecionar uma unidade!'
 			redirect_to root_path
 		else
-			redirect_to [:entidade,:root]
+			redirect_to [:entidade, :root]
 		end
 	end
 
