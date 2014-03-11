@@ -16,9 +16,10 @@ class Configuracao < ActiveRecord::Base
   attr_accessible :tipo_providencia
   attr_accessible :subtipo_providencia
 	attr_accessible :questionario
+  attr_accessible :usuario_responsavel
 
 
-	def self.retorna_configuracao
+	def self.cria_ou_retorna_configuracao
 		Configuracao.last.present? ? Configuracao.last : Configuracao.create!
 	end
 

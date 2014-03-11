@@ -50,4 +50,18 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@retorno = Auditoria.retorna_auditoria_para_ser_respondida
 	end
 
+	def retorna_clientes
+    configuracao = Configuracao.first
+    @clientes 	 = []
+    @clientes_ids = ErpFatFrenteCaixa.where(revenda: configuracao.revenda)
+    														 		 .where(situacao: 'P')
+    														 		 .where(caixa: [3])
+    														 		 .where(origem: configuracao.origem)
+    														 		 .limit(10)
+    														 		 .pluck(:cliente_emissao_nf)
+    														 		 .uniq
+    @clientes = ErpFatCliente.where(cliente: @clientes_ids).order(:nome) rescue nil if @clientes_ids.present?
+    # @clientes = Cliente.all
+  end
+
 end

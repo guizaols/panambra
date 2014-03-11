@@ -7,6 +7,11 @@ class Auditoria < ActiveRecord::Base
   LIBERADA 	 = 19326
 	RESPONDIDA = 98743
 
+  ### STATUS BOTÕES DA VIEW
+  SIM        = 12659
+  NAO        = 85465
+  ESPONTANEA = 77462
+
   attr_accessible :cliente_id
   attr_accessible :numero_nf
   attr_accessible :situacao
@@ -82,7 +87,7 @@ class Auditoria < ActiveRecord::Base
                         else
                           new_resp.resposta = alternativa.id
                         end
-      	                #new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
+      	                # new_resp.resposta = (alternativa.titulo == 'Sim' ? Resposta::SIM : Resposta::NAO)
 
                         if item_verificacao.tipo == ItemVerificacao::SIM_NAO_TEXTO
                           new_resp.resposta_texto = params['respostas_opcoes'][item_verificacao.id.to_s]
@@ -99,6 +104,19 @@ class Auditoria < ActiveRecord::Base
 
           if possui_respostas_validas
             self.update_column(:situacao, RESPONDIDA)
+
+            ### INTEGRAÇÃO COM O ERP
+              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
+
+              ErpCacContato.salva_cac_contato(self, contato_cac_contato)
+              ErpCacProvidencia.salva_providencia(contato_cac_contato)
+              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
+              self.respostas.each do |res|
+                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res.resposta_verbose)
+                ## TEM QUE VER A RESPOSTA, PQ DIZEM QUE É SÓ NUMBER
+              end
+            ### INTEGRAÇÃO COM O ERP
+
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
             self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)

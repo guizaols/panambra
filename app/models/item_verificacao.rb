@@ -12,7 +12,7 @@ class ItemVerificacao < ActiveRecord::Base
   SIM_NAO       = 1
   SIM_NAO_TEXTO = 2
   TEXTO         = 3
-  ESCALA = 4
+  ESCALA        = 4
 
   attr_accessible :item_checklist_id
   attr_accessible :tipo

@@ -15,10 +15,8 @@ class ModuloEntidades::QuestoesController < ApplicationController
 				@questoes << q
 			end
 		end
-
 	end
 
-	
 	def nova_categoria_questao
 		@item_checklist = ItemChecklist.new(params[:item_checklist])
 		@item_checklist.checklist = @checklist

@@ -2,7 +2,7 @@
   
   <%= error_messages(@configuracao) %>
 
-  <h4>CAC_CONTATO</h4>
+  <!-- <h4>CAC_CONTATO</h4> -->
   <div class="field control-group">
     <%= f.label :empresa, class: 'control-label' %>
     <div class="controls">
@@ -14,6 +14,13 @@
     <%= f.label :revenda, class: 'control-label' %>
     <div class="controls">
       <%= f.text_field :revenda, class: 'input-small numeric', maxlength: 2 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :usuario_responsavel, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :usuario_responsavel, class: 'input-small numeric', maxlength: 5 %>
     </div>
   </div>
 

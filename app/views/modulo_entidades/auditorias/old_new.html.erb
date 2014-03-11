@@ -1,0 +1,80 @@
+<div class="titulo-pagina">
+  Liberar Pesquisa »
+</div>
+<br />
+
+<%= form_for [:entidade, @auditoria], html: { class: 'form-horizontal' } do |f| %>
+
+	<%= error_messages(@auditoria) %>
+
+  <div class="field control-group">
+    <%= label_tag :numero_nf, 'Número NF', class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :numero_nf,
+          (params[:numero_nf] rescue nil),
+          class: 'input-xxlarge', maxlength: 255
+      %>
+      <%= loading_image_tag('loading') %>
+    </div>
+  </div>
+
+  <div id="cliente">
+    <%= hidden_field_tag 'cliente[cpf_cnpj]' %>
+    <%= hidden_field_tag 'cliente[codigo]' %>
+    <%= hidden_field_tag 'cliente[nome]' %>
+  </div>
+
+  <div class="actions form-actions">
+    <%= f.submit 'Liberar', class: 'btn btn-inverse', data: { disable_with: 'Liberando...' } %>
+    <% if current_user.permitted_to?(:auditorias, :index) %>
+      <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+    $('#numero_nf').autocomplete({
+      source: 
+        function(request, response) {
+          var resposta = '';
+          $('#loading').show();
+          $.ajax({
+            url: '<%= url_for([:autocomplete_by_nf, :entidade, :clientes]) %>',
+            dataType: 'json',
+            type: 'POST',
+            data: { pesquisa: $('#numero_nf').val() },
+            success: function(data) {
+              $('#loading').hide();
+              response( $.map( data, function(item) {
+                return {
+                  label: item.label,
+                  value: item.value,
+                  id: item.id,
+                  cpf_cnpj: item.cpf_cnpj,
+                  codigo: item.codigo,
+                  nome: item.nome
+                }
+              }));
+            }
+          });
+          return resposta;
+        },
+      select: function(event, ui) {
+        $('#cliente_cpf_cnpj').val(ui.item.cpf_cnpj);
+        $('#cliente_codigo').val(ui.item.codigo);
+        $('#cliente_nome').val(ui.item.nome);
+      },
+      minLength: 1, 
+      delay: 500
+    });
+
+    $('#numero_nf').blur(function() {
+      if(!$(this).val()) {
+        $('#cliente_cpf_cnpj').val('');
+        $('#cliente_codigo').val('');
+        $('#cliente_nome').val('');
+      }
+    });
+  });
+</script>
