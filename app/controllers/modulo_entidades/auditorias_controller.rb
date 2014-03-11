@@ -26,7 +26,13 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@auditoria = Auditoria.new
 		@auditoria.unidade = current_unidade
 		@auditoria.checklist = current_unidade.retorna_checklist_ativo
-		@auditoria.cliente = Cliente.cria_ou_recupera(current_unidade.id, params[:cliente])
+
+		erp_cliente = ErpFatCliente.where(cliente: codigo_cliente)
+		params[:cliente] = { codigo: codigo_cliente, nome: erp_cliente.nome, cpf_cnpj: nil }
+
+p params[:cliente]
+
+		# @auditoria.cliente = Cliente.cria_ou_recupera(current_unidade.id, params[:cliente])
 		if @auditoria.save
 			redirect_to [:entidade, :auditorias], notice: 'Auditoria liberada com sucesso!'
 		else
@@ -41,9 +47,6 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	def update
 		@auditoria = Auditoria.find(params[:id])
 		@retorno = @auditoria.salvar_respostas(params)
-		# if @retorno.first 
-		# 	@auditoria.notifica_responsaveis_do_checklist
-		# end
 	end
 
 	def iniciar_pesquisa

@@ -29,6 +29,7 @@ class Cliente < ActiveRecord::Base
   	cliente = Cliente.by_unidade_id(unidade_id)
   				 					 .where(codigo: params[:codigo].strip)
   				 					 .first rescue nil
+
     if cliente.blank?
 			cliente = Cliente.new({
 				codigo: (params[:codigo].strip rescue nil),
