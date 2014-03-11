@@ -15,8 +15,7 @@
         <%#= alternativa.titulo %>
       <!-- </label> -->
       <button id="botao_<%= item_verificacao.id %>_<%= alternativa.id %>"
-              data-id="<%= alternativa.id %>" type="button"
-              class="botoes-radio btn <%= (alternativa.titulo.downcase == 'sim' ? 'btn-primary' : 'btn-danger') %>"
+              data-id="<%= alternativa.id %>" type="button" class="botoes-radio btn" style="margin: 100px"
               data-status="<%= (alternativa.titulo.downcase == 'sim' ? 1 : 0) %>">
         <%= (alternativa.titulo.downcase == 'sim' ? 'SIM' : 'NÃO') %>
       </button>

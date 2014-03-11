@@ -7760,7 +7760,7 @@ textarea.span1,
 }
 
 .fuelux .wizard {
-  position: relative;
+/*  position: relative;
   overflow: hidden;
   background-color: #f9f9f9;
   border: 1px solid #d4d4d4;
@@ -7770,7 +7770,7 @@ textarea.span1,
   *zoom: 1;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
      -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);*/
 }
 
 .fuelux .wizard:before,
@@ -7904,11 +7904,11 @@ textarea.span1,
 }
 
 .fuelux .step-content {
-  padding: 10px;
+/*  padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #D4D4D4;
   border-top: 0;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;*/
 }
 
 .fuelux .step-content .step-pane {
