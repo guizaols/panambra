@@ -66,6 +66,7 @@ gem 'carrierwave'
 
 # Wizard
 gem 'execjs'
+gem 'therubyracer'
 gem 'fuelux-rails'
 
 # Push Notifications
