@@ -19,7 +19,8 @@ class ErpGerNumerador < ConexaoPanambra
                                    .where(revenda: configuracao.revenda)
   								 							   .where(tabela: tabela)
                                    .where(numerador: numerador)
-                                   .last
+                                   .order('proximo_numero DESC')
+                                   .first
                                    .proximo_numero rescue 0
 		proximo_numero = ultimo_numero + 1
   end
