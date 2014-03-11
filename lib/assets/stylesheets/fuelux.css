@@ -233,7 +233,7 @@
 .fuelux body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 22px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
@@ -1065,7 +1065,7 @@
 .fuelux button,
 .fuelux select,
 .fuelux textarea {
-  font-size: 14px;
+  font-size: 40px;
   font-weight: normal;
   line-height: 20px;
 }
