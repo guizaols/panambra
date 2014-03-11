@@ -9,8 +9,10 @@
  *= require maskedinput
  *= require jquery_ujs
  *= require bootstrap
+ *= require fuelux
  *= require_tree .
 */
+
 
 jQuery(function($) {
   initializeDatepickers();

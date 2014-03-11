@@ -3,6 +3,8 @@
  *= require jquery-ui
  *= require jquery.treeview
  *= require jquery.contextMenu
+ *= require fuelux
+ *= require fuelux-responsive
  *= require_tree .
  */
 

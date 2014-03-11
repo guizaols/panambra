@@ -1,4 +1,4 @@
-<div>
+<div class="step-pane <%= 'active' if numero == 1 %>" id="step<%= numero %>">
   <label for="item_verificacao_<%= item_verificacao.id %>" class="pergunta">
     <b><%= numero %>)</b>
     <%= item_verificacao.titulo %>
@@ -32,4 +32,3 @@
     </label>
   </div>
 </div>
-<br /><br /><br /><br />
