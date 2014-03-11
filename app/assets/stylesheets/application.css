@@ -191,14 +191,15 @@ left: 35%;
 
 #img_logo
 {
-		position: relative;
-	padding-left: 130%;
+	position: relative;
+	padding-left: 100%;
 	padding-top : 10%;
+	padding-bottom: 5%;
 }
 
 #questao_css
 {
-		position: absolute;
+	position: absolute;
 	top:100%;
-	left: 50%;
+	left: 30%;
 }
