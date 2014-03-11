@@ -13,15 +13,19 @@ gem 'ruby-oci8', '~> 2.1.0'
 ### gem 'ruby-oci8', --platform x86-mingw32
 ### gem 'ruby-oci8', platforms: :mingw32
 
+gem 'execjs'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', platforms: :ruby
-
+  gem 'therubyracer', platforms: :ruby
+  gem 'less-rails'
+  gem 'twitter-bootstrap-rails'
+  # gem 'libv8', '~> 3.11.8'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -44,13 +48,6 @@ end
 
 # Pagination
 gem 'kaminari'
-
-# Erro de Bundle
-gem 'execjs'
-gem 'therubyracer', platforms: :ruby
-gem 'less-rails'
-gem 'twitter-bootstrap-rails'
-gem 'libv8', '~> 3.11.8'
 
 # Encryption Engine
 gem 'bcrypt-ruby'
