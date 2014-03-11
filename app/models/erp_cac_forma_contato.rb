@@ -12,7 +12,9 @@ class ErpCacFormaContato < ConexaoPanambra
   end
 
   def self.retorna_for_select
-    ErpCacFormaContato.order(:forma_contato)
+    configuracao = Configuracao.first
+    ErpCacFormaContato.where(empresa: (configuracao.empresa rescue 1))
+                      .order(:forma_contato)
     							    .map {|forma| [("#{forma.forma_contato} - #{forma.des_forma_contato}"), forma.forma_contato] }
                       .uniq
   end
