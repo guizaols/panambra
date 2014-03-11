@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag 'favicon.ico' %>
+    <title><%= content_for?(:title) ? yield(:title) : 'Panambra' %></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'maskedinput' %>
+    <%= javascript_include_tag 'cufon-yui' %>
+    <%= javascript_include_tag 'fonte_auditoria' %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+    <script type="text/javascript">
+      Cufon.replace('.cufon');
+      Cufon.replace('.pergunta');
+    </script>
+  </head>
+
+  <body id="fundo_auditoria">
+      <%= yield %>
+      <script type="text/javascript"> Cufon.now(); </script>
+  </body>
+</html>

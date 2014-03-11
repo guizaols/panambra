@@ -1,4 +1,4 @@
-<div>
+<div class="step-pane <%= 'active' if numero == 1 %>" id="step<%= numero %>">
   <label for="item_verificacao_<%= item_verificacao.id %>" class="pergunta">
     <b><%= numero %>)</b>
     <%= item_verificacao.titulo %>
@@ -15,8 +15,7 @@
         <%#= alternativa.titulo %>
       <!-- </label> -->
       <button id="botao_<%= item_verificacao.id %>_<%= alternativa.id %>"
-              data-id="<%= alternativa.id %>" type="button"
-              class="botoes-radio btn <%= (alternativa.titulo.downcase == 'sim' ? 'btn-primary' : 'btn-danger') %>"
+              data-id="<%= alternativa.id %>" type="button" class="botoes-radio btn" style="margin: 100px"
               data-status="<%= (alternativa.titulo.downcase == 'sim' ? 1 : 0) %>">
         <%= (alternativa.titulo.downcase == 'sim' ? 'SIM' : 'NÃO') %>
       </button>
@@ -24,4 +23,3 @@
     <% end %>
   </div>
 </div>
-<br /><br /><br /><br />

@@ -26,6 +26,14 @@ class NaoConformidade < ActiveRecord::Base
   ESCALONADO = 2
   FINALIZADO = 3
 
+  def cliente_verbose
+    self.cliente.nome rescue nil
+  end
+
+  def item_verificacao_verbose
+    self.item_verificacao.titulo rescue nil
+  end
+
   def status_verbose
     case status
       when CRIADO; "Criado"
@@ -34,5 +42,6 @@ class NaoConformidade < ActiveRecord::Base
     end
   end
 
+   
 
 end

@@ -33,6 +33,7 @@ class Usuario < ActiveRecord::Base
   attr_accessible :telefone
   attr_accessible :celular
   attr_accessor   :authentication_key
+  attr_accessible :gcm
 
   belongs_to :entidade
   belongs_to :unidade

@@ -8,10 +8,10 @@ gem 'rails', '3.2.13'
 gem 'pg'
 
 # Oracle Connection
-gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
-gem 'ruby-oci8', '~> 2.1.0'
-# gem 'ruby-oci8', --platform x86-mingw32
-# gem 'ruby-oci8', platforms: :mingw32
+# gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
+# gem 'ruby-oci8', '~> 2.1.0'
+### gem 'ruby-oci8', --platform x86-mingw32
+### gem 'ruby-oci8', platforms: :mingw32
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,7 +20,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', platforms: :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -61,4 +61,12 @@ gem 'thin'
 # Thin Server como serviço no Windows
 gem 'thin_service'
 
+# File uploads
 gem 'carrierwave'
+
+# Wizard
+gem 'fuelux-rails'
+
+# Push Notifications
+gem 'push-core'
+gem 'push-gcm'
