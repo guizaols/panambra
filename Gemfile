@@ -21,7 +21,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', platforms: :ruby
+  # gem 'therubyracer', platforms: :ruby ### PARA O LINUX
   # gem 'therubyracer'
   gem 'less-rails'
   gem 'twitter-bootstrap-rails'
@@ -29,7 +29,7 @@ group :assets do
 end
 
 # Erro da gem therubyracer
-gem 'therubyracer'
+gem 'therubyracer' ### PARA O WINDOWS
 gem 'libv8', '~> 3.11.8'
 
 gem 'jquery-rails'
