@@ -13,8 +13,8 @@ class ErpCacRespostaItem < ConexaoPanambra
 
   def self.salva_cac_resposta_item(cac_resposta, questao_de_para, resposta_pesquisa)
     configuracao = Configuracao.first
-    resposta = configuracao.sim if resposta_pesquisa == Resposta::SIM
-    resposta = configuracao.nao if resposta_pesquisa == Resposta::NAO
+    resposta = configuracao.sim if resposta_pesquisa.resposta == Resposta::SIM
+    resposta = configuracao.nao if resposta_pesquisa.resposta == Resposta::NAO
     ErpCacRespostaItem.create({
       resposta: cac_resposta,
       empresa: configuracao.empresa,
