@@ -15,8 +15,8 @@
 		  <tbody>
 		  	<% @clientes.each do |objeto| %>
 			    <tr>
-			    	<td><%= radio_button_tag 'codigo_cliente', objeto.codigo %></td>
-			      <td><%= objeto.codigo %></td>
+			    	<td><%= radio_button_tag 'codigo_cliente', objeto.cliente %></td>
+			      <td><%= objeto.cliente %></td>
 			      <td><%= objeto.nome %></td>
 			    </tr>
 		    <% end %>
