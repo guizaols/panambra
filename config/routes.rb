@@ -5,6 +5,11 @@ Template::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "authentications" => "authentications#create"
+      post "nao_conformidades" => "nao_conformidades#index"
+      post "nao_conformidade" => "nao_conformidades#show"
+      post "finalizar" => "nao_conformidades#finalizar"
+      post "escalonar" => "nao_conformidades#escalonar"
+      post "gcm" => "gcm#show"
     end
   end
 

@@ -66,3 +66,7 @@ gem 'carrierwave'
 
 # Wizard
 gem 'fuelux-rails'
+
+# Push Notifications
+gem 'push-core'
+gem 'push-gcm'

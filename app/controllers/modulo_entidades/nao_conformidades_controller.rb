@@ -2,8 +2,12 @@
 class ModuloEntidades::NaoConformidadesController < ApplicationController
   
   def index
-    @nao_conformidades = NaoConformidade.where("unidade_id = ? AND status = ?",current_unidade.id,NaoConformidade::CRIADO).page(params[:page])
+    #@nao_conformidades = NaoConformidade.where("unidade_id = ? AND status = ?",current_unidade.id,NaoConformidade::CRIADO).page(params[:page])
+     #                            .per(15)
+
+@nao_conformidades = NaoConformidade.where("unidade_id = ?",current_unidade.id).page(params[:page])
                                  .per(15)
+
   end
 
   def show
