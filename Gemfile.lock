@@ -32,10 +32,7 @@ GEM
     arel (3.0.3)
     atomic (1.1.15)
     bcrypt (3.1.7)
-    bcrypt (3.1.7-x86-mingw32)
     bcrypt-ruby (3.1.5)
-      bcrypt (>= 3.1.3)
-    bcrypt-ruby (3.1.5-x86-mingw32)
       bcrypt (>= 3.1.3)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
@@ -82,7 +79,6 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -90,7 +86,6 @@ GEM
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
     ffi (1.9.3)
-    ffi (1.9.3-x86-mingw32)
     formatador (0.2.4)
     fuelux-rails (2.5.1)
       actionpack (>= 3.1)
@@ -126,7 +121,7 @@ GEM
     less-rails (2.4.2)
       actionpack (>= 3.1)
       less (~> 2.4.0)
-    libv8 (3.16.14.3)
+    libv8 (3.11.8.17)
     listen (2.7.0)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -143,21 +138,13 @@ GEM
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    nokogiri (1.6.1-x86-mingw32)
-      mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
-    pg (0.17.1-x86-mingw32)
     polyglot (0.3.4)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry (0.9.12.6-x86-mingw32)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
-      slop (~> 3.4)
-      win32console (~> 1.3)
     push-core (1.0.4)
       multi_json (>= 1.3.2)
       rails (> 3.2)
@@ -191,7 +178,6 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    ref (1.0.5)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -209,7 +195,6 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-oci8 (2.1.7)
-    ruby-oci8 (2.1.7-x86-mingw32)
     sass (3.3.1)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -221,9 +206,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    therubyracer (0.12.1)
-      libv8 (~> 3.16.14.0)
-      ref
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -248,13 +230,11 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
-    win32console (1.3.2-x86-mingw32)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
-  x86-mingw32
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 1.4.0)
@@ -273,7 +253,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   less-rails
-  libv8
+  libv8 (~> 3.11.8)
   pg
   push-core
   push-gcm
@@ -281,7 +261,6 @@ DEPENDENCIES
   rspec-rails
   ruby-oci8 (~> 2.1.0)
   sass-rails (~> 3.2.3)
-  therubyracer
   thin
   thin_service
   twitter-bootstrap-rails
