@@ -14,10 +14,11 @@
 		  </thead>
 		  <tbody>
 		  	<% @clientes.each do |objeto| %>
-		    	<tr>
-		      	<td><%= objeto.cliente %></td>
-		      	<td><%= objeto.nome %></td>
-		      </tr>
+			    <tr>
+			    	<td><%= radio_button_tag 'codigo_cliente', objeto.codigo %></td>
+			      <td><%= objeto.codigo %></td>
+			      <td><%= objeto.nome %></td>
+			    </tr>
 		    <% end %>
 		  </tbody>
 		</table>
@@ -25,6 +26,15 @@
 </div>
 
 <div class="modal-footer">
-	<%= submit_tag 'Selecionar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
+	<%= submit_tag 'Liberar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>
 	<%= link_to 'Fechar', '#', class: 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => true %>
 </div>
+
+<script type="text/javascript">
+	$('tr').click(function() {
+    $('tr').find('input[type=radio]').each(function() {
+			$(this).attr('checked', false);
+    });
+    $('input[type=radio]', this).attr('checked','checked');
+	});
+</script>

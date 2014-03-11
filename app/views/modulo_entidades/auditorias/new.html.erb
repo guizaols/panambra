@@ -23,12 +23,12 @@
       ESPONTÂNEA
     </button>
     <%= hidden_field_tag 'opcao', nil %>
+    <%= hidden_field_tag 'cliente', nil %>
   </div>
 
   <div id="dialog_for_clientes" class="modal hide fade" data-show="false"></div>
 
   <div class="actions form-actions">
-    <%= f.submit 'Liberar', class: 'btn btn-inverse', data: { disable_with: 'Liberando...' } %>
     <% if current_user.permitted_to?(:auditorias, :index) %>
       <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
     <% end %>
