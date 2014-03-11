@@ -189,30 +189,26 @@ left: 25%;
 	color: #003f6a;
 }
 
-#img_logo
-{
+#img_logo {
 	position: relative;
 	padding-left: 75%;
 	padding-top : 10%;
 	padding-bottom: 5%;
 }
 
-#imgfinal
-{
+#imgfinal {
 	position: relative;
-	padding-left: 7%;
+	padding-left: 3%;
 	padding-bottom: 20%;	
 }
 
-#txtfinal
-{
+#txtfinal {
 	position: relative;
-	margin-left: -500px;
+	margin-left: -610px;
 	padding-bottom: 5%;	
 }
 
-#questao_css
-{
+#questao_css {
 	position: absolute;
 	top: 100%;
 	left: 10%;
