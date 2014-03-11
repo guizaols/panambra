@@ -48,6 +48,8 @@ gem 'kaminari'
 # Erro de Bundle
 gem 'execjs'
 gem 'therubyracer', platforms: :ruby
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
 gem 'libv8', '~> 3.11.8'
 
 # Encryption Engine
