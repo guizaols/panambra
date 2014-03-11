@@ -27,6 +27,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'therubyracer'
 # Erro da gem therubyracer
 gem 'libv8', '~> 3.11.8'
 
