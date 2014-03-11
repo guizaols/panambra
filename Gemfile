@@ -44,9 +44,10 @@ end
 
 # Pagination
 gem 'kaminari'
-gem 'execjs'
 
-#Erro de Bundle
+# Erro de Bundle
+gem 'execjs'
+gem 'therubyracer', platforms: :ruby
 gem 'libv8', '~> 3.11.8'
 
 # Encryption Engine
@@ -65,8 +66,6 @@ gem 'thin_service'
 gem 'carrierwave'
 
 # Wizard
-gem 'execjs'
-gem 'therubyracer'
 gem 'fuelux-rails'
 
 # Push Notifications
