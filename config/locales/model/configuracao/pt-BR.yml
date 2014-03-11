@@ -16,6 +16,7 @@ pt-BR:
         tipo_providencia: "TIPO_PROVIDENCIA"
         subtipo_providencia: "SUB_TIPO_PROVIDENCIA"
         questionario: "QUESTIONARIO"
+        usuario_responsavel: "USUARIO"
     models:
       configuracao: "Configuração"
 

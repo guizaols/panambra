@@ -67,5 +67,8 @@ nbactions.xml
 #Ignore Files to importation
 /uploads
 
-# Igonore compiled asstes
+#Igonore compiled asstes
 .sass-cache/
+
+#Ignore Gemfile.lock
+Gemfile.lock
