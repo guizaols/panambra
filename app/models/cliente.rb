@@ -9,8 +9,9 @@ class Cliente < ActiveRecord::Base
 
   has_many :auditorias, dependent: :destroy
 
-  validates :cpf_cnpj, uniqueness: { case_sensitive: false, scope: [:unidade_id] },
-                    	 length: { maximum: 20 }
+  validates :cpf_cnpj, uniqueness: { case_sensitive: false, scope: [:unidade_id]},
+                    	 length: { maximum: 20 },
+                       allow_nil: true
   validates :codigo, presence: true,
                      uniqueness: { case_sensitive: false, scope: [:unidade_id] }
 
@@ -37,11 +38,11 @@ class Cliente < ActiveRecord::Base
         cpf_cnpj: (params[:cpf_cnpj].strip rescue nil),
         unidade_id: unidade_id
 			})
-			unless cliente.save
+			unless cliente.save!
         cliente = nil
       end
 		end
-		cliente
+    cliente
   end
 
 end
