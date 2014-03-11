@@ -28,6 +28,7 @@ group :assets do
 end
 
 # Erro da gem therubyracer
+gem 'therubyracer'
 gem 'libv8', '~> 3.11.8'
 
 gem 'jquery-rails'
