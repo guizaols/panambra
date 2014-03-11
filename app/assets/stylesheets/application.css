@@ -188,3 +188,17 @@ left: 35%;
 {
 	color: #003f6a;
 }
+
+#img_logo
+{
+		position: relative;
+	padding-left: 130%;
+	padding-top : 10%;
+}
+
+#questao_css
+{
+		position: absolute;
+	top:100%;
+	left: 50%;
+}
