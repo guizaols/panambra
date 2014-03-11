@@ -197,6 +197,22 @@ left: 25%;
 	padding-bottom: 5%;
 }
 
+#imgfinal
+{
+	position: relative;
+	padding-left: 75%;
+	padding-top : 50%;
+	padding-bottom: 5%;	
+}
+
+#txtfinal
+{
+	position: relative;
+	padding-left: 5%;
+	padding-top : 5%;
+	padding-bottom: 5%;	
+}
+
 #questao_css
 {
 	position: absolute;
