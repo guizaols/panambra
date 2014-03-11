@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag 'favicon.ico' %>
+    <title><%= content_for?(:title) ? yield(:title) : 'Panambra' %></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'maskedinput' %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+  </head>
+
+  <body id="fundo_auditoria">
+   
+  
+      <%= yield %>
+     
+
+    
+
+  </body>
+</html>

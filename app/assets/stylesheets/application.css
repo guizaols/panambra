@@ -67,9 +67,9 @@ li.acao-float-left {
 }
 
 div.aguardando_pesquisa {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  position: absolute;
+  top: 80%;
+  left: 55%;
   margin-top: -50px;
   margin-left: -500px;
   width: 1200px;
@@ -157,4 +157,25 @@ input.finalizar {
 
 #loading p {
 	text-align: center;
+}
+
+#imgpos {
+position: absolute;
+top:15%;
+left: 35%;
+
+} 
+
+#txtposinicio
+{
+	position: absolute;
+	top:35%;
+	left: 30%;
+}
+
+#fundo_auditoria
+{
+	background-image: url("fundo.png");
+	background-repeat: repeat-xy;
+
 }
