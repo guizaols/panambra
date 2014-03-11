@@ -17,6 +17,8 @@ class Configuracao < ActiveRecord::Base
   attr_accessible :subtipo_providencia
 	attr_accessible :questionario
   attr_accessible :usuario_responsavel
+  attr_accessible :sim
+  attr_accessible :nao
 
 
 	def self.cria_ou_retorna_configuracao

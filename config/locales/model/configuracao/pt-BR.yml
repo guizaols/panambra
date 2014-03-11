@@ -17,7 +17,7 @@ pt-BR:
         subtipo_providencia: "SUB_TIPO_PROVIDENCIA"
         questionario: "QUESTIONARIO"
         usuario_responsavel: "USUARIO"
+        sim: "OPÇÃO SIM"
+        nao: "OPÇÃO NÃO"
     models:
       configuracao: "Configuração"
-
-  
