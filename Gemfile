@@ -25,9 +25,11 @@ group :assets do
   gem 'therubyracer', platforms: :ruby
   gem 'less-rails'
   gem 'twitter-bootstrap-rails'
-  # gem 'libv8', '~> 3.11.8'
   gem 'uglifier', '>= 1.0.3'
 end
+
+# Erro da gem therubyracer
+gem 'libv8'
 
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 2.3.2.2'

@@ -273,6 +273,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   less-rails
+  libv8
   pg
   push-core
   push-gcm
