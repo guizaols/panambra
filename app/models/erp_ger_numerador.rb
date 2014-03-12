@@ -14,20 +14,17 @@ class ErpGerNumerador < ConexaoPanambra
   def self.retorna_proximo_numero(tabela, numerador)
   	## Devera entrar na tabela GER_NUMERADOR, buscar o campo próximo número da empresa e revenda
   	## relacionada a nota e imediatamente somar +1
-  	configuracao  = Configuracao.first
-  	ultimo_numero = 0
-    numerador     = ErpGerNumerador.where(empresa: configuracao.empresa)
+  	configuracao      = Configuracao.first
+  	ultimo_numero     = 0
+    erp_ger_numerador = ErpGerNumerador.where(empresa: configuracao.empresa)
                                    .where(revenda: configuracao.revenda)
   								 							   .where(tabela: tabela)
                                    .where(numerador: numerador)
                                    .order('proximo_numero DESC')
-    if numerador.present?
-      ultimo_numero = numerador.first.proximo_numero rescue 0
+    if erp_ger_numerador.present?
+      ultimo_numero = erp_ger_numerador.first.proximo_numero rescue 0
       proximo_numero = ultimo_numero + 1
-      sql  = "UPDATE ERP_GER_NUMERADOR SET proximo_numero = #{proximo_numero} "
-      sql += "WHERE empresa = #{configuracao.empresa} AND revenda = #{configuracao.revenda} AND "
-      sql += "tabela = '#{tabela}' AND numerador = '#{numerador}'"
-      connection.execute(sql)
+      erp_ger_numerador.first.update_column(:proximo_numero, proximo_numero)
     end
     ultimo_numero
   end
