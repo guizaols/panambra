@@ -24,7 +24,9 @@ class ErpGerNumerador < ConexaoPanambra
     if erp_ger_numerador.present?
       ultimo_numero = erp_ger_numerador.first.proximo_numero rescue 0
       proximo_numero = ultimo_numero + 1
-      erp_ger_numerador.first.update_column(:proximo_numero, proximo_numero)
+      update = erp_ger_numerador.first
+      update.proximo_numero = proximo_numero
+      update.save
     end
     ultimo_numero
   end
