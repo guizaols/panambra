@@ -126,7 +126,8 @@ class Auditoria < ActiveRecord::Base
         end
       end
     rescue Exception => e
-    	# p e.message
+    	p e.message
+      p e.backtrace
       [false, e.message]
     end
   end
