@@ -42,7 +42,7 @@ module ApplicationHelper
         					#{pluralize(object.errors.count, 'ERRO ENCONTRADO', 'ERROS ENCONTRADOS')}
       					</strong>
       					<div class='box_content'>
-        					<ul>"
+                <ul>"
 			object.errors.full_messages.each do |msg|
       	html << "<li>#{msg}</li>"
       end

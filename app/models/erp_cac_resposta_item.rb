@@ -5,6 +5,12 @@ class ErpCacRespostaItem < ConexaoPanambra
   ### ITEM DE RESPOSTA
   self.table_name = 'CAC_RESPOSTA_ITEM'
 
+  attr_accessible :resposta
+  attr_accessible :empresa
+  attr_accessible :questao
+  attr_accessible :escolha
+
+
   def self.sqlteste
     query = 'SELECT * FROM cac_resposta_item WHERE rownum <= 10'
     retorno = connection.select_all(query)

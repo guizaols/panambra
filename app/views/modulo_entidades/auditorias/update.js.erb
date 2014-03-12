@@ -1,7 +1,7 @@
 <% if @retorno.first %>
 	$('#mensagens').html('');
 	$('#mensagens').hide();
-	alert('Pesquisa realizada com sucesso! Obrigado pela atenção e volte sempre!');
+	// alert('Pesquisa realizada com sucesso! Obrigado pela atenção e volte sempre!');
 	<% if current_user.present? %>
 		window.location.href = '<%= url_for([:iniciar_pesquisa, :entidade, :auditorias]) %>';
 	<% else %>

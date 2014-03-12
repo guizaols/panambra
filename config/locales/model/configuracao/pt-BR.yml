@@ -19,5 +19,6 @@ pt-BR:
         usuario_responsavel: "USUARIO"
         sim: "OPÇÃO SIM"
         nao: "OPÇÃO NÃO"
+        caixas: "CAIXAS"
     models:
       configuracao: "Configuração"

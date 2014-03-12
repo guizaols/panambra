@@ -4,34 +4,33 @@
 <br />
 
 <%= form_for [:entidade, @auditoria], html: { class: 'form-horizontal' } do |f| %>
-
 	<%= error_messages(@auditoria) %>
 
   <div class="btn-group" data-toggle="buttons-radio" id="opcaoes %>">
     <button id="botao_sim" data-id="<%= Auditoria::SIM %>" type="button"
             class="botoes-radio-liberacao btn btn-primary %>">
-      SIM
+      CLIENTE IDENTIFICADO
     </button>
-
-    <button id="botao_nao" data-id="<%= Auditoria::NAO %>" type="button"
+<!-- 
+    <button id="botao_nao" data-id="<%#= Auditoria::NAO %>" type="button"
             class="botoes-radio-liberacao btn btn-danger %>">
       NÃO
     </button>
-
+-->
     <button id="botao_espontanea" data-id="<%= Auditoria::ESPONTANEA %>" type="button"
             class="botoes-radio-liberacao btn btn-inverse %>">
-      ESPONTÂNEA
+      CLIENTE ESPONTÂNEO
     </button>
     <%= hidden_field_tag 'opcao', nil %>
     <%= hidden_field_tag 'cliente', nil %>
   </div>
 
   <div id="dialog_for_clientes" class="modal hide fade" data-show="false"></div>
+<% end %>
 
+<% if current_user.permitted_to?(:auditorias, :index) %>
   <div class="actions form-actions">
-    <% if current_user.permitted_to?(:auditorias, :index) %>
-      <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
-    <% end %>
+    <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
   </div>
 <% end %>
 
@@ -41,13 +40,16 @@
     $('.botoes-radio-liberacao').click(function() {
       $('#opcao').val($(this).data('id'));
     });
-
     $('#botao_sim').click(function() {
       $.ajax({
         url: urlRetornaClientesErp,
         type: 'POST',
         dataType: 'script'
       });
+      return false;
+    });
+    $('#botao_espontanea').click(function() {
+      $('form').submit();
       return false;
     });
   });

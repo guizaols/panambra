@@ -80,7 +80,6 @@
     </div>
   </div>
 
-
   <!-- <h4>CAC_PROVIDENCIA</h4> -->
   <div class="field control-group">
     <%= f.label :providencia, class: 'control-label' %>
@@ -107,21 +106,28 @@
   <div class="field control-group">
     <%= f.label :questionario, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :questionario, class: 'input-small', maxlength: 10 %>
+      <%= f.text_field :questionario, class: 'input-small numeric', maxlength: 10 %>
     </div>
   </div>
 
   <div class="field control-group">
     <%= f.label :sim, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :sim, class: 'input-small', maxlength: 10 %>
+      <%= f.text_field :sim, class: 'input-small numeric', maxlength: 10 %>
     </div>
   </div>
 
   <div class="field control-group">
     <%= f.label :nao, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :nao, class: 'input-small', maxlength: 10 %>
+      <%= f.text_field :nao, class: 'input-small numeric', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="field control-group">
+    <%= f.label :caixas, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :caixas, class: 'input-small', maxlength: 10 %>
     </div>
   </div>
 

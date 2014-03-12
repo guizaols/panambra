@@ -134,10 +134,12 @@ label.resposta {
 }
 
 .botoes-radio-liberacao {
-	width: 400px;
+	width: 570px;
 	height: 150px;
-	font-size: 40pt !important;
+	font-size: 30pt !important;
 	font-weight: bold;
+	border-radius: 10px !important;
+	margin-left: 10px !important;
 }
 
 input.finalizar {
@@ -167,25 +169,20 @@ input.finalizar {
 position: absolute;
 top: 10%;
 left: 25%;
-
 } 
 
-#txtposinicio
-{
+#txtposinicio {
 	position: absolute;
 	top:35%;
 	left: 15%;
 }
 
-#fundo_auditoria
-{
+#fundo_auditoria {
 	background-image: url("fundo.png");
 	background-repeat: repeat-xy;
-
 }
 
-.pergunta
-{
+.pergunta {
 	color: #003f6a;
 }
 

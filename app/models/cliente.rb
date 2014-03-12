@@ -2,6 +2,10 @@
 
 class Cliente < ActiveRecord::Base
   
+  ### TIPO DE CLIENTE
+  CLIENTE_COMUM      = 234545654656
+  CLIENTE_ESPONTANEO = 999999999999
+
   attr_accessible :codigo
   attr_accessible :cpf_cnpj
   attr_accessible :nome
@@ -20,28 +24,45 @@ class Cliente < ActiveRecord::Base
 
   def self.pesquisa(unidade_id, params)
     clientes = Cliente.by_unidade_id(unidade_id)
+    clientes = clientes.where('codigo <> ?', CLIENTE_ESPONTANEO)
     clientes = clientes.where('nome LIKE ? OR codigo LIKE ? OR cpf_cnpj LIKE ?',
     													 params[:pesquisa].full_like, params[:pesquisa].full_like,
     													 params[:pesquisa].full_like) if params[:pesquisa].present?
     clientes = clientes.order(:nome, :codigo, :cpf_cnpj)
   end
 
-  def self.cria_ou_recupera(unidade_id, params)
-  	cliente = Cliente.by_unidade_id(unidade_id)
-  				 					 .where(codigo: params[:codigo].strip)
-  				 					 .first rescue nil
-
+  def self.cria_ou_recupera_cliente_comum(unidade_id, params)
+    cliente = Cliente.by_unidade_id(unidade_id)
+    			 					 .where(codigo: params[:codigo].strip)
+    			 					 .first rescue nil
     if cliente.blank?
-			cliente = Cliente.new({
-				codigo: (params[:codigo].strip rescue nil),
-				nome: (params[:nome].strip rescue nil),
+      cliente = Cliente.new({
+  			codigo: (params[:codigo].strip rescue nil),
+  			nome: (params[:nome].strip rescue nil),
         cpf_cnpj: (params[:cpf_cnpj].strip rescue nil),
         unidade_id: unidade_id
-			})
-			unless cliente.save!
+      })
+      unless cliente.save
         cliente = nil
       end
-		end
+  	end
+    cliente
+  end
+
+  def self.cria_ou_recupera_cliente_espontaneo(unidade_id)
+    cliente = Cliente.by_unidade_id(unidade_id)
+                     .where(codigo: CLIENTE_ESPONTANEO.to_s)
+                     .first rescue nil
+    if cliente.blank?
+      cliente = Cliente.new({
+        codigo: CLIENTE_ESPONTANEO,
+        nome: 'CLIENTE ESPONTÂNEO',
+        unidade_id: unidade_id
+      })
+      unless cliente.save
+        cliente = nil
+      end
+    end
     cliente
   end
 

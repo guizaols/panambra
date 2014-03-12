@@ -5,6 +5,24 @@ class ErpCacContato < ConexaoPanambra
   ### CONTATO
   self.table_name = 'CAC_CONTATO'
 
+  attr_accessible :empresa
+  attr_accessible :revenda
+  attr_accessible :contato
+  attr_accessible :dta_contato
+  attr_accessible :dta_fechamento
+  attr_accessible :situacao
+  attr_accessible :des_contato
+  attr_accessible :ativo_passivo
+  attr_accessible :departamento
+  attr_accessible :tipo_contato
+  attr_accessible :sub_tipo_contato
+  attr_accessible :usuario_abriu
+  attr_accessible :usuario_encaminhado_original
+  attr_accessible :usuario_encaminhado
+  attr_accessible :cliente
+  attr_accessible :forma_contato
+  attr_accessible :origem
+
   def self.sqlteste
     query = 'SELECT * FROM cac_contato WHERE rownum <= 10'
     retorno = connection.select_all(query)

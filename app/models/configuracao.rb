@@ -19,6 +19,7 @@ class Configuracao < ActiveRecord::Base
   attr_accessible :usuario_responsavel
   attr_accessible :sim
   attr_accessible :nao
+  attr_accessible :caixas
 
 
 	def self.cria_ou_retorna_configuracao

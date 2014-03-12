@@ -5,6 +5,20 @@ class ErpCacProvidencia < ConexaoPanambra
   ### PROVIDENCIA
   self.table_name = 'CAC_PROVIDENCIA'
 
+  attr_accessible :empresa
+  attr_accessible :revenda
+  attr_accessible :contato
+  attr_accessible :providencia
+  attr_accessible :usuario
+  attr_accessible :forma_contato
+  attr_accessible :tipo_providencia
+  attr_accessible :sub_tipo_providencia
+  attr_accessible :dta_providencia
+  attr_accessible :des_providencia
+  attr_accessible :ativo_passivo
+  attr_accessible :usuario_encaminhado
+
+
   def self.sqlteste
     query = 'SELECT * FROM cac_providencia WHERE rownum <= 10'
     retorno = connection.select_all(query)

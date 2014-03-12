@@ -27,10 +27,14 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@auditoria.unidade = current_unidade
 		@auditoria.checklist = current_unidade.retorna_checklist_ativo
 
-		erp_cliente = ErpFatCliente.where(cliente: params[:codigo_cliente]).first rescue nil
-		if erp_cliente.present?
-			params[:cliente] = { codigo: params[:codigo_cliente], nome: erp_cliente.nome, cpf_cnpj: nil }
-			@auditoria.cliente = Cliente.cria_ou_recupera(current_unidade.id, params[:cliente])
+		if params[:opcao] == Auditoria::SIM
+			erp_cliente = ErpFatCliente.where(cliente: params[:codigo_cliente]).first rescue nil
+			if erp_cliente.present?
+				params[:cliente] = { codigo: params[:codigo_cliente], nome: erp_cliente.nome, cpf_cnpj: nil }
+				@auditoria.cliente = Cliente.cria_ou_recupera_cliente_comum(current_unidade.id, params[:cliente])
+			end
+		elsif Auditoria::ESPONTANEA
+			@auditoria.cliente = Cliente.cria_ou_recupera_cliente_espontaneo(current_unidade.id)
 		end
 
 		if @auditoria.save
@@ -42,7 +46,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 
 	def edit
 		@auditoria = Auditoria.find(params[:id])
-		render :layout=>"auditoria_inicial"
+		render layout: 'auditoria_inicial'
 	end
 
 	def update
@@ -59,13 +63,13 @@ class ModuloEntidades::AuditoriasController < ApplicationController
     @clientes 	 = []
     @clientes_ids = ErpFatFrenteCaixa.where(revenda: configuracao.revenda)
     														 		 .where(situacao: 'P')
-    														 		 .where(caixa: [3])
+    														 		 .where(caixa: configuracao.caixas.split(', '))
     														 		 .where(origem: configuracao.origem)
     														 		 .limit(10)
     														 		 .pluck(:cliente_emissao_nf)
     														 		 .uniq
     @clientes = ErpFatCliente.where(cliente: @clientes_ids).order(:nome) rescue nil if @clientes_ids.present?
-    # @clientes = Cliente.all
+    # @clientes = Cliente.where(unidade_id: configuracao.caixas.split(', '))
   end
 
 end
