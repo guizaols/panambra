@@ -24,7 +24,10 @@ class ErpGerNumerador < ConexaoPanambra
     if numerador.present?
       ultimo_numero = numerador.first.proximo_numero rescue 0
       proximo_numero = ultimo_numero + 1
-      numerador.first.update_column(:proximo_numero, proximo_numero)
+      sql  = "UPDATE ERP_GER_NUMERADOR SET proximo_numero = #{proximo_numero} "
+      sql += "WHERE empresa = #{configuracao.empresa} AND revenda = #{configuracao.revenda} AND "
+      sql += "tabela = '#{tabela}' AND numerador = '#{numerador}'"
+      connection.execute(sql)
     end
     ultimo_numero
   end
