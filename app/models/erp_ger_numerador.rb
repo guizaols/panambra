@@ -11,6 +11,16 @@ class ErpGerNumerador < ConexaoPanambra
     retorno
   end
 
+  def self.teste1
+    query = "SELECT sequence_name FROM USER_SEQUENCES WHERE sequence_name = 'CAC_CONTATOE1R1'"
+    connection.select_all(query)
+  end
+
+  def self.teste2
+    query = 'SELECT CAC_CONTATOE1R1.nextval PROXIMO_NUMERO FROM dual'
+    connection.select_all(query)
+  end
+
   def self.retorna_proximo_numero(tabela, numerador)
   	## Devera entrar na tabela GER_NUMERADOR, buscar o campo próximo número da empresa e revenda
   	## relacionada a nota e imediatamente somar +1
