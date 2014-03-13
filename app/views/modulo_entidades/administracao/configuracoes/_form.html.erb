@@ -1,5 +1,4 @@
 <%= form_for [:entidade, :administracao, @configuracao], html: { class: 'form-horizontal' } do |f| %>
-  
   <%= error_messages(@configuracao) %>
 
   <!-- <h4>CAC_CONTATO</h4> -->
@@ -130,6 +129,14 @@
       <%= f.text_field :caixas, class: 'input-small', maxlength: 10 %>
     </div>
   </div>
+
+  <div class="field control-group">
+    <%= f.label :cliente_espontaneo, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :cliente_espontaneo, class: 'input-small numeric', maxlength: 10 %>
+    </div>
+  </div>
+
 
   <div class="actions form-actions">
     <%= f.submit 'Salvar', class: 'btn btn-inverse', data: { disable_with: 'Salvando...' } %>

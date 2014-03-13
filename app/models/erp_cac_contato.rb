@@ -23,6 +23,7 @@ class ErpCacContato < ConexaoPanambra
   attr_accessible :forma_contato
   attr_accessible :origem
 
+
   def self.sqlteste
     query = 'SELECT * FROM cac_contato WHERE rownum <= 10'
     retorno = connection.select_all(query)
@@ -31,6 +32,11 @@ class ErpCacContato < ConexaoPanambra
 
   def self.salva_cac_contato(auditoria, contato_cac_contato)
     configuracao = Configuracao.first
+    if auditoria.cliente.codigo == Cliente::CLIENTE_ESPONTANEO
+      cliente = configuracao.cliente_espontaneo
+    else
+      cliente = auditoria.cliente.codigo
+    end
     ErpCacContato.create({
       empresa: configuracao.empresa,
       revenda: configuracao.revenda,
@@ -46,7 +52,7 @@ class ErpCacContato < ConexaoPanambra
       usuario_abriu: configuracao.usuario_responsavel,
       usuario_encaminhado_original: configuracao.usuario_responsavel,
       usuario_encaminhado: configuracao.usuario_responsavel,
-      cliente: auditoria.cliente.codigo,
+      cliente: cliente,
       forma_contato: configuracao.forma_contato,
       origem: configuracao.origem
     })

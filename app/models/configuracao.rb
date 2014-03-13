@@ -20,6 +20,7 @@ class Configuracao < ActiveRecord::Base
   attr_accessible :sim
   attr_accessible :nao
   attr_accessible :caixas
+  attr_accessible :cliente_espontaneo
 
 
 	def self.cria_ou_retorna_configuracao

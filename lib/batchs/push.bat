@@ -1,2 +1,2 @@
 @echo off
-call bundle exec push production
+call bundle exec push production -f
