@@ -20,5 +20,6 @@ pt-BR:
         sim: "OPÇÃO SIM"
         nao: "OPÇÃO NÃO"
         caixas: "CAIXAS"
+        cliente_espontaneo: "CLIENTE ESPONTÂNEO"
     models:
       configuracao: "Configuração"
