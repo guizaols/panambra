@@ -16,10 +16,10 @@ class ErpGerNumerador < ConexaoPanambra
     connection.select_all(query)
   end
 
-  def self.new_retorna_proximo_numero
+  def self.retorna_proximo_numero_contato
     query     = 'SELECT CAC_CONTATOE1R1.nextval PROXIMO_NUMERO FROM dual'
     resultado = connection.select_all(query)
-    resultado.first['proximo_numero']
+    resultado.first['proximo_numero'] rescue 1
   end
 
   def self.retorna_proximo_numero(tabela, numerador)
