@@ -20,7 +20,7 @@ class Auditoria < ActiveRecord::Base
 	belongs_to :unidade
 	belongs_to :checklist
 
-  has_many :respostas, order: 'id ASC'
+  has_many :respostas, order: 'id ASC', dependent: :destroy
 
 	validates :cliente, presence: true
   validates :unidade, presence: true
