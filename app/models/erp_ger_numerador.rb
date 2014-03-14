@@ -16,9 +16,10 @@ class ErpGerNumerador < ConexaoPanambra
     connection.select_all(query)
   end
 
-  def self.teste2
-    query = 'SELECT CAC_CONTATOE1R1.nextval PROXIMO_NUMERO FROM dual'
-    connection.select_all(query)
+  def self.new_retorna_proximo_numero
+    query     = 'SELECT CAC_CONTATOE1R1.nextval PROXIMO_NUMERO FROM dual'
+    resultado = connection.select_all(query)
+    resultado
   end
 
   def self.retorna_proximo_numero(tabela, numerador)
