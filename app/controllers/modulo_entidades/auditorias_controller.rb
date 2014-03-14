@@ -33,7 +33,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 				params[:cliente] = { codigo: params[:codigo_cliente], nome: erp_cliente.nome, cpf_cnpj: nil }
 				@auditoria.cliente = Cliente.cria_ou_recupera_cliente_comum(current_unidade.id, params[:cliente])
 			end
-		elsif Auditoria::ESPONTANEA
+		elsif params[:opcao] == Auditoria::ESPONTANEA
 			@auditoria.cliente = Cliente.cria_ou_recupera_cliente_espontaneo(current_unidade.id)
 		end
 
