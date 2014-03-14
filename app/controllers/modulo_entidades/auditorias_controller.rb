@@ -27,13 +27,13 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		@auditoria.unidade = current_unidade
 		@auditoria.checklist = current_unidade.retorna_checklist_ativo
 
-		if params[:opcao] == Auditoria::SIM
+		if params[:opcao].to_i == Auditoria::SIM
 			erp_cliente = ErpFatCliente.where(cliente: params[:codigo_cliente]).first rescue nil
 			if erp_cliente.present?
 				params[:cliente] = { codigo: params[:codigo_cliente], nome: erp_cliente.nome, cpf_cnpj: nil }
 				@auditoria.cliente = Cliente.cria_ou_recupera_cliente_comum(current_unidade.id, params[:cliente])
 			end
-		elsif params[:opcao] == Auditoria::ESPONTANEA
+		elsif params[:opcao].to_i == Auditoria::ESPONTANEA
 			@auditoria.cliente = Cliente.cria_ou_recupera_cliente_espontaneo(current_unidade.id)
 		end
 
