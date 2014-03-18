@@ -38,7 +38,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		end
 
 		if @auditoria.save
-			redirect_to [:entidade, :auditorias], notice: 'Auditoria liberada com sucesso!'
+			redirect_to [:new, :entidade, :auditoria], notice: 'Auditoria liberada com sucesso!'
 		else
 			render :new
 		end
