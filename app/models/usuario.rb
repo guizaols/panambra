@@ -122,7 +122,6 @@ class Usuario < ActiveRecord::Base
   def self.retorna_tipo_para_select
     [
       ['Administrador da Unidade', ADMINISTRADOR_UNIDADE],
-      ['Cliente', CLIENTE],
       ['Caixa', CAIXA]
     ]
   end
