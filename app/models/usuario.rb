@@ -11,7 +11,7 @@ class Usuario < ActiveRecord::Base
   ADMINISTRADOR_UNIDADE          = 3
   CAIXA                          = 4
   VENDAS                         = 5
-  
+
   ### STATUS
   ATIVO   = 1
   INATIVO = 2
@@ -78,7 +78,6 @@ class Usuario < ActiveRecord::Base
   end
   alias_method :update_authentication_token, :create_authentication_token
 
-
   def generate_token(attribute_name)
     begin
       token = SecureRandom.hex
@@ -92,6 +91,10 @@ class Usuario < ActiveRecord::Base
 
   def eh_usuario_administrador_da_entidade?
     ![ADMINISTRADOR_GERAL_DO_SISTEMA, ADMINISTRADOR_ENTIDADE].include?(self.tipo)
+  end
+
+  def eh_caixa?
+    login.include?('caixa')
   end
 
   def definir_como_ativo

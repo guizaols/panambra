@@ -88,3 +88,28 @@ permissoes:
           methods:
             - pesquisas_detalhadas
 ### END RELATÓRIO
+
+##INICIO NAO CONFORMIDADES
+    nao_conformidades:
+      name: 'Não Conformidades'
+      actions:
+        index:
+          name: 'Visualizar'
+          methods:
+            - index
+            - show
+        new:
+          name: 'Criar'
+          methods:
+            - new
+            - create
+        edit:
+          name: 'Editar'
+          methods:
+            - edit
+            - update
+        destroy:
+          name: 'Excluir'
+          methods:
+            - destroy
+### END CONFORMIDADES

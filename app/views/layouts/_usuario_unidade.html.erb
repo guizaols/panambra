@@ -2,77 +2,88 @@
   <div class="navbar-inner">
     <div class="container">
 
-      <ul class="nav">
-        <% if current_user.permitted_to?(:usuarios, :index) &&
-              current_user.permitted_to?(:checklists, :index) %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="icon-th-large icon-white"></i>
-              Cadastros
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <% if current_user.permitted_to?(:usuarios, :index) %>
-                <li><%= link_to 'Usuários', [:entidade, :usuarios] %></li>
-              <% end %>
-              <% if current_user.permitted_to?(:checklists, :index) %>
-                <li><%= link_to 'Checklists', [:entidade, :checklists] %></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
+      <% unless current_user.eh_caixa? %>
+        <ul class="nav">
+          <% if current_user.permitted_to?(:usuarios, :index) &&
+                current_user.permitted_to?(:checklists, :index) %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-th-large icon-white"></i>
+                Cadastros
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <% if current_user.permitted_to?(:checklists, :index) %>
+                  <li><%= link_to 'Checklists', [:entidade, :checklists] %></li>
+                <% end %>
+                <% if current_user.permitted_to?(:usuarios, :index) %>
+                  <li><%= link_to 'Usuários', [:entidade, :usuarios] %></li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
 
-        <% if current_user.permitted_to?(:auditorias, :index) %>
-          <li>
-            <%= link_to [:entidade, :auditorias] do %>
-              <i class="icon-th-list icon-white"></i> Pesquisas
-            <% end %>
-          </li>
-           <li>
-            <%= link_to [:entidade, :nao_conformidades] do %>
-              <i class="icon-th-list icon-white"></i> Não Conformidades
-            <% end %>
-          </li>
-        <% end %>
-        <% if current_user.permitted_to?(:auditorias, :new) %>
+          <% if current_user.permitted_to?(:auditorias, :index) %>
+            <li>
+              <%= link_to [:entidade, :auditorias] do %>
+                <i class="icon-th-list icon-white"></i> Pesquisas
+              <% end %>
+            </li>
+          <% end %>
+          <% if current_user.permitted_to?(:nao_conformidades, :index) %>
+            <li>
+              <%= link_to [:entidade, :nao_conformidades] do %>
+                <i class="icon-th-list icon-white"></i> Não Conformidades
+              <% end %>
+            </li>
+          <% end %>
+          <% if current_user.permitted_to?(:auditorias, :new) %>
+            <li>
+              <%= link_to [:new, :entidade, :auditoria] do %>
+                <i class="icon-check icon-white"></i> Liberar Pesquisa
+              <% end %>
+            </li>
+          <% end %>
+          <% if current_user.permitted_to?(:auditorias, :iniciar_pesquisa) %>
+            <li>
+              <%= link_to [:iniciar_pesquisa, :entidade, :auditorias] do %>
+                <i class="icon-play icon-white"></i> Iniciar Pesquisa
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) &&
+                current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) &&
+                current_user.permitted_to?(:relatorios, :dashboards) %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list-alt icon-white"></i>
+                Relatórios
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <% if current_user.permitted_to?(:relatorios, :dashboards) %>
+                  <li><%#= link_to 'Dashboard', [:dashboards, :entidade, :relatorios] %></li>
+                <% end %>
+                <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) %>
+                  <li><%= link_to 'Pesquisas Consolidadas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
+                <% end %>
+                <% if current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) %>
+                  <li><%= link_to 'Pesquisas Detalhadas', [:pesquisas_detalhadas, :entidade, :relatorios] %></li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <ul class="nav">
           <li>
             <%= link_to [:new, :entidade, :auditoria] do %>
               <i class="icon-check icon-white"></i> Liberar Pesquisa
             <% end %>
           </li>
-        <% end %>
-        <% if current_user.permitted_to?(:auditorias, :iniciar_pesquisa) %>
-          <li>
-            <%= link_to [:iniciar_pesquisa, :entidade, :auditorias] do %>
-              <i class="icon-play icon-white"></i> Iniciar Pesquisa
-            <% end %>
-          </li>
-        <% end %>
-
-        <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) &&
-              current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) &&
-              current_user.permitted_to?(:relatorios, :dashboards) %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="icon-list-alt icon-white"></i>
-              Relatórios
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <% if current_user.permitted_to?(:relatorios, :dashboards) %>
-                <li><%#= link_to 'Dashboard', [:dashboards, :entidade, :relatorios] %></li>
-              <% end %>
-              <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) %>
-                <li><%= link_to 'Pesquisas Consolidadas', [:pesquisas_respondidas, :entidade, :relatorios] %></li>
-              <% end %>
-              <% if current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) %>
-                <li><%= link_to 'Pesquisas Detalhadas', [:pesquisas_detalhadas, :entidade, :relatorios] %></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-
-      </ul>
+        </ul>
+      <% end %>
     </div>
   </div>
 </div>

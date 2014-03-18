@@ -17,13 +17,17 @@ class ApplicationController < ActionController::Base
         when Usuario::ADMINISTRADOR_GERAL_DO_SISTEMA
           [:administracao, :root]
         when Usuario::ADMINISTRADOR_ENTIDADE
-          [:entidade, :administracao, :root]
+          if usuario.perfil_id.blank?
+            [:entidade, :administracao, :root]
+          else
+            [:escolher_unidade, :entidade, :administracao, :unidades]
+          end
         when Usuario::ADMINISTRADOR_UNIDADE
           session[:unidade] = usuario.unidade
           entidade_root_path(usuario.unidade.entidade.slug)
         when Usuario::CAIXA
           session[:unidade] = usuario.unidade
-          entidade_root_path(usuario.unidade.entidade.slug)
+          new_entidade_auditoria_path(usuario.unidade.entidade.slug)
         when Usuario::VENDAS
           session[:unidade] = usuario.unidade
           entidade_root_path(usuario.unidade.entidade.slug)
@@ -80,10 +84,12 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user
+      # @current_user ||= Usuario.find_by_situacao_and_authentication_token(Usuario::ATIVO, cookies[:user_authentication_token]) if cookies[:user_authentication_token]
       @current_user ||= current_administracao_usuario if administracao_usuario_signed_in?
     end
 
     def current_unidade
+      # session[:unidade] = Entidade.find_by_slug(params[:entidade_slug]).unidades.first if session[:unidade].blank?
       @current_unidade ||= session[:unidade].blank? ? nil : session[:unidade]
     end
 

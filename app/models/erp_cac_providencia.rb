@@ -36,7 +36,7 @@ class ErpCacProvidencia < ConexaoPanambra
       forma_contato: configuracao.forma_contato,
       tipo_providencia: configuracao.tipo_providencia,
       sub_tipo_providencia: configuracao.subtipo_providencia,
-      dta_providencia: DateTime.now,
+      dta_providencia: (DateTime.now - 3.hours),
       des_providencia: configuracao.des_contato,
       ativo_passivo: configuracao.ativo_passivo,
       usuario_encaminhado: configuracao.usuario_responsavel

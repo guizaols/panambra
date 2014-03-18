@@ -1,12 +1,12 @@
 #encoding: UTF-8
+
 class ModuloEntidades::NaoConformidadesController < ApplicationController
   
   def index
-    #@nao_conformidades = NaoConformidade.where("unidade_id = ? AND status = ?",current_unidade.id,NaoConformidade::CRIADO).page(params[:page])
-     #                            .per(15)
-
-@nao_conformidades = NaoConformidade.where("unidade_id = ?",current_unidade.id).page(params[:page])
-                                 .per(15)
+    # @nao_conformidades = NaoConformidade.where("unidade_id = ? AND status = ?",current_unidade.id,NaoConformidade::CRIADO).page(params[:page])
+                                # .per(15)
+    @nao_conformidades = NaoConformidade.where(unidade_id: current_unidade.id)
+                                        .page(params[:page]).per(15)
 
   end
 
@@ -28,7 +28,7 @@ class ModuloEntidades::NaoConformidadesController < ApplicationController
       if @nao_conformidade.save
         redirect_to @nao_conformidade, notice: 'Não Conformidade criada com sucesso!'
       else
-        render action: "new"
+        render action: :new
       end
   end
 
@@ -37,7 +37,7 @@ class ModuloEntidades::NaoConformidadesController < ApplicationController
     if @nao_conformidade.update_attributes(params[:nao_conformidade])
       redirect_to @nao_conformidade, notice: 'Não Conformidade atualizada com sucesso!'
     else
-      render action: "edit"
+      render action: :edit
     end
   end
 
@@ -46,6 +46,5 @@ class ModuloEntidades::NaoConformidadesController < ApplicationController
     @nao_conformidade.destroy
     redirect_to nao_conformidades_url
   end
-
   
 end

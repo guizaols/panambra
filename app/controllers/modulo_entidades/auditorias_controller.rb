@@ -3,8 +3,8 @@
 class ModuloEntidades::AuditoriasController < ApplicationController
 
 	before_filter :valid_payment
-	before_filter :verifica_se_esta_logado, except: [:edit, :update]
-	before_filter :verifica_se_o_usuario_escolheu_uma_unidade, except: [:edit, :update]
+	# before_filter :verifica_se_esta_logado, except: [:edit, :update, :retorna_clientes]
+	# before_filter :verifica_se_o_usuario_escolheu_uma_unidade, except: [:edit, :update, :retorna_clientes]
 
 
 	def index
@@ -38,7 +38,11 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 		end
 
 		if @auditoria.save
-			redirect_to [:new, :entidade, :auditoria], notice: 'Auditoria liberada com sucesso!'
+			if current_user.perfil_id.blank?
+				redirect_to [:entidade, :auditorias], notice: 'Auditoria liberada com sucesso!'
+			else
+				redirect_to [:new, :entidade, :auditoria], notice: 'Auditoria liberada com sucesso!'
+			end
 		else
 			render :new
 		end
@@ -46,7 +50,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 
 	def edit
 		@auditoria = Auditoria.find(params[:id])
-		render layout: 'auditoria_inicial'
+		render layout: :auditoria_inicial
 	end
 
 	def update

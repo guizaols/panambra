@@ -3,16 +3,15 @@
 </div>
 <br />
 
-<%= form_tag [:acessando_unidade,:entidade,:administracao,:unidades] do  %>
-
+<%= form_tag [:acessando_unidade, :entidade, :administracao, :unidades] do  %>
   <div class="field control-group">
     <%= label_tag 'unidade_id', 'Selecione uma unidade', class: 'control-label' %>
     <div class="controls">
-      <%=select_tag 'unidade_id',options_for_select(Unidade.return_unidades_para_select(current_entidade.id)) %>
+      <%=select_tag 'unidade_id', options_for_select(Unidade.return_unidades_para_select(current_entidade.id)) %>
     </div>
   </div>
 
    <div class="actions form-actions">
       <%=submit_tag 'Acessar', class: 'btn btn-inverse', data: { disable_with: 'Acessando...' } %>
    </div>
-<%end%>
+<% end %>

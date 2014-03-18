@@ -20,6 +20,7 @@ class Entidade < ActiveRecord::Base
   ### O dependent: destroy não foi testado
   has_many :usuarios, dependent: :destroy
   has_many :perfils, dependent: :destroy
+  has_many :unidades, dependent: :destroy
   
   accepts_nested_attributes_for :usuarios
 

@@ -6,7 +6,7 @@
 <%= form_for [:entidade, @auditoria], html: { class: 'form-horizontal' } do |f| %>
 	<%= error_messages(@auditoria) %>
 
-  <div class="btn-group" data-toggle="buttons-radio" id="opcaoes %>">
+  <div class="btn-group" data-toggle="buttons-radio" id="opcoes">
     <button id="botao_sim" data-id="<%= Auditoria::SIM %>" type="button"
             class="botoes-radio-liberacao btn btn-primary %>">
       CLIENTE IDENTIFICADO
@@ -28,11 +28,11 @@
   <div id="dialog_for_clientes" class="modal hide fade" data-show="false"></div>
 <% end %>
 
-<% if current_user.permitted_to?(:auditorias, :index) %>
-  <div class="actions form-actions">
-    <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
-  </div>
-<% end %>
+<%# if current_user.permitted_to?(:auditorias, :index) %>
+  <!-- <div class="actions form-actions"> -->
+    <%#= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
+  <!-- </div> -->
+<%# end %>
 
 <script type="text/javascript">
   var urlRetornaClientesErp = '<%= url_for([:retorna_clientes, :entidade, :auditorias]) %>';

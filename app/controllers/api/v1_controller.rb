@@ -17,7 +17,7 @@ class Api::V1Controller < ApiController
 
     def current_api_user
       if params[:api_token]
-        @users = Usuario.where("authentication_token = ?",params[:api_token]).first
+        @users = Usuario.where(authentication_token: params[:api_token]).first
       else
         nil
       end

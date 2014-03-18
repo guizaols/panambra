@@ -19,6 +19,7 @@ class ModuloEntidades::UsuariosController < ApplicationController
 		@usuario = Usuario.new(params[:usuario])
 		@usuario.unidade = current_unidade
 		@usuario.entidade = current_unidade.entidade
+		@usuario.tipo = Usuario::ADMINISTRADOR_ENTIDADE
 		if @usuario.save
 			redirect_to [:entidade, @usuario], notice: 'Usuário cadastrado com sucesso!'
 		else

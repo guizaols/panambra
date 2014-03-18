@@ -170,15 +170,12 @@ class Auditoria < ActiveRecord::Base
     begin
       retorno ||= {}
       self.respostas.each do |resposta|
-
-
-
         if resposta.resposta.present?
          sim_ou_nao = nil #(resposta.resposta == Resposta::SIM ? 'SIM' : 'NÃO')
          if resposta.resposta == Resposta::SIM
-          sim_ou_nao = "SIM"
+          sim_ou_nao = 'SIM'
          elsif resposta.resposta == Resposta::NAO
-          sim_ou_nao = "NÃO"
+          sim_ou_nao = 'NÃO'
          else
           sim_ou_nao = Alternativa.find(resposta.resposta).titulo.upcase
          end
@@ -207,12 +204,9 @@ class Auditoria < ActiveRecord::Base
           end
         end
       end
-      
-      
-
 
       retorno.each do |email, respostas|
-        usu = Usuario.where("email = ? AND unidade_id = ?",email,self.unidade_id).first
+        usu = Usuario.where(email: email, unidade_id: self.unidade_id).first
         respostas.each do |r|
           nao_conformidade = NaoConformidade.new 
           nao_conformidade.status = NaoConformidade::CRIADO
@@ -227,12 +221,7 @@ class Auditoria < ActiveRecord::Base
         end
         AuditoriaMailer.envia_notificacao_para_responsaveis(email, respostas).deliver
       end
-
-
-
-
     rescue Exception => e
-      p "asdiufhaiusdfhiuashfuiahsdiufhasdiufhiuashfiuasdhui"
       p e.message
       p e.backtrace
     end

@@ -60,7 +60,7 @@ class ModuloEntidades::Administracao::UnidadesController < ApplicationController
 
 	def sair_unidade
 		session[:unidade] = nil
-		redirect_to [:escolher_unidade,:entidade, :administracao, :unidades]
+		redirect_to [:escolher_unidade, :entidade, :administracao, :unidades]
 	end
 
 	def acessando_unidade

@@ -31,7 +31,7 @@ class ErpCacResposta < ConexaoPanambra
       questionario: configuracao.questionario,
       cliente: auditoria.cliente.codigo,
       usuario: configuracao.usuario_responsavel,
-      dta_resposta: DateTime.now,
+      dta_resposta: (DateTime.now - 3.hours),
       pessoa_contato: auditoria.cliente.nome[0..29],
       contato: contato_cac_contato
     })

@@ -13,7 +13,6 @@ class Administracao::EntidadesController < ApplicationController
 		else
 			@entidades = Entidade.order(:nome).page(params[:page]).per(15)
 		end
-		
 	end
 
 	def show
@@ -24,14 +23,13 @@ class Administracao::EntidadesController < ApplicationController
 	def new
 		@entidade = Entidade.new
 		@usuario = @entidade.usuarios.build
-
 	end
 
 	def create
 		@entidade = Entidade.new params[:entidade]
 		@entidade.usuarios.first.tipo = Usuario::ADMINISTRADOR_ENTIDADE
 		if @entidade.save
-			redirect_to [:administracao,@entidade], notice:"Entidade criada com sucesso!"
+			redirect_to [:administracao, @entidade], notice: 'Entidade criada com sucesso!'
 		else
 			render :new
 		end
@@ -45,9 +43,9 @@ class Administracao::EntidadesController < ApplicationController
 			@entidade.situacao = Entidade::ATIVO
 		end
 		if @entidade.save
-			redirect_to [:administracao,:entidades],:notice=>"Situação alterada com sucesso!"
+			redirect_to [:administracao,:entidades], notice: 'Situação alterada com sucesso!'
 		else
-			redirect_to [:administracao,:entidades],:notice=>"Não foi possível alterar a situação do registro!"
+			redirect_to [:administracao,:entidades], notice: 'Não foi possível alterar a situação do registro!'
 		end
 	end
 
@@ -58,7 +56,7 @@ class Administracao::EntidadesController < ApplicationController
 	def update
 		@entidade = Entidade.find params[:id]
 		if @entidade.update_attributes(params[:entidade])
-			redirect_to [:administracao,@entidade], notice:"Entidade atualizada com sucesso!"
+			redirect_to [:administracao,@entidade], notice: 'Entidade atualizada com sucesso!'
 		else
 			render :edit
 		end
