@@ -102,8 +102,10 @@ class Usuario < ActiveRecord::Base
   end
 
   def self.pesquisa(unidade_id, params)
-    usuarios = Usuario.where('unidade_id = ? AND tipo IN (?)', unidade_id, [3, 4, 5] )
-    usuarios = usuarios.where('nome ILIKE ? OR login ILIKE ?', params[:texto].full_like, params[:texto].full_like) if params[:texto].present?
+    usuarios = Usuario.where(unidade_id: unidade_id)
+    usuarios = usuarios.where(tipo: [Usuario::ADMINISTRADOR_UNIDADE, Usuario::CAIXA,
+                                    Usuario::VENDAS, Usuario::ADMINISTRADOR_ENTIDADE])
+    usuarios = usuarios.where('nome ILIKE ? OR login ILIKE ?', params[:texto].full_like, params[:texto].full_like, '%caixa%') if params[:texto].present?
     usuarios = usuarios.order(:nome)
     usuarios
   end
@@ -133,7 +135,12 @@ class Usuario < ActiveRecord::Base
   def tipo_verbose
     case tipo
       when ADMINISTRADOR_GERAL_DO_SISTEMA; 'Administrador Geral do Sistema'
-      when ADMINISTRADOR_ENTIDADE; 'Administrador da Entidade'
+      when ADMINISTRADOR_ENTIDADE;
+        if perfil_id.blank?
+          'Administrador da Entidade'
+        else
+          'Caixa'
+        end
       when ADMINISTRADOR_UNIDADE; 'Administrador da Unidade'
       when CAIXA; 'Caixa'
       when VENDAS; 'Vendas'
