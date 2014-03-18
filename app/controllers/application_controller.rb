@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
         when Usuario::CAIXA
           session[:unidade] = usuario.unidade
           entidade_root_path(usuario.unidade.entidade.slug)
-        when Usuario::CLIENTE
+        when Usuario::VENDAS
           session[:unidade] = usuario.unidade
           entidade_root_path(usuario.unidade.entidade.slug)
       end

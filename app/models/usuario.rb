@@ -10,7 +10,7 @@ class Usuario < ActiveRecord::Base
   ADMINISTRADOR_ENTIDADE         = 2
   ADMINISTRADOR_UNIDADE          = 3
   CAIXA                          = 4
-  CLIENTE                        = 5
+  VENDAS                         = 5
   
   ### STATUS
   ATIVO   = 1
@@ -122,7 +122,8 @@ class Usuario < ActiveRecord::Base
   def self.retorna_tipo_para_select
     [
       ['Administrador da Unidade', ADMINISTRADOR_UNIDADE],
-      ['Caixa', CAIXA]
+      ['Caixa', CAIXA],
+      ['Vendas', VENDAS]
     ]
   end
 
@@ -131,13 +132,13 @@ class Usuario < ActiveRecord::Base
       when ADMINISTRADOR_GERAL_DO_SISTEMA; 'Administrador Geral do Sistema'
       when ADMINISTRADOR_ENTIDADE; 'Administrador da Entidade'
       when ADMINISTRADOR_UNIDADE; 'Administrador da Unidade'
-      when CLIENTE; 'Cliente'
       when CAIXA; 'Caixa'
+      when VENDAS; 'Vendas'
     end
   end
   
   def permitted_to?(controller, action)
-    if [CLIENTE, CAIXA].include?(self.tipo)
+    if [CAIXA, VENDAS].include?(self.tipo)
       self.perfil.present? && self.perfil.permitted_to?(controller, action)
     else
       true

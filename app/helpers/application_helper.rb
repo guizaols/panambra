@@ -24,7 +24,7 @@ module ApplicationHelper
       else
         'layouts/usuario_unidade'  
       end
-    when Usuario::CLIENTE
+    when Usuario::VENDAS
       'layouts/usuario_unidade'
     when Usuario::ADMINISTRADOR_UNIDADE
        'layouts/usuario_unidade'  
@@ -138,7 +138,7 @@ module ApplicationHelper
       [[current_user.nome, current_user.id]]
     else
       current_unidade.usuarios
-                     .where(situacao: Usuario::ATIVO, tipo: [Usuario::CLIENTE, Usuario::CAIXA])
+                     .where(situacao: Usuario::ATIVO, tipo: [Usuario::VENDAS, Usuario::CAIXA])
                      .order(:nome)
                      .map { |usuario| [usuario.nome, usuario.id] }
     end
