@@ -43,9 +43,11 @@ class Api::V1::NaoConformidadesController < Api::V1Controller
 		@nao_conformidade.data_escalonada = Date.today
 		respond_to do |format|
 			if @nao_conformidade.save
-    		format.json { render json: { resultado: true }}
+				usuario = Usuario.find(params[:usuario_delegado_id]) rescue nil
+				Gcm.send_android_message(usuario.gcm) if usuario.present?
+    		format.json { render json: { resultado: true } }
     	else
-				format.json { render json: { resultado: false }}
+				format.json { render json: { resultado: false } }
     	end
     end
 	end
