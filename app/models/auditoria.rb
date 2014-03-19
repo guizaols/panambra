@@ -207,14 +207,15 @@ class Auditoria < ActiveRecord::Base
 
       retorno.each do |email, respostas|
         usu = Usuario.where(email: email, unidade_id: self.unidade_id).first
-        respostas.each do |r|
+        respostas.each do |resposta|
           nao_conformidade = NaoConformidade.new 
           nao_conformidade.status = NaoConformidade::CRIADO
           nao_conformidade.data = Date.today
           nao_conformidade.usuario_id = usu.id
           nao_conformidade.cliente_id = self.cliente_id
           nao_conformidade.auditoria_id = self.id
-          nao_conformidade.item_verificacao_id = r.item_verificacao_id
+          nao_conformidade.resposta = resposta.resposta_verbose rescue nil
+          nao_conformidade.item_verificacao_id = resposta.item_verificacao_id
           nao_conformidade.unidade_id = self.unidade_id
           nao_conformidade.save!
           Gcm.send_android_message(usu.gcm)
