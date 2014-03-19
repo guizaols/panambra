@@ -23,21 +23,20 @@
 
 <% unless administracao_usuario_signed_in? %>
   <% if @retorno.first %>
-    <%= link_to edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1), method: :get do %>
+    <%= link_to edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1), method: :get, id: 'iniciar-auditoria' do %>
       <%= image_tag 'logo_panambra_pos_vendas.png', id: 'imgpos' %>
       <%= image_tag 'texto_pesquisa_inicial.png', id: 'txtposinicio' %>
     <% end %>
+    <script type="text/javascript">
+      $(function() {
+        $(document).click(function() {
+          $('#iniciar-auditoria').click();
+        });
+      });
+    </script>
   <% else %>
     <%= image_tag 'logo_atendimento.png', id: 'imgpos' %>
     <div class="aguardando_pesquisa"></div>
-<!-- 
-          AGUARDANDO LIBERAÇÃO DE PESQUISA
-          <br /><br />
-          <div id="loading_aguardando_pesquisa" class="progress progress-striped active">
-            <div class="bar" style="width: 100%;" ></div>
-          </div>
-        </div>    
- -->
     <script type="text/javascript">
       jQuery(function($) {
         setInterval('window.location.reload()', 5000);
@@ -45,3 +44,4 @@
     </script>
   <% end %>
 <% end %>
+    
