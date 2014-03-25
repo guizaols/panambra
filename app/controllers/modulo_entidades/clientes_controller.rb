@@ -15,8 +15,7 @@ class ModuloEntidades::ClientesController < ApplicationController
 	end
 
   def autocomplete_by_nf
-    @retorno = []
-
+    @retorno     = []
     @nota_fiscal = ErpNotaFiscal.where('EMPRESA = ?', 1)
                                 .where('REVENDA = ?', 1)
                                 .where('TIPO_TRANSACAO IN(?)', ['V21', 'G21', '021', 'U21'])
