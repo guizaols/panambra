@@ -23,7 +23,6 @@ class ModuloEntidades::ClientesController < ApplicationController
                                 .first rescue nil
 
     @clientes = ErpCliente.where('CLIENTE = ?', @nota_fiscal.cliente) rescue nil if @nota_fiscal.present?
-
     if @clientes.present?
       @clientes.each do |objeto|
         @retorno << { label: "(#{@nota_fiscal.numero_nota_fiscal}) #{objeto.cliente} - #{objeto.nome}",
