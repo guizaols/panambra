@@ -2,7 +2,8 @@
 
 class Entidade < ActiveRecord::Base
   
-  ATIVO = 1
+  ### SITUACAO
+  ATIVO   = 1
   INATIVO = 2
 
   attr_accessible :nome

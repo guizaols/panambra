@@ -24,10 +24,10 @@ class NaoConformidade < ActiveRecord::Base
   belongs_to :auditoria
   belongs_to :unidade
 
-  validates :cliente,presence: true
-  validates :item_verificacao,presence: true
-  validates :data,presence: true
-  validates :status,presence: true
+  validates :cliente, presence: true
+  validates :item_verificacao, presence: true
+  validates :data, presence: true
+  validates :status, presence: true
 
 
   def cliente_verbose

@@ -2,6 +2,7 @@
 
 class Perfil < ActiveRecord::Base
 
+  ### SITUACAO
   ATIVO 	= 1
   INATIVO = 2  
 

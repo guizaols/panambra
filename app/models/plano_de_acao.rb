@@ -2,6 +2,7 @@
 
 class PlanoDeAcao < ActiveRecord::Base
   
+  ### SITUACAO
   ABERTO     = 1
   FINALIZADO = 2
 

@@ -2,6 +2,7 @@
 
 class ItemChecklist < ActiveRecord::Base
 
+  ### SITUACAO
   ATIVO   = 1
   INATIVO = 2
 	
