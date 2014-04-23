@@ -17,11 +17,14 @@ class ErpOfiAtendimento < ConexaoPanambra
   end
 
   def self.find_by_ordem_servico(numero_os)
+    configuracao = Configuracao.first
     query = "SELECT *
              FROM ofi_atendimento oa, ofi_ordem_servico os
              WHERE oa.empresa = os.empresa AND
                    oa.revenda = os.revenda AND
                    oa.contato = os.contato AND
+                   oa.empresa = #{configuracao.empresa} AND
+                   oa.revenda = #{configuracao.revenda} AND
                    nro_os = #{numero_os}"
     connection.select_all(query)
   end
