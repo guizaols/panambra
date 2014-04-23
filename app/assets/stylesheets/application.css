@@ -101,7 +101,6 @@ div.iniciar_pesquisar a {
 
 div.formulario-auditoria {
 	position: absolute;
-	/*left: 29% !important;*/
 	width: 900px;
 }
 
@@ -261,7 +260,7 @@ div#teclado {
 .actions-auditoria {
 	position:absolute;
 	padding-top: 300px;
-	margin-left: 80px;
+	margin-left: 20px;
 }
 
 .botoes-prev-next {
@@ -326,4 +325,8 @@ div#teclado {
 	font-weight: bold;
 	padding-top: 30px !important;
 	margin-left: 22%;
+}
+
+.recuo-esquerda{
+	margin-left: -10%;
 }
