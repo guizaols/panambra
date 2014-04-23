@@ -183,6 +183,7 @@ left: 25%;
 
 .pergunta {
 	color: #003F6A;
+	margin-left: -5%;
 }
 
 #img_logo {
@@ -328,5 +329,5 @@ div#teclado {
 }
 
 .recuo-esquerda{
-	margin-left: -3%;
+	margin-left: -10%;
 }

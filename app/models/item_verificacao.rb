@@ -1,7 +1,7 @@
 #encoding: UTF-8
 
 class ItemVerificacao < ActiveRecord::Base
-  
+
   self.table_name = 'item_verificacaos'
 
   ### SITUACAO
@@ -53,6 +53,5 @@ class ItemVerificacao < ActiveRecord::Base
       when ESCALA; 'Escala'
   	end
   end
-
 
 end
