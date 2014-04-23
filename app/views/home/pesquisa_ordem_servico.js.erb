@@ -1,6 +1,10 @@
 <% if params[:ordem].blank? %>
 	alert('Preencha o número da ordem de serviço!');
 <% else %>
-	//FAZER A PESQUISA AQUI
-	window.location.href = '<%= segundo_passo_path(ordem: params[:ordem]) %>';
+	<% ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem) %>
+	<% if ordem.present? %>
+		window.location.href = '<%= segundo_passo_path(ordem: ordem.first[:nro_os], placa: ordem.first[:placa]) %>';
+	<% else %>
+		alert('Não foi possível localizar essa Ordem de Serviço. Verifique a informação digitada!');
+	<% end %>
 <% end %>
