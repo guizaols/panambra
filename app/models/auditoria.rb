@@ -58,28 +58,32 @@ class Auditoria < ActiveRecord::Base
 
   def self.cria_nova_auditoria(ordem)
     current_unidade = Unidade.first
-    # ordem = 
-    # cli_erp = ErpFatCliente.find_by_cliente(cliente: ordem.cliente)
-    # cliente = Cliente.find_by_codigo(codigo: cli_erp.cliente)
-    cliente = Cliente.first
-    if cliente.blank?
-      cliente = Cliente.new({
-        codigo: (cli_erp.cliente rescue nil),
-        nome: (cli_erp.nome.strip rescue nil),
-        cpf_cnpj: (cli_erp.cpf_cnpj.strip rescue nil),
-        unidade_id: current_unidade.id
-      })
-      cliente.save
-    end
-    auditoria = Auditoria.new
-    auditoria.cliente   = cliente
-    auditoria.unidade   = current_unidade
-    auditoria.checklist = current_unidade.retorna_checklist_ativo
-    if auditoria.save
-      p auditoria
-      [true, auditoria]
+    ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem)
+    if ordem.present?
+      cli_erp = ErpFatCliente.find_by_cliente(cliente: ordem.first['cliente_emissao_nf'])
+      cliente = Cliente.find_by_codigo(codigo: cli_erp.cliente)
+      # cliente = Cliente.first
+      if cliente.blank?
+        cliente = Cliente.new({
+          codigo: (cli_erp.cliente rescue nil),
+          nome: (cli_erp.nome.strip rescue nil),
+          cpf_cnpj: (cli_erp.cpf_cnpj.strip rescue nil),
+          unidade_id: current_unidade.id
+        })
+        cliente.save
+      end
+      auditoria = Auditoria.new
+      auditoria.cliente   = cliente
+      auditoria.unidade   = current_unidade
+      auditoria.checklist = current_unidade.retorna_checklist_ativo
+      if auditoria.save
+        p auditoria
+        [true, auditoria]
+      else
+        [false, 'Problemas na hora de criar a auditoria!']
+      end
     else
-      [false, 'Problemas na hora de criar a auditoria!']
+      [false, 'Não foi possível localizar essa Ordem de Serviço!']
     end
   end
 
