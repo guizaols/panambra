@@ -77,7 +77,6 @@ class Auditoria < ActiveRecord::Base
       auditoria.unidade   = current_unidade
       auditoria.checklist = current_unidade.retorna_checklist_ativo
       if auditoria.save
-        p auditoria
         [true, auditoria]
       else
         [false, 'Problemas na hora de criar a auditoria!']
@@ -137,18 +136,18 @@ class Auditoria < ActiveRecord::Base
             self.update_column(:situacao, RESPONDIDA)
 
             ### INTEGRAÇÃO COM O ERP
-              # contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
-              # contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
-              # ErpCacContato.salva_cac_contato(self, contato_cac_contato)
-              # ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
-              # cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
-              # self.respostas.each do |res|
-              #   ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
-              # end
+              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
+              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
+              ErpCacContato.salva_cac_contato(self, contato_cac_contato)
+              ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
+              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
+              self.respostas.each do |res|
+                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
+              end
             ### INTEGRAÇÃO COM O ERP
 
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
-            # self.notifica_responsaveis_do_checklist
+            self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
 
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
