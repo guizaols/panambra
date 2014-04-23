@@ -13,6 +13,13 @@ Template::Application.routes.draw do
     end
   end
 
+  ### PASSOS DA AUDITORIA
+  match 'primeiro_passo' => 'home#primeiro_passo'
+  match 'pesquisa_ordem_servico' => 'home#pesquisa_ordem_servico'
+  match 'segundo_passo' => 'home#segundo_passo'
+  match 'iniciar_auditoria' => 'home#iniciar_auditoria'
+  match 'ultimo_passo' => 'home#ultimo_passo'
+
   namespace :administracao do
     devise_for :usuarios, controllers: { sessions: 'administracao/sessions',
                                          registrations: 'administracao/registrations' }

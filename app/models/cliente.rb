@@ -15,8 +15,8 @@ class Cliente < ActiveRecord::Base
   validates :codigo, presence: true,
                      uniqueness: { case_sensitive: false, scope: [:unidade_id] }
 
-	scope :by_unidade_id, lambda { |unidade_id| where(unidade_id: unidade_id) }
-
+  scope :by_unidade_id, lambda { |unidade_id| where(unidade_id: unidade_id) }
+ 
 
   def self.pesquisa(unidade_id, params)
     configuracao = Configuracao.first
@@ -28,40 +28,43 @@ class Cliente < ActiveRecord::Base
     clientes = clientes.order(:nome, :codigo, :cpf_cnpj)
   end
 
-  def self.cria_ou_recupera_cliente_comum(unidade_id, params)
-    cliente = Cliente.by_unidade_id(unidade_id)
-    			 					 .where(codigo: params[:codigo].strip)
-    			 					 .first rescue nil
-    if cliente.blank?
-      cliente = Cliente.new({
-  			codigo: (params[:codigo].strip rescue nil),
-  			nome: (params[:nome].strip rescue nil),
-        cpf_cnpj: (params[:cpf_cnpj].strip rescue nil),
-        unidade_id: unidade_id
-      })
-      unless cliente.save
-        cliente = nil
-      end
-  	end
-    cliente
-  end
+### NÃO É MAIS USADO
+  # def self.cria_ou_recupera_cliente_comum(unidade_id, params)
+  #   cliente = Cliente.by_unidade_id(unidade_id)
+  #                    .where(codigo: params[:codigo].strip)
+  #                    .first rescue nil
+  #   if cliente.blank?
+  #     cliente = Cliente.new({
+  #       codigo: (params[:codigo].strip rescue nil),
+  #       nome: (params[:nome].strip rescue nil),
+  #       cpf_cnpj: (params[:cpf_cnpj].strip rescue nil),
+  #       unidade_id: unidade_id
+  #     })
+  #     unless cliente.save
+  #       cliente = nil
+  #     end
+  #   end
+  #   cliente
+  # end
 
-  def self.cria_ou_recupera_cliente_espontaneo(unidade_id)
-    configuracao = Configuracao.first
-    cliente = Cliente.by_unidade_id(unidade_id)
-                     .where(codigo: configuracao.cliente_espontaneo.to_s)
-                     .first rescue nil
-    if cliente.blank?
-      cliente = Cliente.new({
-        codigo: configuracao.cliente_espontaneo,
-        nome: 'CLIENTE ESPONTÂNEO',
-        unidade_id: unidade_id
-      })
-      unless cliente.save
-        cliente = nil
-      end
-    end
-    cliente
-  end
+
+  # def self.cria_ou_recupera_cliente_espontaneo(unidade_id)
+  #   configuracao = Configuracao.first
+  #   cliente = Cliente.by_unidade_id(unidade_id)
+  #                    .where(codigo: configuracao.cliente_espontaneo.to_s)
+  #                    .first rescue nil
+  #   if cliente.blank?
+  #     cliente = Cliente.new({
+  #       codigo: configuracao.cliente_espontaneo,
+  #       nome: 'CLIENTE ESPONTÂNEO',
+  #       unidade_id: unidade_id
+  #     })
+  #     unless cliente.save
+  #       cliente = nil
+  #     end
+  #   end
+  #   cliente
+  # end
+### NÃO É MAIS USADO
 
 end

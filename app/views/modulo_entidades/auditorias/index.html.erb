@@ -37,8 +37,7 @@
           </td>
           <td>
             <% if current_user.permitted_to?(:auditorias, :edit) && 
-                  objeto.situacao == Auditoria::LIBERADA
-            %>
+                  objeto.situacao == Auditoria::LIBERADA %>
               <%= link_to 'Responder', [:edit, :entidade, objeto] %>
             <% end %>
           </td>

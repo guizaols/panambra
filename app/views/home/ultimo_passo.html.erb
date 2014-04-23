@@ -1,0 +1,10 @@
+<%= image_tag 'tela_final.png', id: 'txtfinal' %>
+
+<script type="text/javascript">
+	function volta_para_inicio() {
+		;
+	}
+	$(function() {
+  	setInterval("window.location.href = '<%= url_for([:root]) %>'", 10000);
+	});
+</script>

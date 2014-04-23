@@ -54,6 +54,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	end
 
 	def update
+		p params
 		@auditoria = Auditoria.find(params[:id])
 		@retorno = @auditoria.salvar_respostas(params)
 	end

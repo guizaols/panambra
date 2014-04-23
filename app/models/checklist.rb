@@ -62,12 +62,13 @@ class Checklist < ActiveRecord::Base
   end
 
   def carrega_categorias
-    self.item_checklists.joins(:checklist)
-                        .where('checklists.unidade_id = ? AND
-                                item_checklists.checklist_id = ? AND
-                                item_checklists.item_checklist_id IS NULL AND
-                                item_checklists.situacao = ?',
-                                self.unidade.id, self.id, ATIVO)
+    self.item_checklists
+        .joins(:checklist)
+        .where('checklists.unidade_id = ? AND
+                item_checklists.checklist_id = ? AND
+                item_checklists.item_checklist_id IS NULL AND
+                item_checklists.situacao = ?',
+                self.unidade.id, self.id, ATIVO)
   end
 
   def valida_se_ja_existe_um_ativo_na_unidade

@@ -1,0 +1,5 @@
+<% if @retorno.first %>
+	window.location.href = '<%= edit_entidade_auditoria_path(@retorno.last.unidade.entidade, @retorno.last, respondendo: 1) %>';
+<% else %>
+	alert('<%= @retorno.last %>');
+<% end %>

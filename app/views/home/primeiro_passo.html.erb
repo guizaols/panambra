@@ -1,0 +1,42 @@
+<%= image_tag 'logo_pos_vendas_questoes.png', class: 'logo-teclado' %>
+
+<%= form_tag [:pesquisa_ordem_servico], class: 'form-horizontal', remote: true do %>
+  <div class="ordem-servico">
+    Ordem de serviço:
+    <%= text_field_tag :ordem, nil, class: 'input-custom-large', readonly: true %>
+  </div>
+<% end %>
+
+<div id="teclado" class="btn-group">
+	<button id="botao_0" data-id="0" type="button" class="botoes-teclado btn">0</button>
+	<button id="botao_1" data-id="1" type="button" class="botoes-teclado btn">1</button>
+	<button id="botao_2" data-id="2" type="button" class="botoes-teclado btn">2</button>
+	<button id="botao_3" data-id="3" type="button" class="botoes-teclado btn">3</button>
+	<button id="botao_4" data-id="4" type="button" class="botoes-teclado btn">4</button>
+	<button id="botao_5" data-id="5" type="button" class="botoes-teclado btn">5</button>
+	<button id="botao_6" data-id="6" type="button" class="botoes-teclado btn">6</button>
+	<button id="botao_7" data-id="7" type="button" class="botoes-teclado btn">7</button>
+	<button id="botao_8" data-id="8" type="button" class="botoes-teclado btn">8</button>
+	<button id="botao_9" data-id="9" type="button" class="botoes-teclado btn">9</button>
+</div>
+
+<div class="btn-group acoes">
+	<button id="apagar" type="button" class="botoes-acoes btn">APAGAR</button>
+	<button id="confirmar" type="button" class="botoes-acoes btn">CONFIRMAR</button>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$('.botoes-teclado').click(function() {
+    	$('#ordem').val($('#ordem').val() + $(this).data('id'));
+    	return false;
+  	});
+		$('#apagar').click(function() {
+    	$('#ordem').val('');
+    	return false;
+  	});
+		$('#confirmar').click(function() {
+			$('form').submit();
+  	});
+	});
+</script>

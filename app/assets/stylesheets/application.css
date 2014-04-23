@@ -129,8 +129,8 @@ label.resposta {
 	height: 70px;
 	font-size: 30pt !important;
 	font-weight: bold;
-	color: #7E7E7E !important;
-	border-radius: 10px 10px 10px 10px !important;
+	color: #003F6A !important;
+	border-radius: 10px !important;
 }
 
 .botoes-radio-liberacao {
@@ -178,12 +178,12 @@ left: 25%;
 }
 
 #fundo_auditoria {
-	background-image: url("fundo.png");
+	background-image: url('fundo.png');
 	background-repeat: repeat-xy;
 }
 
 .pergunta {
-	color: #003f6a;
+	color: #003F6A;
 }
 
 #img_logo {
@@ -201,8 +201,8 @@ left: 25%;
 
 #txtfinal {
 	position: relative;
-	margin-left: -610px;
-	padding-bottom: 5%;	
+	margin-left: 250px;
+	padding-top: 2%;	
 }
 
 #questao_css {
@@ -215,4 +215,115 @@ left: 25%;
 .centralizada {
 	position: absolute;
 	left: 15%;
+}
+
+div#teclado {
+	margin-top: 70px;
+	margin-left: 200px;
+	margin-bottom: 50px;
+}
+
+.botoes-teclado {
+	width: 70px;
+	height: 70px;
+	font-size: 30pt !important;
+	font-weight: bold;
+	color: #003F6A !important;
+	border-radius: 10px !important;
+	margin: 10px !important;
+}
+
+.acoes {
+	margin-left: 370px !important;
+}
+
+.botoes-acoes {
+	width: 220px !important;
+	height: 70px !important;
+	font-size: 25pt !important;
+	font-weight: bold !important;
+	color: #7E7E7E !important;
+	border-radius: 15px !important;
+	margin-left: 30px !important;
+}
+
+.botao-grande {
+	width: 380px !important;;
+	height: 70px !important;;
+	font-size: 20pt !important;
+	font-weight: bold !important;;
+	color: #7E7E7E !important;
+	border-radius: 25px !important;
+	margin-top: 100px !important;
+	margin-left: 10% !important;
+}
+
+.actions-auditoria {
+	position:absolute;
+	padding-top: 300px;
+	margin-left: 80px;
+}
+
+.botoes-prev-next {
+	width: 300px !important;
+	height: 70px !important;
+	font-size: 18pt !important;
+	font-weight: bold !important;
+	color: #7E7E7E !important;
+	border-radius: 15px !important;
+	margin-left: 30px !important;
+	line-height: 30px !important;
+}
+
+.botoes-redondos {
+	border-radius: 50% !important;
+	width: 80px;
+	height: 80px;
+	margin: 5px !important;
+	font-weight: bold !important;
+}
+
+.ordem-servico {
+	font-size: 34pt !important;
+	font-weight: bold !important;
+	color: #003F6A !important;
+	margin-left: 250px !important;
+	margin-top: 70px;
+}
+
+.input-custom-large {
+	width: 350px !important;
+	height: 50px !important;
+	font-size: 26pt !important;
+	border-radius: 20px !important;
+}
+
+.logo-teclado {
+	position: relative;
+	padding-left: 65%;
+	padding-top : 5%;
+	padding-bottom: 5%;
+}
+
+.logo-segundo-passo {
+	position: relative;
+	padding-left: 65%;
+	padding-top : 5%;
+	padding-bottom: 5%;
+}
+
+.ordem-segundo-passo {
+	font-size: 34pt !important;
+	font-weight: bold !important;
+	color: #003F6A !important;
+	margin-left: 250px !important;
+	margin-bottom: 20px;
+}
+
+.informacao {
+	color: #003F6A;
+	font-size: 20pt;
+	font-weight: bold;
+	padding-top: 30px !important;
+	margin-left: 27%;
 }

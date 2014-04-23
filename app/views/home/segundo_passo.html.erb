@@ -1,0 +1,28 @@
+<%= image_tag 'logo_pos_vendas_questoes.png', class: 'logo-segundo-passo' %>
+
+<%= form_tag [:iniciar_auditoria], class: 'form-horizontal', remote: true do %>
+  <div class="ordem-segundo-passo">
+    Ordem de serviço:
+    <%= text_field_tag :ordem, params[:ordem], class: 'input-custom-large', readonly: true %>
+  </div>
+  <div class="ordem-segundo-passo">
+    Veículo:
+    <%= text_field_tag :veiculo, 'GOL G4', class: 'input-custom-large', readonly: true %>
+  </div>
+<% end %>
+
+<div class="btn-group acoes">
+	<button id="responder" type="button" class="botao-grande btn">RESPONDER PESQUISA</button>
+</div>
+
+<div class="informacao">
+  É rápido e fácil, são apenas 5 perguntas!
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$('#responder').click(function() {
+			$('form').submit();
+  	});
+	});
+</script>

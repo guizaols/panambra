@@ -1,0 +1,6 @@
+<% if params[:ordem].blank? %>
+	alert('Preencha o número da ordem de serviço!');
+<% else %>
+	//FAZER A PESQUISA AQUI
+	window.location.href = '<%= segundo_passo_path(ordem: params[:ordem]) %>';
+<% end %>

@@ -26,48 +26,47 @@ function loadFormCheckList(action, element) {
   var ajax       = {};
 
   switch(action) {
-
     case 'checklist_nova_questao':
-          $("#form_nova_questao").dialog({title: 'Nova Questão', width: '900'});
-          withDialog = false;
-          break;
+      $("#form_nova_questao").dialog({title: 'Nova Questão', width: '900'});
+      withDialog = false;
+      break;
     case 'checklist_editar_categoria':
-          ajax.type = 'POST';
-          ajax.data = 'id=' + element.attr('id');
-          ajax.url  = urlForChecklistEditCategoria();
-          $.ajax(ajax);
-          break;
+      ajax.type = 'POST';
+      ajax.data = 'id=' + element.attr('id');
+      ajax.url  = urlForChecklistEditCategoria();
+      $.ajax(ajax);
+      break;
     case 'checklist_edit_questao':
-          ajax.type = 'POST';
-          ajax.data = 'id=' + element.attr('id');
-          ajax.url  = urlForChecklistEditQuestao();
-          $.ajax(ajax);
-          break;    
+      ajax.type = 'POST';
+      ajax.data = 'id=' + element.attr('id');
+      ajax.url  = urlForChecklistEditQuestao();
+      $.ajax(ajax);
+      break;    
     case 'checklist_acoes':
-          ajax.type = 'POST';
-          ajax.data = 'id=' + element.attr('id');
-          ajax.url  = urlForAcoes();
-          $.ajax(ajax);
-          break;
+      ajax.type = 'POST';
+      ajax.data = 'id=' + element.attr('id');
+      ajax.url  = urlForAcoes();
+      $.ajax(ajax);
+      break;
     case 'checklist_alterar_situacao_categoria':
-          ajax.type = 'POST';
-          ajax.data = 'id=' + element.attr('id');
-          ajax.url  = urlForAlteraSituacaoCategoriaQuestao();
-          if(confirm('Deseja alterar a situação deste registro?'))
-            $.ajax(ajax);
-          break;
+      ajax.type = 'POST';
+      ajax.data = 'id=' + element.attr('id');
+      ajax.url  = urlForAlteraSituacaoCategoriaQuestao();
+      if(confirm('Deseja alterar a situação deste registro?'))
+        $.ajax(ajax);
+        break;
     case 'checklist_alterar_situacao_questao':
-          ajax.type = 'POST';
-          ajax.data = 'id=' + element.attr('id');
-          ajax.url  = urlForAlteraSituacaoQuestao();
-          if(confirm('Deseja alterar a situação deste registro?'))
-            $.ajax(ajax);
-          break;
+      ajax.type = 'POST';
+      ajax.data = 'id=' + element.attr('id');
+      ajax.url  = urlForAlteraSituacaoQuestao();
+      if(confirm('Deseja alterar a situação deste registro?'))
+        $.ajax(ajax);
+        break;
     case 'checklist_detalhes_questao':
-          ajax.type = 'POST';
-          ajax.data = 'id=' + element.attr('id');
-          ajax.url  = urlForDetalhesDeUmaQuestao();
-          $.ajax(ajax);
-          break;
+      ajax.type = 'POST';
+      ajax.data = 'id=' + element.attr('id');
+      ajax.url  = urlForDetalhesDeUmaQuestao();
+      $.ajax(ajax);
+      break;
   }
 }

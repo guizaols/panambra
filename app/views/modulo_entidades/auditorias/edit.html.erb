@@ -1,14 +1,15 @@
 <div id="mensagens" class="alert alert-error" style="display:none"></div>
-
 <%= image_tag 'logo_pos_vendas_questoes.png', id: 'img_logo' %>
 
 <div id="questao_css">
   <div class="fuelux">
     <div id="audit-wizard" class="wizard">
       <ul class="steps">
-        <% tamanho_checklist = 0 %>
+        <% tamanho_checklist = -1 %>
         <% @auditoria.carrega_itens_checklist.each do |item_checklist| %>
-          <% item_checklist.item_verificacaos.each {|item_verificacao| tamanho_checklist += 1 } %>
+          <% item_checklist.item_verificacaos
+                           .where(situacao: ItemVerificacao::ATIVO)
+                           .each {|item_verificacao| tamanho_checklist += 1 } %>
         <% end %>
 
         <% tamanho_checklist.times do |indice| %>
@@ -19,9 +20,13 @@
         <% end %>
         <li data-target="#step<%= tamanho_checklist + 1 %>" style="display:none"></li>
       </ul>
-      <div class="actions" style="display:none">
-        <button type="button" class="btn btn-mini btn-prev"><i class="icon-arrow-left"></i>Prev</button>
-        <button type="button" class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+      <div class="actions-auditoria">
+        <button type="button" class="botoes-prev-next btn btn-prev">
+          RETORNAR
+        </button>
+        <button type="button" class="botoes-prev-next btn btn-next" data-last="CONFIRMAR PESQUISA">
+          AVANÇAR
+        </button>
       </div>
     </div>
 
@@ -30,7 +35,7 @@
         <%= form_for [:entidade, @auditoria], remote: true do |f| %>
           <% index = 1 %>
           <% @auditoria.carrega_itens_checklist.each do |item_checklist| %>
-            <% item_checklist.item_verificacaos.each do |item_verificacao| %>
+            <% item_checklist.item_verificacaos.where(situacao: ItemVerificacao::ATIVO).each do |item_verificacao| %>
               <%= monta_checklist_de_auditoria(item_verificacao, index) %>
               <% index += 1 %>
             <% end %>    
@@ -41,18 +46,10 @@
         <% end %>
       </div>
 
-      <div class="step-pane" id="step<%= tamanho_checklist + 1 %>">
-        <%= render 'finalizacao' %>
-      </div>
+      <!-- <div class="step-pane" id="step<%#= tamanho_checklist + 1 %>"> -->
+        <%#= render 'finalizacao' %>
+      <!-- </div> -->
     </div>
-  </div>
-</div>
-
-<div id="loading" class="modal hide fade" data-show="false" >
-  <div class="modal-body">
-    <%= image_tag "big-loader.gif" %>
-    <br />
-    <p>Processando, aguarde!</p>
   </div>
 </div>
 
@@ -61,11 +58,16 @@
     $('body').addClass('layout-auditoria');
     $('.dropdown').remove();
     $('.footer').remove();
-
-    $('.botoes-radio').click(function() {
-      $('#audit-wizard').wizard('next');
+    $('.btn-next').click(function() {
       var item = $('#audit-wizard').wizard('selectedItem');
-
+      if(item.step > <%= tamanho_checklist %>) {
+        // $('.actions-auditoria').css('padding-top', '1000px');
+        // $('#img_logo').remove();
+        $('.edit_auditoria').submit();
+      }
+    });
+    $('.botoes-radio').click(function() {
+      // $('#audit-wizard').wizard('next');
       var botao_id = $(this).attr('id');
       var alternativa_id = $(this).attr('id').split('_')[2];
       var hidden_id = botao_id.replace('botao', 'respostas');
@@ -75,12 +77,6 @@
         $(this).val('');
       });
       $('#' + hidden_id).val(alternativa_id);
-      
-      if(item.step > <%= tamanho_checklist %>) {
-        $('#img_logo').remove();
-        // $('#loading').modal('toggle');
-        $('.edit_auditoria').submit();
-      }
     });
   });
 </script>

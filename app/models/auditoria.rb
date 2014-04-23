@@ -30,7 +30,7 @@ class Auditoria < ActiveRecord::Base
 
 
   def initialize(attributes = {})
-  	attributes['situacao'] ||= PENDENTE
+  	attributes['situacao'] ||= LIBERADA
   	super
   end
 
@@ -54,6 +54,33 @@ class Auditoria < ActiveRecord::Base
   			.item_checklists
   			.where('item_checklist_id IS NOT NULL')
   			.order(:id)
+  end
+
+  def self.cria_nova_auditoria(ordem)
+    current_unidade = Unidade.first
+    # ordem = 
+    # cli_erp = ErpFatCliente.find_by_cliente(cliente: ordem.cliente)
+    # cliente = Cliente.find_by_codigo(codigo: cli_erp.cliente)
+    cliente = Cliente.first
+    if cliente.blank?
+      cliente = Cliente.new({
+        codigo: (cli_erp.cliente rescue nil),
+        nome: (cli_erp.nome.strip rescue nil),
+        cpf_cnpj: (cli_erp.cpf_cnpj.strip rescue nil),
+        unidade_id: current_unidade.id
+      })
+      cliente.save
+    end
+    auditoria = Auditoria.new
+    auditoria.cliente   = cliente
+    auditoria.unidade   = current_unidade
+    auditoria.checklist = current_unidade.retorna_checklist_ativo
+    if auditoria.save
+      p auditoria
+      [true, auditoria]
+    else
+      [false, 'Problemas na hora de criar a auditoria!']
+    end
   end
 
   def salvar_respostas(params)
@@ -107,17 +134,17 @@ class Auditoria < ActiveRecord::Base
 
             ### INTEGRAÇÃO COM O ERP
               # contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
-              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
-              ErpCacContato.salva_cac_contato(self, contato_cac_contato)
-              ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
-              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
-              self.respostas.each do |res|
-                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
-              end
+              # contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
+              # ErpCacContato.salva_cac_contato(self, contato_cac_contato)
+              # ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
+              # cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
+              # self.respostas.each do |res|
+              #   ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
+              # end
             ### INTEGRAÇÃO COM O ERP
 
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
-            self.notifica_responsaveis_do_checklist
+            # self.notifica_responsaveis_do_checklist
             ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
 
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
