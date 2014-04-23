@@ -219,7 +219,7 @@ left: 25%;
 
 div#teclado {
 	margin-top: 70px;
-	margin-left: 200px;
+	margin-left: 80px;
 	margin-bottom: 50px;
 }
 
@@ -234,7 +234,7 @@ div#teclado {
 }
 
 .acoes {
-	margin-left: 370px !important;
+	margin-left: 265px !important;
 }
 
 .botoes-acoes {
@@ -287,7 +287,7 @@ div#teclado {
 	font-size: 34pt !important;
 	font-weight: bold !important;
 	color: #003F6A !important;
-	margin-left: 250px !important;
+	margin-left: 150px !important;
 	margin-top: 70px;
 }
 

@@ -3,7 +3,7 @@
 <% else %>
 	<% ordem = ErpOfiAtendimento.find_by_ordem_servico(params[:ordem]) %>
 	<% if ordem.present? %>
-		window.location.href = '<%= segundo_passo_path(ordem: ordem.first[:nro_os], placa: ordem.first[:placa]) %>';
+		window.location.href = '<%= segundo_passo_path(ordem: ordem.first["nro_os"], placa: ordem.first["placa"]) %>';
 	<% else %>
 		alert('Não foi possível localizar essa Ordem de Serviço. Verifique a informação digitada!');
 	<% end %>
