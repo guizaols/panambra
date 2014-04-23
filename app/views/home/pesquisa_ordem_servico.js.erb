@@ -1,7 +1,7 @@
 <% if params[:ordem].blank? %>
 	alert('Preencha o número da ordem de serviço!');
 <% else %>
-	<% ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem) %>
+	<% ordem = ErpOfiAtendimento.find_by_ordem_servico(params[:ordem]) %>
 	<% if ordem.present? %>
 		window.location.href = '<%= segundo_passo_path(ordem: ordem.first[:nro_os], placa: ordem.first[:placa]) %>';
 	<% else %>
