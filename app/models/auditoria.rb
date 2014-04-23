@@ -60,7 +60,7 @@ class Auditoria < ActiveRecord::Base
     current_unidade = Unidade.first
     ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem)
     if ordem.present?
-      cli_erp = ErpFatCliente.find_by_cliente(cliente: ordem.first['cliente_emissao_nf'])
+      cli_erp = ErpFatCliente.find_by_cliente(ordem.first['cliente_emissao_nf'])
       cliente = Cliente.find_by_codigo(codigo: cli_erp.cliente)
       # cliente = Cliente.first
       if cliente.blank?
