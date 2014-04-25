@@ -72,6 +72,7 @@ class Auditoria < ActiveRecord::Base
         })
         cliente.save
       end
+      p cliente
       auditoria = Auditoria.new
       auditoria.cliente   = cliente
       auditoria.unidade   = current_unidade

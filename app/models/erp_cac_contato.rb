@@ -32,11 +32,7 @@ class ErpCacContato < ConexaoPanambra
 
   def self.salva_cac_contato(auditoria, contato_cac_contato)
     configuracao = Configuracao.first
-    if auditoria.cliente.codigo == configuracao.cliente_espontaneo
-      cliente = configuracao.cliente_espontaneo
-    else
-      cliente = auditoria.cliente.codigo
-    end
+    cliente = auditoria.cliente.codigo
     ErpCacContato.create({
       empresa: configuracao.empresa,
       revenda: configuracao.revenda,
