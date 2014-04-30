@@ -1,4 +1,4 @@
-f = open("|gem list")
+f = open('|gem list')
 output = f.read()
  
 output.each_line do |l|
