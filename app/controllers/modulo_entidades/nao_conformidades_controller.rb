@@ -6,6 +6,7 @@ class ModuloEntidades::NaoConformidadesController < ApplicationController
     # @nao_conformidades = NaoConformidade.where("unidade_id = ? AND status = ?",current_unidade.id,NaoConformidade::CRIADO).page(params[:page])
                                 # .per(15)
     @nao_conformidades = NaoConformidade.where(unidade_id: current_unidade.id)
+                                        .order(:data, :numero_ordem)
                                         .page(params[:page]).per(15)
 
   end

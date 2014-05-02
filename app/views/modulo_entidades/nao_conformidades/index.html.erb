@@ -8,9 +8,10 @@
     <thead>
       <tr>
         <th>Data</th>
-        <th>Usuário Responsável</th>
+        <th>Responsável</th>
         <th>Cliente</th>
-        <th>Item Verificação</th>
+        <th>Ordem</th>
+        <th>Questão</th>
         <th>Status</th>
         <th colspan="4"></th>
       </tr>
@@ -19,8 +20,9 @@
       <% @nao_conformidades.each do |objeto| %>
         <tr>
           <td><%= objeto.data.strftime('%d/%m/%Y') %></td>
-          <td><%= objeto.usuario.nome rescue nil %></td>
+          <td><%= objeto.usuario.nome rescue nil %></td>          
           <td><%= objeto.cliente.nome rescue nil %></td>
+          <td><%= objeto.numero_ordem %></td>
           <td><%= objeto.item_verificacao.titulo rescue nil %> </td>
           <td><%= objeto.status_verbose %></td>
         </tr>
