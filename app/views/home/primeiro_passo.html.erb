@@ -26,6 +26,7 @@
 </div>
 
 <script type="text/javascript">
+	var telaInicialUrl = '<%= url_for([:root]) %>';
 	$(function() {
 		$('.botoes-teclado').click(function() {
     	$('#ordem').val($('#ordem').val() + $(this).data('id'));
@@ -38,5 +39,11 @@
 		$('#confirmar').click(function() {
 			$('form').submit();
   	});
+    setInterval('verifica_uso_da_tela()', 20000);
 	});
+	function verifica_uso_da_tela() {
+		if(!$('#ordem').val()) {
+			window.location.href = telaInicialUrl;
+		}
+	}
 </script>

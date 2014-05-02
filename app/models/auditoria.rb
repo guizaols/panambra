@@ -146,9 +146,9 @@ class Auditoria < ActiveRecord::Base
               end
             ### INTEGRAÇÃO COM O ERP
 
-            ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
-            self.notifica_responsaveis_do_checklist
-            ### ENVIO DE NOTIFICAÇÕES (E-MAIL)
+            ### ENVIO DE NOTIFICAÇÕES (APP / E-MAIL)
+            self.notifica_responsaveis_do_checklist(params[:ordem])
+            ### ENVIO DE NOTIFICAÇÕES (APP / E-MAIL)
 
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
           else
@@ -196,7 +196,7 @@ class Auditoria < ActiveRecord::Base
     conformidade
   end
 
-  def notifica_responsaveis_do_checklist
+  def notifica_responsaveis_do_checklist(numero_ordem)
     begin
       retorno ||= {}
       self.respostas.each do |resposta|
@@ -221,7 +221,8 @@ class Auditoria < ActiveRecord::Base
             end
           end
         else
-          acoes = resposta.item_verificacao.acoes
+          acoes = resposta.item_verificacao
+                          .acoes
                           .where(item_verificacao_id: resposta.item_verificacao_id)
           acoes.each do |acao|
             emails = acao.usuarios.pluck(:email).compact.uniq
@@ -238,19 +239,20 @@ class Auditoria < ActiveRecord::Base
       retorno.each do |email, respostas|
         usu = Usuario.where(email: email, unidade_id: self.unidade_id).first
         respostas.each do |resposta|
-          nao_conformidade = NaoConformidade.new 
-          nao_conformidade.status = NaoConformidade::CRIADO
-          nao_conformidade.data = Date.today
-          nao_conformidade.usuario_id = usu.id
-          nao_conformidade.cliente_id = self.cliente_id
-          nao_conformidade.auditoria_id = self.id
-          nao_conformidade.resposta = resposta.resposta_verbose rescue nil
-          nao_conformidade.item_verificacao_id = resposta.item_verificacao_id
-          nao_conformidade.unidade_id = self.unidade_id
-          nao_conformidade.save!
+          nao_conf                     = NaoConformidade.new
+          nao_conf.status              = NaoConformidade::CRIADO
+          nao_conf.data                = Date.today
+          nao_conf.usuario_id          = usu.id
+          nao_conf.cliente_id          = self.cliente_id
+          nao_conf.auditoria_id        = self.id
+          nao_conf.resposta            = resposta.resposta_verbose rescue nil
+          nao_conf.item_verificacao_id = resposta.item_verificacao_id
+          nao_conf.unidade_id          = self.unidade_id
+          nao_conf.numero_ordem        = numero_ordem
+          nao_conf.save!
           Gcm.send_android_message(usu.gcm)
         end
-        AuditoriaMailer.envia_notificacao_para_responsaveis(email, respostas).deliver
+        # AuditoriaMailer.envia_notificacao_para_responsaveis(email, respostas).deliver
       end
     rescue Exception => e
       p e.message

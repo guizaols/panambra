@@ -10,7 +10,7 @@ class Api::V1::NaoConformidadesController < Api::V1Controller
 																				.order('data DESC')
 		respond_to do |format|
 			format.json do
-    		render json: { nao_conformidades: @nao_conformidades.as_json(:include =>[:cliente,:item_verificacao]) }
+    		render json: { nao_conformidades: @nao_conformidades.as_json(:include => [:cliente, :item_verificacao]) }
 			end
     end
 	end
@@ -21,7 +21,6 @@ class Api::V1::NaoConformidadesController < Api::V1Controller
     	format.json { render json: { usuarios: Usuario.where('situacao = ? AND unidade_id = ? AND id <> ?', Usuario::ATIVO,current_api_user.unidade_id,current_api_user.id), nao_conformidade: @nao_conformidade.as_json(:include =>[:cliente,:item_verificacao]) }}
     end
 	end
-
 
 	def finalizar
 		@nao_conformidade = NaoConformidade.find params[:nao_conformidade_id]

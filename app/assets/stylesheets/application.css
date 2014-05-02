@@ -201,8 +201,8 @@ left: 25%;
 
 #txtfinal {
 	position: relative;
-	margin-left: 170px;
-	padding-top: 2%;	
+	margin-left: 15px;
+	margin-top: -14px;
 }
 
 #questao_css {
@@ -330,4 +330,9 @@ div#teclado {
 
 .recuo-esquerda{
 	margin-left: -10%;
+}
+
+div#step999 {
+	width: 2000px;
+	height: 2000px;
 }

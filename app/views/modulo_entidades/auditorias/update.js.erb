@@ -5,11 +5,13 @@
 	<% if current_user.present? %>
 		window.location.href = '<%= url_for([:iniciar_pesquisa, :entidade, :auditorias]) %>';
 	<% else %>
-		// window.location.href = '<%#= url_for([:root]) %>';
-		window.location.href = '<%= url_for([:ultimo_passo]) %>';
+		window.location.href = '<%= url_for([:root]) %>';
+		// window.location.href = '<%#= url_for([:ultimo_passo]) %>';
 	<% end %>
 <% else %>
+	// window.history.back();
 	alert('<%= @retorno.last %>');
+	window.location.href = '<%= url_for([:root]) %>';
 	// $('#mensagens').html('<b><%#= @retorno.last %></b>');
 	// $('#mensagens').show();
 <% end %>

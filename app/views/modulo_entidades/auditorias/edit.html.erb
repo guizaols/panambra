@@ -5,11 +5,11 @@
   <div class="fuelux">
     <div id="audit-wizard" class="wizard">
       <ul class="steps">
-        <% tamanho_checklist = -1 %>
+        <% tamanho_checklist = 0 %>
         <% @auditoria.carrega_itens_checklist.each do |item_checklist| %>
           <% item_checklist.item_verificacaos
                            .where(situacao: ItemVerificacao::ATIVO)
-                           .each {|item_verificacao| tamanho_checklist += 1 } %>
+                           .each {|item_verificacao| tamanho_checklist += 1} %>
         <% end %>
 
         <% tamanho_checklist.times do |indice| %>
@@ -18,13 +18,13 @@
             <span class="chevron"></span>
           </li>
         <% end %>
-        <li data-target="#step<%= tamanho_checklist + 1 %>" style="display:none"></li>
+        <li data-target="#step999" style="display:none"></li>
       </ul>
       <div class="actions-auditoria">
         <button type="button" class="botoes-prev-next btn btn-prev">
           RETORNAR
         </button>
-        <button type="button" class="botoes-prev-next btn btn-next" data-last="CONFIRMAR PESQUISA">
+        <button type="button" id="avancar" class="botoes-prev-next btn btn-next" data-last="CONFIRMAR PESQUISA">
           AVANÇAR
         </button>
       </div>
@@ -33,17 +33,21 @@
     <div class="step-content">
       <div class="formulario-auditoria">
         <%= form_for [:entidade, @auditoria], remote: true do |f| %>
+          <%= hidden_field_tag :ordem, params[:ordem] %>
           <% index = 1 %>
           <% @auditoria.carrega_itens_checklist.each do |item_checklist| %>
-            <% item_checklist.item_verificacaos.where(situacao: ItemVerificacao::ATIVO).each do |item_verificacao| %>
+            <% item_checklist.item_verificacaos
+                             .where(situacao: ItemVerificacao::ATIVO)
+                             .each do |item_verificacao| %>
               <%= monta_checklist_de_auditoria(item_verificacao, index) %>
               <% index += 1 %>
             <% end %>    
           <% end %>
-          <% if current_user.present? && current_user.permitted_to?(:auditorias, :index) %>
-            <%= link_to 'Cancelar', [:entidade, :auditorias], class: 'btn' %>
-          <% end %>
         <% end %>
+      </div>
+
+      <div class="step-pane" id="step999">
+        <%= render 'finalizacao' %>
       </div>
 
       <!-- <div class="step-pane" id="step<%#= tamanho_checklist + 1 %>"> -->
@@ -60,11 +64,11 @@
     $('.footer').remove();
     $('.btn-next').click(function() {
       var item = $('#audit-wizard').wizard('selectedItem');
-      if(item.step > <%= tamanho_checklist %>) {
-        // $('.actions-auditoria').css('padding-top', '1000px');
-        // $('#img_logo').remove();
-        $('.edit_auditoria').submit();
+      if(item.step == <%= tamanho_checklist %>) {
+        $('#img_logo').remove();
+        $('.actions-auditoria').hide();
       }
+      $('#fundo_auditoria').click();
     });
     $('.botoes-radio').click(function() {
       // $('#audit-wizard').wizard('next');
@@ -77,6 +81,12 @@
         $(this).val('');
       });
       $('#' + hidden_id).val(alternativa_id);
+    });
+    $('#fundo_auditoria').mousemove(function() {
+      var item = $('#audit-wizard').wizard('selectedItem');
+      if(item.step == <%= tamanho_checklist %>) {
+        $('#avancar').text('CONFIRMAR PESQUISA');
+      }
     });
   });
 </script>

@@ -1,2 +1,13 @@
-<%= image_tag 'logo_panambra_pos_vendas.png', id: 'imgfinal' %>
-<%= image_tag 'agradecemos_sua_participacao.png', id: 'txtfinal' %>
+<%#= image_tag 'logo_panambra_pos_vendas.png', id: 'imgfinal' %>
+<%#= image_tag 'agradecemos_sua_participacao.png', id: 'txtfinal' %>
+
+<%= image_tag 'tela_final.png', id: 'txtfinal' %>
+
+<script type="text/javascript">
+	$(function() {
+		$('#step999').mouseover(function() {
+			$('.edit_auditoria').submit();
+		});
+  	// setInterval("window.location.href = '<%#= url_for([:root]) %>'", 10000);
+	});
+</script>

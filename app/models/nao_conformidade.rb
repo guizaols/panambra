@@ -16,6 +16,7 @@ class NaoConformidade < ActiveRecord::Base
   attr_accessible :unidade_id
   attr_accessible :usuario_delegado_id
   attr_accessible :usuario_id
+  attr_accessible :numero_ordem
 
   belongs_to :cliente
   belongs_to :usuario
