@@ -136,14 +136,14 @@ class Auditoria < ActiveRecord::Base
             self.update_column(:situacao, RESPONDIDA)
 
             ### INTEGRAÇÃO COM O ERP
-              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
-              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
-              ErpCacContato.salva_cac_contato(self, contato_cac_contato)
-              ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
-              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
-              self.respostas.each do |res|
-                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
-              end
+              # contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
+              # contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
+              # ErpCacContato.salva_cac_contato(self, contato_cac_contato)
+              # ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
+              # cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
+              # self.respostas.each do |res|
+              #   ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
+              # end
             ### INTEGRAÇÃO COM O ERP
 
             ### ENVIO DE NOTIFICAÇÕES (APP / E-MAIL)

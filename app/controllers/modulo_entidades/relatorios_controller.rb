@@ -11,8 +11,7 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@numero_de_conformidades = 0
 		@numero_de_nao_conformidades = 0
 		@auditorias.each do |auditoria|
-			@numero_de_conformidades += auditoria.numero_de_conformidades
-			@numero_de_nao_conformidades += auditoria.numero_de_nao_conformidades
+			@numero_de_nao_conformidades += NaoConformidade.where("auditoria_id = ?",auditoria.id).length
 		end
 	end
 
@@ -40,12 +39,17 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@data_final = params[:pesquisa][:data_final] rescue nil
 
 		@auditorias = Relatorio.pesquisas_respondidas(current_unidade.id, params[:pesquisa])
-		@numero_de_conformidades = 0
-		@numero_de_nao_conformidades = 0
+		@media_geral = 0
+		@nota = 0
 		@auditorias.each do |auditoria|
-			@numero_de_conformidades += auditoria.numero_de_conformidades
-			@numero_de_nao_conformidades += auditoria.numero_de_nao_conformidades
+			auditoria.respostas.each do |resposta|
+				 @nota += resposta.resposta_verbose.to_i
+			end
 		end
+		@media_geral =(@nota / @auditorias.length.to_f).round(2)
+		p @nota
+		p @auditorias.length
+		p @media_geral
 	end
 
 end
