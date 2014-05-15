@@ -11,7 +11,7 @@
               data-status="<%= (alternativa.titulo.downcase == 'sim' ? 1 : 0) %>">
         <%= (alternativa.arquivo.blank? ? (alternativa.titulo.upcase) : (image_tag(alternativa.arquivo))) %>
       </button>
-      <%= hidden_field_tag "respostas[#{item_verificacao.id}][#{alternativa.id}]", nil %>
+      <%= hidden_field_tag "respostas[#{item_verificacao.id}][#{alternativa.id}]", nil,{:class=>"resposta_escondida"} %>
     <% end %>
   </div>
 </div>

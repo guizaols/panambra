@@ -108,6 +108,16 @@ function insere_elemento_filho(content_view, id) {
   return false;
 }
 
+function trava_tela()
+{
+  var $submit = $("#avancar");
+    if ( $("input:empty").length > 0 ) {
+        $submit.attr("disabled","disabled");
+    } else {
+        $submit.removeAttr("disabled");
+    }
+}
+
 function link_to_add_elemento_filho(id_link, content_view, id_elemento_filho, condicao) {
   $(id_link).click(function() {
     insere_elemento_filho(content_view, id_elemento_filho);

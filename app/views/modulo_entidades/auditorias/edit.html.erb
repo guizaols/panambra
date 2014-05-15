@@ -59,10 +59,16 @@
 
 <script type="text/javascript">
   jQuery(function($) {
+
+
+
     $('body').addClass('layout-auditoria');
+    trava_tela();
+
     $('.dropdown').remove();
     $('.footer').remove();
     $('.btn-next').click(function() {
+      trava_tela();
       var item = $('#audit-wizard').wizard('selectedItem');
       if(item.step == <%= tamanho_checklist %>) {
         $('#img_logo').remove();
@@ -72,6 +78,8 @@
     });
     $('.botoes-radio').click(function() {
       // $('#audit-wizard').wizard('next');
+        var $submit = $("#avancar");
+        $submit.removeAttr("disabled");
       var botao_id = $(this).attr('id');
       var alternativa_id = $(this).attr('id').split('_')[2];
       var hidden_id = botao_id.replace('botao', 'respostas');
@@ -81,8 +89,12 @@
         $(this).val('');
       });
       $('#' + hidden_id).val(alternativa_id);
+      
     });
+     
+    
     $('#fundo_auditoria').mousemove(function() {
+
       var item = $('#audit-wizard').wizard('selectedItem');
       if(item.step == <%= tamanho_checklist %>) {
         $('#avancar').text('CONFIRMAR PESQUISA');
