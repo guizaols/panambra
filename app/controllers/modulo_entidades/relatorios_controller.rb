@@ -79,7 +79,7 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length
 			   temp["oss"] ||= ""
 			   @temp_ordens_geradas_no_erp.each do |obj|
-				temp["oss"] += obj["nro_os"] + " "
+				temp["oss"] += "#{obj["nro_os"]}, " 
 			   end
 			   @retorno << temp
 			   mylogger.info("Conteudo da variabel:#{temp}")
