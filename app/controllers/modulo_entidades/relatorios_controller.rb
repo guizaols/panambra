@@ -78,7 +78,7 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			   temp["num_audit"] ||= @temp_numero_de_ordens
 			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length
 			   temp["oss"] ||= ""
-			   @temp_numero_de_ordens.each do |obj|
+			   @temp_ordens_geradas_no_erp.each do |obj|
 				temp["oss"] += obj["nro_os"] + " "
 			   end
 			   @retorno << temp
