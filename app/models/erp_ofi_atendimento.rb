@@ -51,7 +51,7 @@ class ErpOfiAtendimento < ConexaoPanambra
 			os.contato=fmc.contato AND
 			os.categoria_os=1 AND
 			fmc.departamento in(7,8) AND
-			fmc.tipo_transacao='O21' AND
+			fmc.tipo_transacao=21 AND
 		    oa.empresa = #{configuracao.empresa} AND
             oa.revenda = #{configuracao.revenda} AND
 			fmc.dta_entrada_saida between '29/may/2014' and '29/may/2014'
