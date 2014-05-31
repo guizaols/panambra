@@ -52,8 +52,8 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 	def relatorio_ordem_servicos
 		params[:pesquisa] ||={}
 		@checklist = Checklist.find params[:pesquisa][:checklist_id] rescue nil
-		@data_inicial = params[:pesquisa][:data_inicial] rescue nil
-		@data_final = params[:pesquisa][:data_final] rescue nil
+		@data_inicial = params[:pesquisa][:data_inicial].to_date rescue nil
+		@data_final = params[:pesquisa][:data_final].to_date rescue nil
 		@numero_de_ordens = nil
 		@numero_de_ordens_gerada_no_erp = nil
 		@ordens_geradas_no_erp = nil
@@ -63,12 +63,30 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final)		  
 			mylogger ||= Logger.new("#{Rails.root}/log/logs_sql.log")
 			@ordens_geradas_no_erp.each do |ordem|
-				mylogger.info("Conteudo da variabel:#{ordem}")
-				mylogger.info("Conteudo da variabel:#{ordem["nro_os"]}")
+				
 				@ids << ordem["nro_os"]
 			end
 	        
 			@numero_de_ordens_gerada_no_erp = @ordens_geradas_no_erp.length			
+			
+			@retorno = []
+			(@data_inicial..@data_final).each do |dat|
+			   temp = {}
+			   temp["data"] ||= dat.to_s_br
+			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"])		  
+			   @temp_numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ?",dat,dat,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)").length
+			   temp["num_audit"] ||= @temp_numero_de_ordens
+			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length
+			   temp["oss"] ||= ""
+			   @temp_numero_de_ordens.each do |obj|
+				temp["oss"] += obj["nro_os"] + " "
+			   end
+			   @retorno << temp
+			   mylogger.info("Conteudo da variabel:#{temp}")
+			end
+			
+			
+			
 
     else
     end		  
