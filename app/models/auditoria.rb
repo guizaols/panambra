@@ -59,6 +59,7 @@ class Auditoria < ActiveRecord::Base
 
   def self.cria_nova_auditoria(ordem)
     current_unidade = Unidade.first
+	numero_ord = ordem
     ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem)
     if ordem.present?
       cli_erp = ErpFatCliente.find_by_cliente(ordem.first['cliente_emissao_nf'])
@@ -77,10 +78,7 @@ class Auditoria < ActiveRecord::Base
       auditoria.cliente   = cliente
       auditoria.unidade   = current_unidade
       auditoria.checklist = current_unidade.retorna_checklist_ativo
-      mylogger = Logger.new("#{Rails.root}/log/debugss.log")
-	  mylogger.info("#{ordem}")
-	  
-	  auditoria.numero_ordem = ordem 
+      auditoria.numero_ordem = numero_ord 
 	  
       if auditoria.save
         [true, auditoria]
