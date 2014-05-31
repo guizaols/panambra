@@ -77,7 +77,7 @@ class Auditoria < ActiveRecord::Base
       auditoria.cliente   = cliente
       auditoria.unidade   = current_unidade
       auditoria.checklist = current_unidade.retorna_checklist_ativo
-      auditoria.numero_ordem = ordem 
+     # auditoria.numero_ordem = ordem 
       if auditoria.save
         [true, auditoria]
       else
