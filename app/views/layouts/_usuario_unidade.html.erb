@@ -54,7 +54,9 @@
 
           <% if current_user.permitted_to?(:relatorios, :pesquisas_respondidas) &&
                 current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) &&
-                current_user.permitted_to?(:relatorios, :dashboards) %>
+                current_user.permitted_to?(:relatorios, :dashboards) && 
+                current_user.permitted_to?(:relatorios, :relatorio_ordem_servicos) %> 
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-list-alt icon-white"></i>
@@ -71,6 +73,10 @@
                 <% if current_user.permitted_to?(:relatorios, :pesquisas_detalhadas) %>
                   <li><%= link_to 'Pesquisas Detalhadas', [:pesquisas_detalhadas, :entidade, :relatorios] %></li>
                 <% end %>
+                <% if current_user.permitted_to?(:relatorios, :relatorio_ordem_servicos) %>
+                  <li><%= link_to 'Ordens de Serviço', [:relatorio_ordem_servicos, :entidade, :relatorios] %></li>
+                <% end %>
+                
               </ul>
             </li>
           <% end %>

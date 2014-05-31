@@ -15,6 +15,7 @@ class Auditoria < ActiveRecord::Base
   attr_accessible :cliente_id
   attr_accessible :numero_nf
   attr_accessible :situacao
+  attr_accessible :numero_ordem
 
   belongs_to :cliente
 	belongs_to :unidade
@@ -76,6 +77,7 @@ class Auditoria < ActiveRecord::Base
       auditoria.cliente   = cliente
       auditoria.unidade   = current_unidade
       auditoria.checklist = current_unidade.retorna_checklist_ativo
+      auditoria.numero_ordem = ordem 
       if auditoria.save
         [true, auditoria]
       else

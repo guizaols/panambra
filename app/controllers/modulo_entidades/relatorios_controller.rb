@@ -47,9 +47,22 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			end
 		end
 		@media_geral =(@nota / @auditorias.length.to_f).round(2)
-		p @nota
-		p @auditorias.length
-		p @media_geral
+	end
+
+	def relatorio_ordem_servicos
+		params[:pesquisa] ||={}
+		@checklist = Checklist.find params[:pesquisa][:checklist_id] rescue nil
+		@data_inicial = params[:pesquisa][:data_inicial] rescue nil
+		@data_final = params[:pesquisa][:data_final] rescue nil
+		@numero_de_ordens = 0
+		if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank?
+		  @numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND status = ?",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA)..select("DISTINCT(auditorias.numero_ordem)").length
+			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final)		  
+			@numero_de_ordens_gerada_no_erp = @ordens_geradas_no_erp.length			
+
+    else
+    end		  
+
 	end
 
 end

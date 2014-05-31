@@ -123,6 +123,7 @@ Template::Application.routes.draw do
         get :pesquisas_respondidas
         get :pesquisas_detalhadas
         get :dashboards
+        get :relatorio_ordem_servicos
       end
     end
 
