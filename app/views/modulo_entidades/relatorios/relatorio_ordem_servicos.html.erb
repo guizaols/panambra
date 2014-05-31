@@ -64,9 +64,18 @@ ul {list-style-type:none}
    </tr>
   </thead>
   <tbody>
-  
+   <%@retorno.each do |dados| %>
+     <tr>
+	   <td><%=dados["data"]%></td>
+	   <td><%=dados["num_audit"]%></td>
+	   <td><%=dados["num_os_erp"]%></td>
+	   <td>
+	     <%=dados["oss"].html_safe%>
+	   </td>
+	 </tr>
+	<%end%>
   </tbody>
 </table>
 
-
+<%end%>
 
