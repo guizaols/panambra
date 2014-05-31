@@ -54,12 +54,18 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@checklist = Checklist.find params[:pesquisa][:checklist_id] rescue nil
 		@data_inicial = params[:pesquisa][:data_inicial] rescue nil
 		@data_final = params[:pesquisa][:data_final] rescue nil
-		@numero_de_ordens = 0
+		@numero_de_ordens = nil
+		@numero_de_ordens_gerada_no_erp = nil
+		@ordens_geradas_no_erp = nil
 		if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank?
 		    @numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ?",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)").length
 			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final)		  
 			mylogger ||= Logger.new("#{Rails.root}/log/logs_sql.log")
-	        mylogger.info("Conteudo da variabel:#{@ordens_geradas_no_erp}")
+			@ordens_geradas_no_erp.each do |ordem|
+				mylogger.info("Conteudo da variabel:#{ordem}")
+				mylogger.info("Conteudo da variabel:#{ordem["nro_os"]}")
+			end
+	        
 			@numero_de_ordens_gerada_no_erp = @ordens_geradas_no_erp.length			
 
     else
