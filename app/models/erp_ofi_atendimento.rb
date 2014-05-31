@@ -30,6 +30,7 @@ class ErpOfiAtendimento < ConexaoPanambra
   end
 
   def self.count_number_numero_de_ordens_de_servico(data_inicial, data_final)
+   begin
     configuracao = Configuracao.first
     query = "SELECT *
              FROM ofi_atendimento oa, ofi_ordem_servico os
@@ -41,6 +42,11 @@ class ErpOfiAtendimento < ConexaoPanambra
                    oa.categoria_os = 1 AND
                    (oa.dta_encerramento BETWEEN #{data_inicial} AND #{data_final})"
     connection.select_all(query)
+	rescue Exception=>e
+	  my_logger ||= Logger.new("#{Rails.root}/log/logs_sql.log")
+	  mylogger.info("#{e.message}")
+	  mylogger.info(e.backtrace.join("\n"))
+	end
   end
 
 end

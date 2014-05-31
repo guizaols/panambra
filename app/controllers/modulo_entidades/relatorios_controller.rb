@@ -56,8 +56,10 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@data_final = params[:pesquisa][:data_final] rescue nil
 		@numero_de_ordens = 0
 		if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank?
-		  @numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND status = ?",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA)..select("DISTINCT(auditorias.numero_ordem)").length
+		    @numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND status = ?",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA)..select("DISTINCT(auditorias.numero_ordem)").length
 			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final)		  
+			my_logger ||= Logger.new("#{Rails.root}/log/logs_sql.log")
+	        mylogger.info("Conteudo da variabel:#{@ordens_geradas_no_erp}")
 			@numero_de_ordens_gerada_no_erp = @ordens_geradas_no_erp.length			
 
     else

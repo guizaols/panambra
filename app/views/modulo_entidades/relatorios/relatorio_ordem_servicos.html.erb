@@ -7,7 +7,7 @@
 ul {list-style-type:none}
 </style>
 
-<%= form_tag [:pesquisas_detalhadas, :entidade, :relatorios], method: :get, class: 'form-inline' do %>
+<%= form_tag [:relatorio_ordem_servicos, :entidade, :relatorios], method: :get, class: 'form-inline' do %>
   <div class="input-append">
     <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial', class: 'input-small' %>
     <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final', class: 'input-small' %>
