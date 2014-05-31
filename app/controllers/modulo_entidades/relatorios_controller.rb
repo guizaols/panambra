@@ -72,7 +72,7 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			@retorno = []
 			(@data_inicial..@data_final).each do |dat|
 			   temp = {}
-			   temp["data"] ||= dat.to_date.to_s_br
+			   temp["data"] ||= dat.to_date.strftime("%d/%m/%Y")
 			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"])		  
 			   @temp_numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ?",dat,dat,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)").length
 			   temp["num_audit"] ||= @temp_numero_de_ordens
