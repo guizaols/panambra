@@ -32,6 +32,8 @@ class ErpOfiAtendimento < ConexaoPanambra
   def self.count_number_numero_de_ordens_de_servico(data_inicial, data_final)
    begin
     configuracao = Configuracao.first
+	data_inicial_formatada = data_inicial.to_date.strftime("%Y-%m-%d")
+	data_final_formatada = data_final.to_date.strftime("%Y-%m-%d")
    # query = "SELECT *
     #         FROM ofi_atendimento oa, ofi_ordem_servico os
      #        WHERE oa.empresa = os.empresa AND
@@ -54,7 +56,7 @@ class ErpOfiAtendimento < ConexaoPanambra
 			fmc.tipo_transacao='O21' AND
 		    oa.empresa = #{configuracao.empresa} AND
             oa.revenda = #{configuracao.revenda} AND
-			fmc.dta_entrada_saida between '2014-05-01' and '2014-05-31'
+			fmc.dta_entrada_saida between '#{data_inicial_formatada}' and '#{data_final_formatada}'
 			order by os.nro_os"
 				   
     connection.select_all(query)
