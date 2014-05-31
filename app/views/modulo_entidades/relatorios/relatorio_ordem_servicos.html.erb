@@ -19,6 +19,8 @@ ul {list-style-type:none}
 
 <% if !@numero_de_ordens.blank? && !@numero_de_ordens_gerada_no_erp.blank? && !@ordens_geradas_no_erp.blank?%>
 
+<h3> Dados Gerais do Período</h3>
+
 <table class="table table-striped table-condensed">
  <thead>
    <tr>
@@ -50,4 +52,30 @@ ul {list-style-type:none}
     
 </script>
 
-<%end%>
+<h3>Dados Detalhados do Período </h3>
+
+<table class="table table-striped table-condensed">
+ <thead>
+   <tr>
+     <th>Data</th>
+     <th>Número de Ordens de Serviço (ERP)</th>
+	 <th>Número de Ordens de Serviço com Auditoria</th>
+	 <th>Código das Ordens de Serviço sem Auditoria</th>
+   </tr>
+  </thead>
+  <tbody>
+   <%@retorno.each do |dados| %>
+     <tr>
+	   <td><%=dados["data"]%></td>
+	   <td><%=dados["num_audit"]%></td>
+	   <td><%=dados["num_os_erp"]%></td>
+	   <td>
+	     <%=dados["oss"].html_safe%>
+	   </td>
+	 </tr>
+	<%end%>
+  </tbody>
+</table>
+
+
+
