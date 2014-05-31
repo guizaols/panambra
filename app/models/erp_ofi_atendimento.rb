@@ -43,7 +43,7 @@ class ErpOfiAtendimento < ConexaoPanambra
                    (oa.dta_encerramento BETWEEN #{data_inicial} AND #{data_final})"
     connection.select_all(query)
 	rescue Exception=>e
-	  my_logger ||= Logger.new("#{Rails.root}/log/logs_sql.log")
+	  mylogger = Logger.new("#{Rails.root}/log/logs_sql.log")
 	  mylogger.info("#{e.message}")
 	  mylogger.info(e.backtrace.join("\n"))
 	end
