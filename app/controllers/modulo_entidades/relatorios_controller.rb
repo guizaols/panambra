@@ -62,8 +62,6 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		     mylogger ||= Logger.new("#{Rails.root}/log/logs_sql22.log")
 			 @objeto_ordens =Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)")
 		    @numero_de_ordens = @objeto_ordens.length
-			#Mesmo vazio ele me retorna 1 registro
-			@numero_de_ordens = @numero_de_ordens-1 if @numero_de_ordens > 0
 			
 			mylogger.info("Conteudo da variabel:#{@objeto_ordens}")
 			
@@ -81,7 +79,7 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			   temp = {}
 			   temp["data"] ||= dat.to_date.strftime("%d/%m/%Y")
 			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"])		  
-			   @temp_numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ?",dat,dat,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)").length
+			   @temp_numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",dat,dat,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)").length
 			   temp["num_audit"] ||= @temp_numero_de_ordens
 			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length
 			   temp["oss"] ||= ""
