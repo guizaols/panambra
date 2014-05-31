@@ -54,7 +54,7 @@ class ErpOfiAtendimento < ConexaoPanambra
 			fmc.tipo_transacao='O21' AND
 		    oa.empresa = #{configuracao.empresa} AND
             oa.revenda = #{configuracao.revenda} AND
-			fmc.dta_entrada_saida between '05/01/2014' and '05/31/2014'
+			fmc.dta_entrada_saida between '2014-05-01' and '2014-05-31'
 			order by os.nro_os"
 				   
     connection.select_all(query)
