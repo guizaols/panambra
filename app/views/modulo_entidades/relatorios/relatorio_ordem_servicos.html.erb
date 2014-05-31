@@ -31,10 +31,20 @@ ul {list-style-type:none}
      <tr>
 	   <td><%=@numero_de_ordens_gerada_no_erp%></td>
 	   <td><%=@numero_de_ordens%></td>
-	   <td><%=@ids.join("<br />").html_safe%></td>
+	   <td>
+	     <a href="#">Ordens de Serviço</a>
+	   </td>
 	   
 	 </tr>
   </tbody>
 </table>
+
+<div id="os_geral" style="display:none">
+  <%=@ids.join("<br />").html_safe%>
+</div>
+
+<script type="text/javascript">
+    $("#os_geral").dialog({title:'Ordens de serviço sem auditoria'});
+</script>
 
 <%end%>
