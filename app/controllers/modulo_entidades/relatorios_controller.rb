@@ -79,15 +79,21 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			   temp = {}
 			   temp["data"] ||= dat.to_date.strftime("%d/%m/%Y")
 			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"])		  
-			   @temp_numero_de_ordens = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",dat,dat,@checklist.id,Auditoria::RESPONDIDA).length
+			   @ordens_sistema = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",dat,dat,@checklist.id,Auditoria::RESPONDIDA)
+			   @temp_numero_de_ordens = @ordens_sistema.length
 			   temp["num_audit"] ||= @temp_numero_de_ordens
 			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length
 			   temp["oss"] ||= ""
+			   @vetor_ordens_erp = []
 			   @temp_ordens_geradas_no_erp.each do |obj|
-				temp["oss"] += "#{obj["nro_os"]}, " 
+			    @vetor_ordens_erp << obj["nro_os"].to_s
 			   end
+			   temp["oss"] = (@vetor_ordens_erp - @ordens_sistema.collect(&:numero_ordem)).join(",")
 			   @retorno << temp
 			   mylogger.info("Conteudo da variabel:#{temp}")
+			   mylogger.info("Vetor erp da variabel:#{@vetor_ordens_erp}")
+			   mylogger.info("Vetor sistema:#{@ordens_sistema.collect(&:numero_ordem)}")
+			   mylogger.info("Final: #{(@vetor_ordens_erp - @ordens_sistema.collect(&:numero_ordem))}")
 			end
 			
 			
