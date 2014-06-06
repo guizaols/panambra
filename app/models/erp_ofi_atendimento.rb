@@ -58,6 +58,22 @@ class ErpOfiAtendimento < ConexaoPanambra
             oa.revenda = #{configuracao.revenda} AND
 			fmc.dta_entrada_saida between '#{data_inicial_formatada}' and '#{data_final_formatada}'
 			order by os.nro_os"
+			
+	query_1 = "select os.nro_os, fmc.dta_entrada_saida,os.revenda from ofi_ordem_servico os, ofi_atendimento oa , 	fat_movimento_capa fmc
+where
+os.empresa=oa.empresa AND
+os.revenda=oa.revenda AND
+os.contato=oa.contato AND
+os.empresa=fmc.empresa AND
+os.revenda=fmc.revenda AND
+os.contato=fmc.contato AND
+os.categoria_os =1 AND
+fmc.departamento in(7,8) AND
+fmc.tipo_transacao='O21' AND
+
+fmc.dta_entrada_saida between TO_DATE('#{data_inicial_formatada}','dd/mm/yyyy') and TO_DATE('#{data_final_formatada}','dd/mm/yyyy')
+and os.revenda=1
+order by os.nro_os"
 				   
     connection.select_all(query)
 	
