@@ -50,16 +50,22 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 
 	def edit
 		@auditoria = Auditoria.find(params[:id])
+		my_logger ||= Logger.new("#{Rails.root}/log/numero_de_ordem273148912378.log")
+		my_logger.info("#{request.remote_ip}")
 		render layout: 'auditoria_inicial'
+		
 	end
 
 	def update
 		@auditoria = Auditoria.find(params[:id])
-		@retorno 	 = @auditoria.salvar_respostas(params)
+		#@retorno 	 = @auditoria.salvar_respostas(params,request.url.split("//").last.split("/").first.split(":").first)
+		@retorno 	 = @auditoria.salvar_respostas(params,request.remote_ip)
 	end
 
 	def iniciar_pesquisa
 		@retorno = Auditoria.retorna_auditoria_para_ser_respondida
+		my_logger ||= Logger.new("#{Rails.root}/log/numero_de_ordem.log")
+		my_logger.info("#{request.url}")
 	end
 
 	def retorna_clientes

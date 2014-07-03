@@ -57,7 +57,8 @@ ul {list-style-type:none}
      <th>Data</th>
      <th>Número de Ordens de Serviço com Auditoria</th>
 	 <th>Número de Ordens de Serviço (ERP)</th>
-	 <th>Código das Ordens de Serviço sem Auditoria</th>
+	 <th>Código das Ordens de Serviço sem Auditoria (ERP)</th>
+	 <th>Código das Ordens de Serviço com Auditoria (Sistema)</th>
    </tr>
   </thead>
   <tbody>
@@ -67,7 +68,20 @@ ul {list-style-type:none}
 	   <td><%=dados["num_audit"]%></td>
 	   <td><%=dados["num_os_erp"]%></td>
 	   <td>
-	     <%=dados["oss"].html_safe%>
+	     <ul>
+		   <% dados["oss"].split(",").each do |c|%>
+			<li><%=c%></li>
+			<%end%>
+		 </ul>
+	     
+	   </td>
+	   <td>
+	   <ul>
+		   <% dados["oss_sistema"].split(",").each do |c|%>
+			<li><%=c%></li>
+			<%end%>
+		 </ul>
+		 
 	   </td>
 	 </tr>
 	<%end%>

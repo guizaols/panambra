@@ -20,7 +20,7 @@ class HomeController < ApplicationController
 	end
 
 	def iniciar_auditoria
-		@retorno = Auditoria.cria_nova_auditoria(params[:ordem])
+		@retorno = Auditoria.cria_nova_auditoria(params[:ordem],"#{request.remote_ip}")
 	end
 
 	def ultimo_passo

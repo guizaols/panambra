@@ -65,7 +65,7 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			
 			mylogger.info("Conteudo da variabel:#{@objeto_ordens}")
 			
-			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final)		  
+			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final,"#{request.remote_ip}")		  
 			
 			@ordens_geradas_no_erp.each do |ordem|
 				
@@ -78,12 +78,13 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			(@data_inicial..@data_final).each do |dat|
 			   temp = {}
 			   temp["data"] ||= dat.to_date.strftime("%d/%m/%Y")
-			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"])		  
+			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"],"#{request.remote_ip}")		  
 			   @ordens_sistema = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",dat,dat,@checklist.id,Auditoria::RESPONDIDA)
 			   @temp_numero_de_ordens = @ordens_sistema.length
 			   temp["num_audit"] ||= @temp_numero_de_ordens
 			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length
 			   temp["oss"] ||= ""
+			   temp["oss_sistema"] ||= @ordens_sistema.collect(&:numero_ordem).join(",")
 			   @vetor_ordens_erp = []
 			   @temp_ordens_geradas_no_erp.each do |obj|
 			    @vetor_ordens_erp << obj["nro_os"].to_s

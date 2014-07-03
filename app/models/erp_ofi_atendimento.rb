@@ -16,22 +16,53 @@ class ErpOfiAtendimento < ConexaoPanambra
     retorno
   end
 
-  def self.find_by_ordem_servico(numero_os)
-    configuracao = Configuracao.first
+  def self.find_by_ordem_servico(numero_os,conf = "localhost")
+    #configuracao = Configuracao.first
+    configuracao = nil
+	mylogger ||= Logger.new("#{Rails.root}/log/logs_sq38217423748912789472139l22.log")
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+  	 configuracao = Configuracao.first
+	elsif conf == "192.168.170.89"
+	 configuracao = Configuracao.find 2
+	elsif conf == "211.0.144.90"
+	 configuracao = Configuracao.find 3
+	 mylogger.info("Entrei no dois novamente")
+	 mylogger.info("#{configuracao.revenda}")
+	 mylogger.info("#{configuracao.empresa}")
+	elsif conf == "192.168.130.90"
+	 configuracao = Configuracao.find 4
+    elsif conf == "211.0.137.90"
+	  configuracao =Configuracao.find 5	 
+	end
+	
     query = "SELECT *
              FROM ofi_atendimento oa, ofi_ordem_servico os
              WHERE oa.empresa = os.empresa AND
                    oa.revenda = os.revenda AND
                    oa.contato = os.contato AND
-                   oa.empresa = #{configuracao.empresa} AND
+				   oa.empresa = #{configuracao.empresa} AND
                    oa.revenda = #{configuracao.revenda} AND
                    nro_os = #{numero_os}"
+	         mylogger.info("#{query}")
     connection.select_all(query)
   end
 
-  def self.count_number_numero_de_ordens_de_servico(data_inicial, data_final)
+  def self.count_number_numero_de_ordens_de_servico(data_inicial, data_final,conf)
    begin
-    configuracao = Configuracao.first
+    #configuracao = Configuracao.first
+	configuracao = nil
+	#configuracao = Configuracao.first
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+ 	 configuracao = Configuracao.first
+	elsif conf == "192.168.170.89"
+	 configuracao = Configuracao.find 2
+	elsif conf == "211.0.144.90"
+	 configuracao = Configuracao.find 3
+	elsif conf == "192.168.130.90"
+	 configuracao = Configuracao.find 4 
+	elsif conf == "211.0.137.90"
+	  configuracao =Configuracao.find 5
+	end
 	data_inicial_formatada = data_inicial.to_date.strftime("%Y-%m-%d")
 	data_final_formatada = data_final.to_date.strftime("%Y-%m-%d")
    # query = "SELECT *
@@ -52,13 +83,17 @@ class ErpOfiAtendimento < ConexaoPanambra
 			os.revenda=fmc.revenda AND
 			os.contato=fmc.contato AND
 			os.categoria_os='1' AND
+			oa.empresa = #{configuracao.empresa} AND		
+			oa.revenda = #{configuracao.revenda} AND
 			fmc.departamento in('7','8') AND
 			fmc.tipo_transacao='O21' AND
-		    oa.empresa = #{configuracao.empresa} AND
-            oa.revenda = #{configuracao.revenda} AND
 			fmc.dta_entrada_saida between '#{data_inicial_formatada}' and '#{data_final_formatada}'
 			order by os.nro_os"
-			
+		#
+#    
+			#
+        #    
+				
 	query_1 = "select os.nro_os, fmc.dta_entrada_saida,os.revenda from ofi_ordem_servico os, ofi_atendimento oa , 	fat_movimento_capa fmc
 where
 os.empresa=oa.empresa AND

@@ -30,8 +30,24 @@ class ErpCacContato < ConexaoPanambra
     retorno
   end
 
-  def self.salva_cac_contato(auditoria, contato_cac_contato)
-    configuracao = Configuracao.first
+  def self.salva_cac_contato(auditoria, contato_cac_contato,conf)
+    configuracao = nil
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+  	 configuracao = Configuracao.first
+	elsif conf == "192.168.170.89"
+	 configuracao = Configuracao.find 2
+	elsif conf == "211.0.144.90"
+	 configuracao = Configuracao.find 3
+	elsif conf == "192.168.130.90"
+	 configuracao = Configuracao.find 4 
+	elsif conf == "211.0.137.90"
+	  configuracao =Configuracao.find 5
+	end
+	
+	#configuracao = Configuracao.first
+	
+	
+	begin
     cliente = auditoria.cliente.codigo
     ErpCacContato.create({
       empresa: configuracao.empresa,
@@ -51,6 +67,11 @@ class ErpCacContato < ConexaoPanambra
       forma_contato: configuracao.forma_contato,
       origem: configuracao.origem
     })
+	rescue Exception => e
+	
+	my_logger = Logger.new("#{Rails.root}/log/errooooo.log")
+		my_logger.info("#{e.message.to_s}")
+	end
   end
 
 end

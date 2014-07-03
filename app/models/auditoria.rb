@@ -57,10 +57,23 @@ class Auditoria < ActiveRecord::Base
   			.order(:id)
   end
 
-  def self.cria_nova_auditoria(ordem)
+  def self.cria_nova_auditoria(ordem,conf)
     current_unidade = Unidade.first
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+  	 current_unidade = Unidade.first
+	elsif conf == "192.168.170.89"
+	 current_unidade = Unidade.find 2
+	elsif conf == "211.0.144.90"
+	 current_unidade = Unidade.find 3
+	elsif conf == "192.168.130.90"
+	 current_unidade = Unidade.find 4 
+	elsif conf == "211.0.137.90"
+	  current_unidade = Unidade.find 5
+	end
+	
+	
 	numero_ord = ordem
-    ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem)
+    ordem = ErpOfiAtendimento.find_by_ordem_servico(ordem,conf)
     if ordem.present?
       cli_erp = ErpFatCliente.find_by_cliente(ordem.first['cliente_emissao_nf'])
       cliente = Cliente.find_by_codigo(cli_erp.cliente.to_s) rescue nil
@@ -90,7 +103,7 @@ class Auditoria < ActiveRecord::Base
     end
   end
 
-  def salvar_respostas(params)
+  def salvar_respostas(params,conf = "localhost")
     begin
       Resposta.transaction do
       	possui_respostas_validas = false
@@ -140,13 +153,13 @@ class Auditoria < ActiveRecord::Base
             self.update_column(:situacao, RESPONDIDA)
 
             ### INTEGRAÇÃO COM O ERP
-              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO')
-              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato
-              ErpCacContato.salva_cac_contato(self, contato_cac_contato)
-              ErpCacProvidencia.salva_cac_providencia(contato_cac_contato)
-              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato)
+              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero('CAC_CONTATO', 'CONTATO',conf)
+              contato_cac_contato = ErpGerNumerador.retorna_proximo_numero_contato(conf)
+              ErpCacContato.salva_cac_contato(self, contato_cac_contato,conf)
+              ErpCacProvidencia.salva_cac_providencia(contato_cac_contato,conf)
+              cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato,conf)
               self.respostas.each do |res|
-                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res)
+                ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res,conf)
               end
             ### INTEGRAÇÃO COM O ERP
 
