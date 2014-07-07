@@ -90,10 +90,11 @@ class Auditoria < ActiveRecord::Base
       auditoria = Auditoria.new
       auditoria.cliente   = cliente
       auditoria.unidade   = current_unidade
-      auditoria.checklist = current_unidade.retorna_checklist_ativo
+     # auditoria.checklist = current_unidade.retorna_checklist_ativo
+	  auditoria.checklist = Unidade.first.retorna_checklist_ativo
       auditoria.numero_ordem = numero_ord 
 	  
-      if auditoria.save
+      if auditoria.save!
         [true, auditoria]
       else
         [false, 'Problemas na hora de criar a auditoria!']
