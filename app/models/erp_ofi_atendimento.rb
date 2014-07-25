@@ -19,6 +19,7 @@ class ErpOfiAtendimento < ConexaoPanambra
   def self.find_by_ordem_servico(numero_os,conf = "localhost")
     #configuracao = Configuracao.first
     configuracao = nil
+	revenda_id = nil
 	mylogger ||= Logger.new("#{Rails.root}/log/logs_sq38217423748912789472139l22.log")
 	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
   	 configuracao = Configuracao.first
@@ -47,22 +48,26 @@ class ErpOfiAtendimento < ConexaoPanambra
     connection.select_all(query)
   end
 
-  def self.count_number_numero_de_ordens_de_servico(data_inicial, data_final,conf)
+  def self.count_number_numero_de_ordens_de_servico(data_inicial, data_final,conf,unidade_id)
    begin
     #configuracao = Configuracao.first
 	configuracao = nil
+	unidade_Id = unidade_id.to_s
+	revend_id = nil
 	#configuracao = Configuracao.first
-	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+	if  unidade_id == "1"
  	 configuracao = Configuracao.first
-	elsif conf == "192.168.170.89"
-	 configuracao = Configuracao.find 2
-	elsif conf == "211.0.144.90"
-	 configuracao = Configuracao.find 3
-	elsif conf == "192.168.130.90"
-	 configuracao = Configuracao.find 4 
-	elsif conf == "211.0.137.90"
+	 
+	elsif  unidade_id == "2"
+	 configuracao = Configuracao.find 2 
+	elsif  unidade_id == "3"
+	 configuracao = Configuracao.find 3 
+	elsif  unidade_id == "4"
+	 configuracao = Configuracao.find 4  
+	elsif  unidade_id == "5"
 	  configuracao =Configuracao.find 5
 	end
+	revenda_id = configuracao.revenda
 	data_inicial_formatada = data_inicial.to_date.strftime("%Y-%m-%d")
 	data_final_formatada = data_final.to_date.strftime("%Y-%m-%d")
    # query = "SELECT *
@@ -107,9 +112,11 @@ fmc.departamento in(7,8) AND
 fmc.tipo_transacao='O21' AND
 
 fmc.dta_entrada_saida between TO_DATE('#{data_inicial_formatada}','dd/mm/yyyy') and TO_DATE('#{data_final_formatada}','dd/mm/yyyy')
-and os.revenda=1
+and os.revenda='#{revenda_id}'
 order by os.nro_os"
-				   
+				    mylogger = Logger.new("#{Rails.root}/log/logs_sql8888888.log")
+	  mylogger.info("#{query}")
+
     connection.select_all(query)
 	
 	rescue Exception=>e

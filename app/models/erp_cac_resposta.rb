@@ -39,7 +39,7 @@ class ErpCacResposta < ConexaoPanambra
 	
 			my_logger ||= Logger.new("#{Rails.root}/log/728927438597349573248uhhsdffudf.log")
 		my_logger.info("Contato: #{contato_cac_contato}")
-		my_logger.info("resposta: #{ErpGerNumerador.retorna_proximo_numero('CAC_RESPOSTA', 'RESPOSTA',conf)}")
+		#my_logger.info("resposta: #{ErpGerNumerador.retorna_proximo_numero('CAC_RESPOSTA', 'RESPOSTA',conf)}")
 		my_logger.info("empresa: #{configuracao.empresa}")
 		my_logger.info("revenda: #{configuracao.revenda}")
 		my_logger.info("questionario: #{configuracao.questionario}")

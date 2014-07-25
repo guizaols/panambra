@@ -24,8 +24,26 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 
 	def create
 		@auditoria = Auditoria.new
-		@auditoria.unidade = current_unidade
+		
+		
+		conf = request.remote_ip
+		acurrent_unidade = Unidade.first
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+  	 acurrent_unidade = Unidade.first
+	elsif conf == "192.168.170.89"
+	 acurrent_unidade = Unidade.find 2
+	elsif conf == "211.0.144.90"
+	 acurrent_unidade = Unidade.find 3
+	elsif conf == "192.168.130.90"
+	 acurrent_unidade = Unidade.find 4 
+	elsif conf == "211.0.137.90"
+	  acurrent_unidade = Unidade.find 5
+	end
+		
+		@auditoria.unidade = acurrent_unidade
 		@auditoria.checklist = current_unidade.retorna_checklist_ativo
+		
+		
 
 		if params[:opcao].to_i == Auditoria::SIM
 			erp_cliente = ErpFatCliente.where(cliente: params[:codigo_cliente]).first rescue nil
@@ -63,7 +81,7 @@ class ModuloEntidades::AuditoriasController < ApplicationController
 	end
 
 	def iniciar_pesquisa
-		@retorno = Auditoria.retorna_auditoria_para_ser_respondida
+		@retorno = Auditoria.retorna_auditoria_para_ser_respondida(request.remote_ip)
 		my_logger ||= Logger.new("#{Rails.root}/log/numero_de_ordem.log")
 		my_logger.info("#{request.url}")
 	end

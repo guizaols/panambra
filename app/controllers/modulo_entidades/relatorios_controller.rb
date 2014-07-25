@@ -54,18 +54,19 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 		@checklist = Checklist.find params[:pesquisa][:checklist_id] rescue nil
 		@data_inicial = params[:pesquisa][:data_inicial].to_date rescue nil
 		@data_final = params[:pesquisa][:data_final].to_date rescue nil
+		@unidade_id = params[:pesquisa][:unidade_id] #rescue nil
 		@numero_de_ordens = nil
 		@numero_de_ordens_gerada_no_erp = nil
 		@ordens_geradas_no_erp = nil
 		@ids = []
-		if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank?
+		if !@checklist.blank? && !@data_inicial.blank? && !@data_final.blank? && !@unidade_id.blank?
 		     mylogger ||= Logger.new("#{Rails.root}/log/logs_sql22.log")
-			 @objeto_ordens =Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA).select("DISTINCT(auditorias.numero_ordem)")
+			 @objeto_ordens =Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL AND unidade_id = ?",@data_inicial,@data_final,@checklist.id,Auditoria::RESPONDIDA,@unidade_id).select("DISTINCT(auditorias.numero_ordem)")
 		    @numero_de_ordens = @objeto_ordens.length
 			
 			mylogger.info("Conteudo da variabel:#{@objeto_ordens}")
 			
-			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final,"#{request.remote_ip}")		  
+			@ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(@data_inicial,@data_final,"#{request.remote_ip}",@unidade_id)		  
 			
 			@ordens_geradas_no_erp.each do |ordem|
 				
@@ -78,8 +79,8 @@ class ModuloEntidades::RelatoriosController < ApplicationController
 			(@data_inicial..@data_final).each do |dat|
 			   temp = {}
 			   temp["data"] ||= dat.to_date.strftime("%d/%m/%Y")
-			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"],"#{request.remote_ip}")		  
-			   @ordens_sistema = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL",dat,dat,@checklist.id,Auditoria::RESPONDIDA)
+			   @temp_ordens_geradas_no_erp = ErpOfiAtendimento.count_number_numero_de_ordens_de_servico(temp["data"],temp["data"],"#{request.remote_ip}",@unidade_id)		  
+			   @ordens_sistema = Auditoria.where("(DATE(created_at) BETWEEN ? AND ?) AND checklist_id = ? AND situacao = ? AND numero_ordem IS NOT NULL AND unidade_id = ?",dat,dat,@checklist.id,Auditoria::RESPONDIDA,@unidade_id)
 			   @temp_numero_de_ordens = @ordens_sistema.length
 			   temp["num_audit"] ||= @temp_numero_de_ordens
 			   temp["num_os_erp"] ||= @temp_ordens_geradas_no_erp.length

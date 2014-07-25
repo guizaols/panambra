@@ -159,13 +159,16 @@ class Auditoria < ActiveRecord::Base
               ErpCacContato.salva_cac_contato(self, contato_cac_contato,conf)
               ErpCacProvidencia.salva_cac_providencia(contato_cac_contato,conf)
               cac_resposta = ErpCacResposta.salva_cac_resposta(self, contato_cac_contato,conf)
+			  	my_logger ||= Logger.new("#{Rails.root}/log/fuichamado.log")
+		my_logger.info("Contato: #{contato_cac_contato}")
+		my_logger.info("Passei aqui")
               self.respostas.each do |res|
                 ErpCacRespostaItem.salva_cac_resposta_item(cac_resposta.resposta, res.item_verificacao.de_para, res,conf)
               end
             ### INTEGRAÇÃO COM O ERP
 
             ### ENVIO DE NOTIFICAÇÕES (APP / E-MAIL)
-            self.notifica_responsaveis_do_checklist(params[:ordem])
+            self.notifica_responsaveis_do_checklist(params[:ordem],conf)
             ### ENVIO DE NOTIFICAÇÕES (APP / E-MAIL)
 
           	[true, 'Pesquisa finalizada com sucesso. Muito obrigado pela sua atenção!']
@@ -181,8 +184,20 @@ class Auditoria < ActiveRecord::Base
     end
   end
 
-  def self.retorna_auditoria_para_ser_respondida
-    auditorias = Auditoria.where(situacao: LIBERADA)
+  def self.retorna_auditoria_para_ser_respondida(conf)
+	current_unidade = Unidade.first
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+  	 current_unidade = Unidade.first
+	elsif conf == "192.168.170.89"
+	 current_unidade = Unidade.find 2
+	elsif conf == "211.0.144.90"
+	 current_unidade = Unidade.find 3
+	elsif conf == "192.168.130.90"
+	 current_unidade = Unidade.find 4 
+	elsif conf == "211.0.137.90"
+	  current_unidade = Unidade.find 5
+	end
+    auditorias = Auditoria.where("situacao = ? AND unidade_id = ?",LIBERADA,current_unidade.id)
     if auditorias.present?
       [true, auditorias.first]
     else
@@ -214,8 +229,27 @@ class Auditoria < ActiveRecord::Base
     conformidade
   end
 
-  def notifica_responsaveis_do_checklist(numero_ordem)
+  def notifica_responsaveis_do_checklist(numero_ordem,conf)
     begin
+	  current_unidade = Unidade.first
+	  current_usuario = Usuario.first
+	if conf == "localhost" || conf == "192.168.202.90" || conf == "127.0.0.1"
+  	 current_unidade = Unidade.first
+	 current_usuario = Usuario.find 14
+	elsif conf == "192.168.170.89"
+	 current_unidade = Unidade.find 2
+	 current_usuario = Usuario.find 17
+	elsif conf == "211.0.144.90"
+	 current_unidade = Unidade.find 3
+	 current_usuario = Usuario.find 18
+	elsif conf == "192.168.130.90"
+	 current_unidade = Unidade.find 4 
+	 current_usuario = Usuario.find 19
+	elsif conf == "211.0.137.90"
+	  current_unidade = Unidade.find 5
+	  current_usuario = Usuario.find 20
+	  
+	  end
       retorno ||= {}
       self.respostas.each do |resposta|
         if resposta.resposta.present?
@@ -230,7 +264,8 @@ class Auditoria < ActiveRecord::Base
           acoes = resposta.item_verificacao.acoes.joins(:alternativa)
                           .where('UPPER(alternativas.titulo) = ?', sim_ou_nao)
           acoes.each do |acao|
-            emails = acao.usuarios.pluck(:email).compact.uniq
+          #  emails = acao.usuarios.pluck(:email).compact.uniq
+			emails = [current_usuario.email]
             if emails.present?
               emails.each do |email|
                 retorno[email] ||= []
@@ -243,7 +278,8 @@ class Auditoria < ActiveRecord::Base
                           .acoes
                           .where(item_verificacao_id: resposta.item_verificacao_id)
           acoes.each do |acao|
-            emails = acao.usuarios.pluck(:email).compact.uniq
+            #emails = acao.usuarios.pluck(:email).compact.uniq
+			emails = [current_usuario.email]
             if emails.present?
               emails.each do |email|
                 retorno[email] ||= []
@@ -255,17 +291,17 @@ class Auditoria < ActiveRecord::Base
       end
 
       retorno.each do |email, respostas|
-        usu = Usuario.where(email: email, unidade_id: self.unidade_id).first
+        usu = Usuario.where(email: email, unidade_id: current_unidade.id).first
         respostas.each do |resposta|
           nao_conf                     = NaoConformidade.new
           nao_conf.status              = NaoConformidade::CRIADO
           nao_conf.data                = Date.today
-          nao_conf.usuario_id          = usu.id
+          nao_conf.usuario_id          =  current_usuario.id
           nao_conf.cliente_id          = self.cliente_id
           nao_conf.auditoria_id        = self.id
           nao_conf.resposta            = resposta.resposta_verbose rescue nil
           nao_conf.item_verificacao_id = resposta.item_verificacao_id
-          nao_conf.unidade_id          = self.unidade_id
+          nao_conf.unidade_id          = current_unidade.id
           nao_conf.numero_ordem        = numero_ordem
           nao_conf.save!
           Gcm.send_android_message(usu.gcm)

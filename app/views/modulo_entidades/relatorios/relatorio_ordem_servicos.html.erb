@@ -12,6 +12,8 @@ ul {list-style-type:none}
     <%= text_field_tag 'pesquisa[data_inicial]', params[:pesquisa][:data_inicial], placeholder: 'Data Inicial', class: 'input-small' %>
     <%= text_field_tag 'pesquisa[data_final]', params[:pesquisa][:data_final], placeholder: 'Data Final', class: 'input-small' %>
     <%= select_tag 'pesquisa[checklist_id]', options_for_select(Checklist.retorna_checklist_para_select(current_unidade.id),:selected=>(params[:pesquisa][:checklist_id] rescue nil)), class: 'input-xxlarge' %>
+	<%= select_tag 'pesquisa[unidade_id]', options_for_select(Unidade.all.collect{|x| [x.nome,x.id]},:selected=>(params[:pesquisa][:unidade_id] rescue nil))%>
+	<br />
     <%= button_tag 'Pesquisar', class: 'btn', data: { disable_with: 'Pesquisando...' } %>
   </div>
 <% end %>
